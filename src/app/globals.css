@@ -1,0 +1,5 @@
+@import url('./components/abrilFont.css');
+@import url('./components/arimoFont.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -7,6 +7,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily:{
+        arimoFont: ['arimoFont', 'sans-serif'],
+        abrilFont: ['abrilFont', 'sans-serif'],
+      },
+      colors: {
+        customGreen: '#004514',
+        customGray: '#231F20',
+        customPitch: '#E0DAF2',
+        customPurple: '#240076',
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
