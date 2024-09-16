@@ -16,6 +16,7 @@ module.exports = {
         customGray: '#231F20',
         customPitch: '#E0DAF2',
         customPurple: '#240076',
+        serviceGray: ' #F5F5F5' 
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
