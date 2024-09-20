@@ -16,7 +16,7 @@ const Nav = () => {
     const navLinks = [
       { name: "Home", href: "/"},
       { name: "About Us", href: "/about"},
-      { name: "Services", href: "/services"},
+      { name: "Services", href: "/service"},
       { name: "Community", href: "/community"},
       { name: "Investors’ Corner", href: "/investors"},
     ]
