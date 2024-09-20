@@ -74,6 +74,7 @@
     overflow: hidden;
     background: #240076;
     padding: .5rem;
+    cursor: pointer;
 }
 
 .icon{

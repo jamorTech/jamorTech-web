@@ -74,7 +74,13 @@ const Footer = () => {
             </div>
         </section>
         </div>
-        <span className={styles.arrowUp_icon}><FaLongArrowAltUp className={styles.icon}/></span>
+        <span className={styles.arrowUp_icon} 
+            onClick={()=>{window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+            });}}>
+            <FaLongArrowAltUp className={styles.icon}/>
+        </span>
       </div>
       <div className={styles.copyright}>
         <small>@copyright2024jamortech.com</small>
