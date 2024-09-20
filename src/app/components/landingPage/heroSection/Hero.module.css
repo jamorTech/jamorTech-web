@@ -4,7 +4,8 @@
     justify-content: space-between;
     padding: 1rem 2rem;
     background: #F5F5F5;
-    min-height: 80vh;
+    /* min-height: 80vh; */
+    height: fit-content;
 }
 
 .hero_body{
@@ -64,7 +65,6 @@
 
 .testimony{
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 100px;
@@ -75,7 +75,7 @@
     align-items: center;
     position: relative;
     height: 100px;
-    width: 30%
+    width: 30%;
 }
 
 .img_frame{
@@ -100,6 +100,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    width: fit-content;
 }
 
 .hire_techie{
@@ -109,7 +110,8 @@
     line-height: 24.28px;
     color: #240076;
     padding: 5px;
-    border-bottom: 2px solid #240076
+    border-bottom: 2px solid #240076;
+    margin-left: 1rem;
 }
 
 @media screen and (max-width: 1300px) {
@@ -160,7 +162,7 @@
     }
 
     .hero_body h1{
-        font-size: 36px;
+        font-size: 30px;
         font-weight: 400;
         line-height: 52px;
     }
@@ -172,7 +174,7 @@
     .hero_btns{
         width: 90%;
         display: flex;
-        gap: 3rem;
+        gap: 2rem;
     }
     
     .btn_intern,
