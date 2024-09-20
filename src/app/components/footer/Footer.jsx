@@ -77,7 +77,7 @@ const Footer = () => {
         <span className={styles.arrowUp_icon} 
             onClick={()=>{window.scrollTo({
             top: 0,
-            behavior: 'smooth' // This enables smooth scrolling
+            behavior: 'smooth'
             });}}>
             <FaLongArrowAltUp className={styles.icon}/>
         </span>
