@@ -7,16 +7,17 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily:{
-        arimoFont: ['arimoFont', 'sans-serif'],
-        abrilFont: ['abrilFont', 'sans-serif'],
+      fontFamily: {
+        arimoFont: ["arimoFont", "sans-serif"],
+        abrilFont: ["abrilFont", "sans-serif"],
       },
       colors: {
-        customGreen: '#004514',
-        customGray: '#231F20',
-        customPitch: '#E0DAF2',
-        customPurple: '#240076',
-        serviceGray: ' #F5F5F5' 
+        customGreen: "#004514",
+        customGray: "#231F20",
+        customPitch: "#E0DAF2",
+        customPurple: "#240076",
+        serviceGray: " #F5F5F5",
+        gladGreen: "#00451A",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
