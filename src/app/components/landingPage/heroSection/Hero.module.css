@@ -146,8 +146,15 @@
 }
 
 @media screen and (max-width: 768px) {
+    .hero_container{
+        padding: 2rem 1rem;
+    }
     .hero_banner{
         display: none;
+    }
+
+    .testimony{
+        width: 100%;
     }
 
     .hero_body{
@@ -193,6 +200,10 @@
 
 @media screen and (max-width: 450px) {
     .testimony{
+        height: fit-content;
+    }
+
+    .testimony_img_container{
         display: none;
     }
 
@@ -204,5 +215,14 @@
 
     .btn_icon{
         display: none;
+    }
+}
+@media screen and (max-width: 320px) {
+    .testimony .testimony_content{
+        font-size: x-small;
+    }
+
+    .testimony .hire_techie{
+        font-size: x-small;
     }
 }
