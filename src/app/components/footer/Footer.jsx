@@ -29,6 +29,14 @@ const Footer = () => {
         { name: "Careers", href: "/careers"},
       ]
 
+    const socialLinks = [
+        {href: "https://x.com/JamorTech", icon: <FaSquareXTwitter />},
+        {href: "https://www.facebook.com/JamorTechnology?mibextid=ZbWKwL", icon: <FaFacebook />},
+        {href: "https://youtube.com/@jamortechnology?si=T4DHUWjPCZFRRvta", icon: <FaYoutube />},
+        {href: "https://www.linkedin.com/company/jamor-technology/", icon: <FaLinkedin />},
+        {href: "https://www.instagram.com/jamor_tech?igsh=MTJoODRvcXBwOWhubw==", icon: <RiInstagramFill />},
+    ]
+
   return (
     <footer className={styles.footer}>
       <div className={styles.upper_footer}>
@@ -85,11 +93,11 @@ const Footer = () => {
       <div className={styles.copyright}>
         <small>@copyright2024jamortech.com</small>
         <div className={styles.social_icons}>
-            <span><FaSquareXTwitter /></span>
-            <span><FaFacebook /></span>
-            <span><FaYoutube /></span>
-            <span><FaLinkedin /></span>
-            <span><RiInstagramFill /></span>
+            {socialLinks.map((links,index)=>(
+                <Link target="_blank" href={links.href} key={index}>
+                    {links.icon}
+                </Link>
+            ))}
         </div>
       </div>
     </footer>
