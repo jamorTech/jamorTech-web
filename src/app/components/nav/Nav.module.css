@@ -4,6 +4,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
+    gap: 4rem;
     background: #F5F5F5;
 }
 
@@ -35,7 +36,7 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    margin-left: 3rem;
+    /* margin-left: 3rem; */
 }
 
 .nav ul li{
@@ -69,7 +70,7 @@
 }
 
 .login, .createAcct{
-    width: 200px;
+    width: 150px;
     height: 50px;
     border-radius: 10px;
     font-family: Abril Fatface;
@@ -94,6 +95,9 @@
 }
 
 @media screen and (max-width: 1024px) {
+    .nav{
+        gap: 1rem;
+    }
     .login, .createAcct{
         width: 120px;
         height: 40px;
@@ -105,7 +109,7 @@
         font-size: 12px;
     }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
     .nav{
         position: relative;
     }

@@ -59,9 +59,10 @@
     gap: .5rem;
 }
 
-.card_header span{
+.list span{
     font-family: Arimo Hebrew Subset;
     display: flex;
+    align-items: center;
     gap: .1rem;
     font-size: small;
     font-weight: 400;
@@ -78,7 +79,7 @@
         width: 95%;
     }
 
-    .card_header span{
+    .list span{
         font-size: smaller;
     }
 }

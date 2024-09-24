@@ -2,6 +2,7 @@ import AboutHeader from "../components/about-page-components/AboutHeader";
 import MissionVisionContent from "../components/about-page-components/MissionVisionContent";
 import AboutDetails from "../components/AboutDetails";
 import CoreValueComponent from "../components/CoreValueComponent";
+import OurPartners from "../components/landingPage/OurPartnersSection/OurPartners";
 import Patners from "../components/Patners";
 import TeamMembers from "../components/TeamMembers";
 export default function page() {
@@ -12,7 +13,7 @@ export default function page() {
         <MissionVisionContent />
         <CoreValueComponent />
         <TeamMembers />
-        <Patners />
+        <OurPartners />
     </div>
   )
 }

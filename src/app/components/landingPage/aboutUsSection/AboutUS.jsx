@@ -5,6 +5,7 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import pic1 from "../../../../../public/assets/images/ilustration1.png"
 import pic2 from "../../../../../public/assets/images/ilustration2.png"
 import pic3 from "../../../../../public/assets/images/ilustration3.png"
+import Link from 'next/link';
 
 const AboutUS = () => {
 
@@ -30,7 +31,7 @@ const AboutUS = () => {
       </div>
         ))}
       </div>
-      <button className={styles.learn_more}>Learn More <FaLongArrowAltRight /></button>
+      <Link href={"about"} className={styles.learn_more}>Learn More <FaLongArrowAltRight /></Link>
        </div>
     </section>
   )

@@ -4,8 +4,6 @@ import styles from "./Updates.module.css";
 import pic from "../../../../../public/assets/images/updateBg.png";
 import pic1 from "../../../../../public/assets/images/updateBg1.png";
 import pic2 from "../../../../../public/assets/images/updateBg2.png";
-import { IoIosArrowDropleft } from "react-icons/io";
-import { IoIosArrowDropright } from "react-icons/io";
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import UpdateCard from './UpdateCard';
 import { Swiper, SwiperSlide } from 'swiper/react';

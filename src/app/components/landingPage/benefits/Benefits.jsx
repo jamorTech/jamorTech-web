@@ -8,11 +8,11 @@ import pic3 from "../../../../../public/assets/images/macbook-pro.png"
 const Benefits = () => {
   return (
     <div className={styles.container}>
-       <h1>What Makes us Differnt</h1>
+       <h1>What Makes us Different?</h1>
       <div className={styles.benefits}>
         <BenefitCard 
             img={pic1}
-            cardTitle={"Intern’s"}
+            cardTitle={"Interns"}
             cardOptions={[
                 "Soft Skills Training",
                 "Career Development",
@@ -24,7 +24,7 @@ const Benefits = () => {
         />
         <BenefitCard 
             img={pic2}
-            cardTitle={"Investors’ "}
+            cardTitle={"Investors"}
             cardOptions={[
                 "Access to Innovative Projects",
                 "Educational Resources",
@@ -36,7 +36,7 @@ const Benefits = () => {
         />
         <BenefitCard 
             img={pic3}
-            cardTitle={"Businesses and Employers’"}
+            cardTitle={"Businesses and Employers"}
             cardOptions={[
                 "Free Contsultation",
                 "Website Development",
