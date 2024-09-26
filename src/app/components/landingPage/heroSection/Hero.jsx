@@ -21,8 +21,8 @@ const Hero = () => {
             <h1>Empower Your Potential with Jamor Technology</h1>
             <p>Join us on a journey of discovery, growth, and transformation. Whether you're looking to be more skillful in your tech career, stay ahead of industry trends, or collaborating on a real-time project, Jamor Technology is your gateway to success.</p>
             <div className={styles.hero_btns}>
-                <Link href={"intern"} className={styles.btn_intern}>Interns <FaLongArrowAltRight className={styles.btn_icon}/></Link>
-                <Link href={"company"} className={styles.btn_company}>Company <FaLongArrowAltRight className={styles.btn_icon}/></Link>
+                <Link href={"/signUp"} className={styles.btn_joinUS}>Join Us <FaLongArrowAltRight className={styles.btn_icon}/></Link>
+                <Link href={"/"} className={styles.btn_hire_techie}>Hire a Techie <FaLongArrowAltRight className={styles.btn_icon}/></Link>
             </div>
             <div className={styles.testimony}>
                 <div className={styles.testimony_img_container}>
@@ -38,7 +38,7 @@ const Hero = () => {
                     ))}
                 </div>
                 <p className={styles.testimony_content}>Over 110k+ professionals trained.</p>
-                <Link href={"/"} className={styles.hire_techie}>Hire a Techie</Link>
+                <Link href={"/"} className={styles.community}>Community</Link>
             </div>
         </div>
         <div className={styles.hero_banner}>

@@ -4,8 +4,6 @@ import styles from "./Updates.module.css";
 import pic from "../../../../../public/assets/images/updateBg.png";
 import pic1 from "../../../../../public/assets/images/updateBg1.png";
 import pic2 from "../../../../../public/assets/images/updateBg2.png";
-import { IoIosArrowDropleft } from "react-icons/io";
-import { IoIosArrowDropright } from "react-icons/io";
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import UpdateCard from './UpdateCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -33,16 +31,6 @@ const Updates = () => {
       img: pic2,
       content: "Gain valuable tips, tutorials, and best practices from industry experts to enhance your learning experience."
     },
-    {
-      title: "Networking Opportunities",
-      img: pic,
-      content: "Join us for networking events that connect you..."
-    },
-    {
-      title: "Expert Tips & Tutorials",
-      img: pic2,
-      content: "Gain valuable tips, tutorials, and best practices..."
-    },
   ];
 
   return (
@@ -59,6 +47,8 @@ const Updates = () => {
               slidesPerView={3} // Number of visible cards on larger screens
               navigation // Enables navigation arrows
               pagination={{ clickable: true }} // Enables pagination dots
+              scrollbar={{clickable: true}}
+              style={{"--swiper-pagination-bottom": 0}}
               breakpoints={{
                 // Responsive breakpoints
                 0: {
