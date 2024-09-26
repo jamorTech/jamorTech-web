@@ -10,9 +10,17 @@ export const metadata = {
     default: "Welcome to JamorTech - Your Pathway to Tech Careers",
   },
   description: "Join JamorTech to kickstart your tech career with our internship programs.",
-  twitter: { 
-    card: "summary_large_image",
-  },
+  openGraph: {
+    title: "Welcome to JamorTech - Your Pathway to Tech Careers",
+    description: "Join JamorTech to kickstart your tech career with our internship programs.",
+    type: "website",
+    locale: "en_Us",
+    url: "https://jamorweb.netlify.app/",
+    siteName: "JamorTech"
+  }
+  // twitter: { 
+  //   card: "summary_large_image",
+  // },
 };
 
 export default function RootLayout({ children }) {
