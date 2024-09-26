@@ -18,11 +18,6 @@ import { FaCloudUploadAlt, FaLongArrowAltRight } from "react-icons/fa";
 import { GoAlertFill } from "react-icons/go";
 import Link from 'next/link'
 
-// export const metadata = {
-//   title: "Sign Up for JamorTech - Kickstart Your Tech Career",
-//   description: "Join JamorTech today to unlock exciting internship opportunities in the tech industry. Create your account and take the first step towards a successful career in technology."
-// };
-
 const page = () => {
 
   const [formType, setFormType] = useState("Individual")
