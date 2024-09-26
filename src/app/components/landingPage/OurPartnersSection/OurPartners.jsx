@@ -22,6 +22,7 @@ const OurPartners = () => {
         {logo: logo2},
         {logo: logo3},
         {logo: logo4},
+        {logo: logo5},
     ]
   return (
     <section className={styles.ourPartners}>
