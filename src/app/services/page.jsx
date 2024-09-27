@@ -1,4 +1,4 @@
-import Patners from "../components/Patners";
+import OurPartners from "../components/landingPage/OurPartnersSection/OurPartners";
 import Conclusion from "../components/service-comps/Conclusion";
 import Investors from "../components/service-comps/Investors";
 import ServiceBody from "../components/service-comps/ServiceBody";
@@ -19,7 +19,7 @@ export default function page() {
       <ServiceBody />
       <Solution />
       <Investors />
-      <Patners />
+      <OurPartners />
       <Conclusion />
     </div>
   );
