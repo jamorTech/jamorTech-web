@@ -20,7 +20,7 @@ export default function ResetPasswordPage() {
           alt="green"
           className={styles.greenImage}
           width={70} // Adjust width as needed
-          height={45} // Adjust height as needed
+          height={50} // Adjust height as needed
         />
         <h1 className={styles.heading}>
           Reset Password <b /> Successful
