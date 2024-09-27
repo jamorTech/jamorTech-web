@@ -36,7 +36,7 @@ const Benefits = () => {
         />
         <BenefitCard 
             img={pic3}
-            cardTitle={"Businesses and Employers"}
+            cardTitle={"Businesses/Employers"}
             cardOptions={[
                 "Free Contsultation",
                 "Website Development",

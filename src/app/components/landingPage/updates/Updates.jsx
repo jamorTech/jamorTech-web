@@ -36,7 +36,7 @@ const Updates = () => {
   return (
     <section className={styles.updates}>
         <div className={styles.services}>
-            <h1 className={styles.title}>Stay Updated With What We’re Doing</h1>
+            <h1 className={styles.title}>Stay Updated</h1>
             <p className={styles.content}>Stay informed and inspired with Jamor Tech's Monthly Newsletter!</p>
         </div>
 

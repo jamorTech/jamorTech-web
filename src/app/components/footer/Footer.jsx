@@ -91,7 +91,7 @@ const Footer = () => {
         </span>
       </div>
       <div className={styles.copyright}>
-        <small>@copyright2024jamortech.com</small>
+        <small>@copyright2024jamortech</small>
         <div className={styles.social_icons}>
             {socialLinks.map((links,index)=>(
                 <Link target="_blank" href={links.href} key={index}>
