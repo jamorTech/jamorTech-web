@@ -12,7 +12,7 @@ import 'swiper/css/navigation'; // Navigation module styles
 import 'swiper/css/pagination'; // Pagination module styles
 
 // Import required modules
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay  } from 'swiper/modules';
 
 const Updates = () => {
   const updates = [
@@ -27,7 +27,7 @@ const Updates = () => {
       content: "A dedicated initiative aimed at equipping tech interns with essential soft skills to complement their technical expertise.  we focus on developing critical skills that are crucial for personal and professional success in the tech industry."
     },
     {
-      title: "Expert Tips & Tutorials",
+      title: "Tips & Tutorials",
       img: pic2,
       content: "Gain valuable tips, tutorials, and best practices from industry experts to enhance your learning experience."
     },
@@ -42,12 +42,17 @@ const Updates = () => {
 
         <div className={styles.update_section}>
             <Swiper
-              modules={[Navigation, Pagination]} // Install required modules
+              modules={[Navigation, Pagination, Autoplay ]} // Install required modules
               spaceBetween={30}
               slidesPerView={3} // Number of visible cards on larger screens
               navigation // Enables navigation arrows
               pagination={{ clickable: true }} // Enables pagination dots
               scrollbar={{clickable: true}}
+              loop={true}
+              autoplay={{
+                delay: 10000, // Time in milliseconds (10 seconds)
+                disableOnInteraction: false, // Continue autoplay after user interactions
+              }}
               style={{"--swiper-pagination-bottom": 0}}
               breakpoints={{
                 // Responsive breakpoints
