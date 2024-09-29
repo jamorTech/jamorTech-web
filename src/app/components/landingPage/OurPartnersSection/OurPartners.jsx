@@ -22,6 +22,7 @@ const OurPartners = () => {
         {logo: logo2},
         {logo: logo3},
         {logo: logo4},
+        {logo: logo5},
     ]
   return (
     <section className={styles.ourPartners}>
@@ -30,7 +31,7 @@ const OurPartners = () => {
       <Swiper
         modules={[Navigation]} // Install required modules
         spaceBetween={10}
-        slidesPerView={4} // Number of visible cards on larger screens
+        slidesPerView={5} // Number of visible cards on larger screens
         navigation // Enables navigation arrows
       >
         {partners.map((partner, index) => (
