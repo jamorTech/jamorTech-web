@@ -8,6 +8,7 @@
 .img_conainer{
     height: 100%;
     width: 35%;
+    margin-top: 10rem;
 }
 
 .img_conainer img{
@@ -133,6 +134,11 @@
     color: #231F2080;
 }
 
+.isGrey{
+    display: flex;
+    gap: .5rem;
+}
+
 .terms_policy{
     display: flex;
     gap: 1rem;
@@ -141,8 +147,6 @@
 
 .terms_policy small{
     font-family: Arimo Hebrew Subset;
-    /* font-size: 28px;
-    font-weight: 400; */
     line-height: 24px;
 }
 
@@ -170,8 +174,6 @@
 
 .have_acct{
     font-family: Arimo Hebrew Subset;
-    /* font-size: 24px;
-    font-weight: 700; */
     line-height: 24px;
     color: #231F20;
 }
@@ -187,7 +189,7 @@
 
 @media screen and (max-width: 768px) {
     .container{
-        background-image: url("../../../public/assets/images/companySignUp.png");
+        background-image: url("../../../../public/assets/svgs/OnboardingAmico.svg");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;

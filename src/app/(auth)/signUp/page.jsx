@@ -1,8 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import styles from "./signup.module.css"
-import individualSignUp from "../../../public/assets/images/individualSignUp.png"
-import companySignUp from "../../../public/assets/images/companySignUp.png"
+import onboardingSvg from "../../../../public/assets/svgs/OnboardingAmico.svg"
 import Image from 'next/image'
 import { IoMdClose } from "react-icons/io";
 import { AiOutlineUser } from "react-icons/ai";
@@ -20,7 +19,7 @@ import Link from 'next/link'
 
 const page = () => {
 
-  const [formType, setFormType] = useState("Individual")
+  const [formType, setFormType] = useState("Interns")
   const [passwordVisible, setPasswordVisible] = useState(false)
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false)
 
@@ -61,7 +60,7 @@ const page = () => {
     }
     if (!checkBox) validationErrors.checkBox = "Make sure you go through our terms and conditions.";
 
-    if (formType === "Individual") {
+    if (formType === "Interns") {
       if (!phone) {
         validationErrors.phone = "Phone number is required.";
       } else if (typeof(phone) !== Number) {
@@ -114,7 +113,7 @@ const page = () => {
     <div className={styles.container}>
       <div className={styles.img_conainer}>
         <Image
-            src={individualSignUp}
+            src={onboardingSvg}
             width={800}
             height={500}
             alt='signUp-img'
@@ -130,8 +129,8 @@ const page = () => {
           <h2 className={styles.title}>Sign Up</h2>
         </div>
         <div className={styles.page_nav}>
-          <span className={`${styles.individual} ${formType === "Individual" ? styles.active:""}`} 
-            onClick={()=>setFormType("Individual")}>Individual</span>
+          <span className={`${styles.interns} ${formType === "Interns" ? styles.active:""}`} 
+            onClick={()=>setFormType("Interns")}>Interns</span>
           <span className={`${styles.company} ${formType === "Company" ? styles.active:""}`} 
             onClick={()=>setFormType("Company")}>Company</span>
         </div>
@@ -188,7 +187,7 @@ const page = () => {
                   {errors.businessBrand && <small className={styles.error}>{errors.businessBrand}</small>}
                 </div>
             </div></>}
-            {formType === "Individual" && <div className={styles.input_section}>
+            {formType === "Interns" && <div className={styles.input_section}>
                 <label htmlFor="phone">Mobile Number</label>
                 <div>
                   <div className={styles.input}>
@@ -261,7 +260,7 @@ const page = () => {
                   {errors.whatWeCanOffer && <small className={styles.error}>{errors.whatWeCanOffer}</small>}
                 </div>
               </div>}
-                {formType === "Individual" && <><div className={styles.input_section}>
+                {formType === "Interns" && <><div className={styles.input_section}>
                   <label htmlFor="tech-school">Tech school you graduated from</label>
                   <div>
                   <div className={styles.input}>
