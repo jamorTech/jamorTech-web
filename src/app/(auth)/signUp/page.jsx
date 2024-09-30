@@ -28,6 +28,7 @@ const page = () => {
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [techSchool, setTechSchool] = useState("");
@@ -50,6 +51,7 @@ const page = () => {
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       validationErrors.email = "Email address is invalid.";
     }
+    if (!username) validationErrors.username = "Username is required.";
     if (!password) {
       validationErrors.password = "Password is required.";
     } else if (password.length < 6) {
@@ -95,6 +97,7 @@ const page = () => {
       setLastName("")
       setPhone("")
       setEmail("")
+      setUsername("")
       setPassword("")
       setConfirmPassword("")
       setTechSchool("")
@@ -211,6 +214,19 @@ const page = () => {
                       />
                   </div>
                   {errors.email && <small className={styles.error}>{errors.email}</small>}
+                </div>
+            </div>
+            <div className={styles.input_section}>
+                <label htmlFor="username">Username</label>
+                <div>
+                  <div className={styles.input}>
+                      <AiOutlineUser className={styles.icon}/>
+                      <input type="text" 
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                      />
+                  </div>
+                  {errors.username && <small className={styles.error}>{errors.username}</small>}
                 </div>
             </div>
             <div className={styles.input_section}>

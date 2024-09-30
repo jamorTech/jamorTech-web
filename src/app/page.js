@@ -10,7 +10,18 @@ import ContactUs from './components/landingPage/contactUS/ContactUs'
 
 export const metadata = {
   title: "JamorTech - Empowering New Tech Talent Through Internships",
-  description: "Empower Your Potential with JamorTech - Join us on a transformative journey where aspiring tech professionals gain the skills and knowledge needed to thrive in today’s competitive landscape."
+  description: "Empower Your Potential with JamorTech - Join us on a transformative journey where aspiring tech professionals gain the skills and knowledge needed to thrive in today’s competitive landscape.",
+  openGraph: {
+    title: "Welcome to JamorTech - Your Pathway to Tech Careers",
+    description: "Join JamorTech to kickstart your tech career with our internship programs.",
+    type: "website",
+    locale: "en_Us",
+    url: "https://jamorweb.netlify.app/",
+    siteName: "JamorTech"
+  },
+  twitter: { 
+    card: "summary_large_image",
+  },
 };
 
 const page = () => {
