@@ -3,17 +3,18 @@ import styles from "./Hero.module.css"
 import { FaLongArrowAltRight } from "react-icons/fa";
 import Link from 'next/link';
 import Image from 'next/image';
-import pic1 from "../../../../../public/assets/images/user4.png"
-import pic2 from "../../../../../public/assets/images/user4.png"
-import pic3 from "../../../../../public/assets/images/user4.png"
-import pic4 from "../../../../../public/assets/images/user4.png"
+import Ellipse6 from "../../../../../public/assets/images/Ellipse6.png"
+import Ellipse7 from "../../../../../public/assets/images/Ellipse7.png"
+import Ellipse8 from "../../../../../public/assets/images/Ellipse8.png"
+import Ellipse9 from "../../../../../public/assets/images/Ellipse9.png"
+import banner from "../../../../../public/assets/svgs/banner.svg"
 
 const Hero = () => {
     const Testimonial_images = [
-        {float: 1, img: pic1},
-        {float: "15%", img: pic2},
-        {float: "30%", img: pic3},
-        {float: "45%", img: pic4},
+        {float: 1, img: Ellipse6},
+        {float: "15%", img: Ellipse7},
+        {float: "30%", img: Ellipse8},
+        {float: "45%", img: Ellipse9},
     ]
   return (
     <div className={styles.hero_container}>
@@ -42,7 +43,12 @@ const Hero = () => {
             </div>
         </div>
         <div className={styles.hero_banner}>
-
+        <Image
+            src={banner}
+            alt={"banner"}
+            width={500}
+            height={200}
+        />
         </div>
     </div>
   )
