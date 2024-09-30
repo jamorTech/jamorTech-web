@@ -20,14 +20,12 @@
 .img_group{
     display: flex;
     justify-content: center;
-    width: 80%;
-    padding: 2rem;
+    align-items: center;
+    width: 60%;
 }
 
 .img_container{
-    height: 80px;
     aspect-ratio: 1;
-    flex-grow: 1;
 }
 
 .img_container img{
@@ -37,16 +35,6 @@
 }
 
 @media screen and (max-width: 768px) {
-    .img_group{
-        padding: 1rem;
-    }
-
-    .img_group{
-        width: 90%;
-    }
-}
-
-@media screen and (max-width: 600px) {
     .img_group{
         width: 100%;
     }

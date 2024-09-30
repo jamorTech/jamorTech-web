@@ -30,7 +30,7 @@ const OurPartners = () => {
       <div className={styles.img_group}>
       <Swiper
         modules={[Navigation]} // Install required modules
-        spaceBetween={10}
+        spaceBetween={5}
         slidesPerView={5} // Number of visible cards on larger screens
         navigation // Enables navigation arrows
       >
