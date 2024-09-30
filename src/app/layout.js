@@ -20,7 +20,7 @@ const inter = Inter({ subsets: ["latin"] });
       siteName: "JamorTech",
       images: [
         {
-          url: "/assets/images/og-image.jpg", // The relative path to the image
+          url: "https://jamorweb.netlify.app/assets/images/og-image.jpg", // The relative path to the image
           width: 1200,
           height: 630,
           alt: "JamorTech - Pathway to Tech Careers",
@@ -31,7 +31,7 @@ const inter = Inter({ subsets: ["latin"] });
       card: "summary_large_image",
       title: "Welcome to JamorTech - Your Pathway to Tech Careers",
       description: "Join JamorTech to kickstart your tech career with our internship programs.",
-      images: ["/assets/images/og-image.jpg"], // The same relative path for Twitter image
+      images: ["https://jamorweb.netlify.app/assets/images/og-image.jpg"], // The same relative path for Twitter image
     },
   };
   

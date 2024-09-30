@@ -12,7 +12,7 @@ const FrequentAskedQuestions = () => {
     const frequentlyAskedQuestions = [
         {
         question: "What is the duration of the Internship Program?",
-        answer: "The jamortechnology interns program is for 4 months. Whereby, we have 1 month training of practical Digital soft-skill training and 3 months of hands-ok experience."},
+        answer: "The jamortechnology interns program is for 4 months. Whereby, we have 1 month training of practical Digital soft-skill training and 3 months of hands on experience."},
         {
         question: "Is the Program Virtual?",
         answer: "The internship Program is 100% virtual."},
