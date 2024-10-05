@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from "./Hero.module.css"
 import { FaLongArrowAltRight } from "react-icons/fa";
 import Link from 'next/link';
@@ -19,7 +18,8 @@ const Hero = () => {
     <div className={styles.hero_container}>
         <div className={styles.hero_body}>
             <h1>Empower Your Potential with Jamor Technology</h1>
-            <p>Join us on a journey of discovery, growth, and transformation. Whether you're looking to be more skillful in your tech career, stay ahead of industry trends, or collaborating on a real-time project, Jamor Technology is your gateway to success.</p>
+            <p>Join us on a journey of discovery, growth, and 
+            <br />transformation. Whether you're looking to be more <br /> skillful in your tech career, stay ahead of industry trends, <br /> or collaborating on a real-time project, Jamor Technology <br /> is your gateway to success.</p>
             <div className={styles.hero_btns}>
                 <Link href={"/signUp"} className={styles.btn_joinUS}>Join Us <FaLongArrowAltRight className={styles.btn_icon}/></Link>
                 <Link href={"/"} className={styles.btn_hire_techie}>Hire a Techie <FaLongArrowAltRight className={styles.btn_icon}/></Link>

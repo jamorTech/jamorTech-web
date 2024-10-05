@@ -1,91 +1,101 @@
-.aboutUS{
-    width: 100%;
-    background: #240C76;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
+@font-face {
+  font-family: "abrilFontface";
+  src: url("../about-font/abril/AbrilFatface-Regular.ttf");
 }
 
-.container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+@font-face {
+  font-family: "arimoFontface";
+  src: url("../about-font/arimo/static/Arimo-Regular.ttf");
+}
+.aboutUS {
+  width: 100%;
+  background: #240c76;
+  display: flex;
+  margin-top: 5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
 }
 
-.container h1{
-    font-family: Abril Fatface;
-    font-size: 36px;
-    font-weight: 400;
-    line-height: 44px;
-    color: #FFFFFF;
-    letter-spacing: .5rem;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-.container p{
-    font-family: Arimo Hebrew Subset;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    color: #FFFFFF;
-    width: 70%;
+.container h1 {
+  font-family: "abrilFontface", sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 44px;
+  color: #ffffff;
+  letter-spacing: 0.5rem;
 }
 
-.group_imgs{
-    display: flex;
-    justify-content: space-around;
-    gap: 1rem;
-    flex-wrap: wrap;
+.container p {
+  font-family: "arimoFontface" , sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #ffffff;
+  width: 70%;
 }
 
-.img_container{
-    width: 250px;
-    height: 250px;
-    border-radius: 10px;
-    overflow: hidden;
-    flex-grow: 1;
+.group_imgs {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.img_container img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.img_container {
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-grow: 1;
 }
 
-.learn_more{
-    color: #240076;
-    font-family: Abril Fatface;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 24.28px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 30px;
-    gap: 10px;
-    border-radius: 10px;
-    width: 250px;
-    height: 80px;
-    background: #FFFFFF;
+.img_container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.learn_more {
+  color: #240076;
+  font-family: "abrilFontface" , sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24.28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 30px;
+  gap: 10px;
+  border-radius: 10px;
+  width: 250px;
+  height: 80px;
+  background: #ffffff;
 }
 
 @media screen and (max-width: 768px) {
-    .container p{
-        width: 90%;
-    }
+  .container p {
+    width: 90%;
+  }
 
-    .container .img_container{
-        display: none;
-    }
+  .container .img_container {
+    display: none;
+  }
 
-    .container .img_container:nth-child(1){
-        display: block;
-    }
+  .container .img_container:nth-child(1) {
+    display: block;
+  }
 
-    .learn_more{
-        width: 200px;
-        height: 60px;
-    }
+  .learn_more {
+    width: 200px;
+    height: 60px;
+  }
 }

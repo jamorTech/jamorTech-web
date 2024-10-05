@@ -1,3 +1,12 @@
+@font-face {
+    font-family: "abrilFontface";
+    src: url("../about-font/abril/AbrilFatface-Regular.ttf");
+  }
+  
+  @font-face {
+    font-family: "arimoFontface";
+    src: url("../about-font/arimo/static/Arimo-Regular.ttf");
+  }
 .container{
     width: 100%;
     background: #FFFFFF;
@@ -14,7 +23,7 @@
 }
 
 .upperSection h1{
-    font-family: Abril Fatface;
+    font-family: 'abrilFontface' , sans-serif;
     font-size: 36px;
     font-weight: 400;
     line-height: 44px;
@@ -24,7 +33,7 @@
 }
 
 .upperSection p{
-    font-family: Arimo Hebrew Subset;
+    font-family: 'arimoFontface' , sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
@@ -77,7 +86,7 @@
 }
 
 .question{
-    font-family: Abril Fatface;
+    font-family: 'abrilFontface' , sans-serif;
     font-size: 24px;
     font-weight: 400;
     line-height: 32px;
@@ -86,7 +95,7 @@
 
 .answer{
     color: #868686;
-    font-family: Arimo Hebrew Subset;
+    font-family: 'arimoFontface' , sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;

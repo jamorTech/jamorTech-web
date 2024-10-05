@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from "./OurServices.module.css"
 import ServicesCard from './ServicesCard'
 import carbon from "../../../../../public/assets/svgs/carbon_development.svg"

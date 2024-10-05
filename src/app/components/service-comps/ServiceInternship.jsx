@@ -1,5 +1,5 @@
 import Image from "next/image";
-import macPro from "./service-img/macbook.svg";
+import science from './service-img/science.svg';
 import people from "./service-img/people.svg";
 import youth from "./service-img/youth.svg";
 import network from "./service-img/network.svg";
@@ -15,7 +15,7 @@ export default function ServiceInternship() {
       </div>
       <div>
         <GridImages
-          firstImg={macPro}
+          firstImg={science}
           headerP={"Practical Experience"}
           detailsP={"Interns work on real-world projects (live)"}
           secondImg={people}

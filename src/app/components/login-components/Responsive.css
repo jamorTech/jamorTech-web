@@ -1,0 +1,28 @@
+@media (max-width:900px) {
+    .smallerImage {
+        display: block;
+    }
+
+    .reducer {
+        margin-top: 0;
+        margin-bottom: 0    ;
+    }
+
+    .makeSmall {
+        display: block;
+    }
+}
+@media (max-width:799px) {
+    .smallerImage {
+        display: none;
+    }
+
+    .reducer {
+        margin-top: 0;
+        margin-bottom: 0    ;
+    }
+
+    .makeSmall {
+        display: block;
+    }
+}
