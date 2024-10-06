@@ -91,7 +91,9 @@
   margin-top: 10px; /* Space between image and text */
   font-size: 1rem;
   text-align: center; /* Center the card text */
+  color: black;
 }
+
 
 /* Social media handles styling */
 .cardsocialMedia {
