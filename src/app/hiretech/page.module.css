@@ -89,7 +89,7 @@
 /* Card text styling */
 .cardText {
   margin-top: 10px; /* Space between image and text */
-  font-size: 1rem;
+  font-size: 0.7rem;
   text-align: center; /* Center the card text */
   color: black;
 }
