@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"; // Import PropTypes
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -13,11 +14,14 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         {/* <Nav /> */}
-        <div style={{minHeight: "80vh"}}>
-          {children}
-        </div>
+        <div style={{ minHeight: "80vh" }}>{children}</div>
         {/* <Footer /> */}
       </body>
     </html>
   );
 }
+
+// Add prop types validation for RootLayout
+RootLayout.propTypes = {
+  children: PropTypes.node.isRequired, // Validate that children is a node and is required
+};
