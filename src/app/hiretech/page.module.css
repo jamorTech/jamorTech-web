@@ -61,7 +61,7 @@
   padding: 15px; /* Adds padding inside the card */
   margin: 10px; /* Space between cards */
   border: 1px solid #ccc; /* Adds a border around the card */
-  border-radius: 6px; /* Optional: rounds the corners of the cards */
+  border-radius: 5px; /* Optional: rounds the corners of the cards */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a light shadow for depth */
   background-color: #fff; /* Optional: gives a white background */
   display: flex; /* Use flex to align items */
