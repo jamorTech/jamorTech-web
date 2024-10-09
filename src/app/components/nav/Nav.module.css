@@ -1,3 +1,12 @@
+@font-face {
+    font-family: "abrilFontface";
+    src: url("./about-font/abril/AbrilFatface-Regular.ttf");
+  }
+  
+  @font-face {
+    font-family: "arimoFontface";
+    src: url("./about-font/abril/AbrilFatface-Regular.ttf");
+  }
 .nav{
     width: 100%;
     display: flex;
@@ -46,7 +55,7 @@
 
 .nav ul li a{
     padding: 10px;
-    font-family: Arimo Hebrew Subset;
+    font-family: 'arimoFontface' , sans-serif;
     font-size: 16px;
     font-weight: 400;
     color: #000000;
@@ -70,10 +79,12 @@
 }
 
 .login, .createAcct{
-    width: 150px;
-    height: 50px;
+    padding: 1rem 2rem;
+    /* width: 150px;
+    height: 50px; */ 
+    /* instead of using width and height which affected the position of the text i used padding you can uncomment the line if you still want to use width and height */
     border-radius: 10px;
-    font-family: Abril Fatface;
+    font-family: 'abrilFontface' , sans-serif;
     font-size: 18px;
     font-weight: 400;
     display: flex;
@@ -99,8 +110,9 @@
         gap: 1rem;
     }
     .login, .createAcct{
-        width: 120px;
-        height: 40px;
+        padding: 1rem 2rem;
+        /* width: 120px;
+        height: 40px; */
         font-size: 14px;
     }
 

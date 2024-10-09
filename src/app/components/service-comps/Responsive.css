@@ -1,0 +1,45 @@
+@media (max-width:958px) {
+    .overall {
+        position: static;
+    }
+
+    .innerDiv {
+        position: static;
+    }
+
+    .textDiv {
+        margin-top: 2rem;
+        display: block;
+    }
+
+    .textDiv div h3,
+    .textDiv div p{
+        color: black;
+        text-align: center;
+    }
+
+    .textDiv div h3 br{
+        display:none;
+    }
+    .para {
+        text-align: center;
+    }
+
+    .buttonContainer {
+        max-width: 958px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .buttonContainer button {
+        padding: 0;
+        margin-top: 1rem;
+        padding: 1rem;
+        text-align: center;
+        display: block;
+    }
+
+    .buttonContainer button img {
+        display: none;
+    }
+}

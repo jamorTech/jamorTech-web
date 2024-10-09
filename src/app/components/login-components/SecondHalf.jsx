@@ -2,7 +2,7 @@ import LoginForm from "./LoginForm";
 
 export default function SecondHalf() {
   return (
-    <div className="mt-52">
+    <div>
       <h1 className="text-gladGreen font-normal text-center font-abrilFont text-4xl">
         Welcome to Jamor Technology
       </h1>

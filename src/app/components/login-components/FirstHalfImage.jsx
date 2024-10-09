@@ -1,18 +1,15 @@
 import Image from "next/image";
-import men from "./login-img/men.svg";
+import login from "./login-img/login.svg";
 
 export default function FirstHalfImage() {
   return (
-    <div className="relative w-full h-auto">
+    <div className=" w-full h-auto">
       <Image
-        src={men}
+        src={login}
         alt="men gathered together"
-        className="w-full h-auto object-cover"
+        className="w-full h-auto mt-20 smallerImage object-cover"
         priority
       />
-      <h3 className="text-gladGreen font-bold shadow-white text-center mt-4 mx-auto text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-abrilFont absolute inset-x-0 top-1/3 transform -translate-y-1/3">
-        We Are Glad To <br /> Have You Back
-      </h3>
     </div>
   );
 }

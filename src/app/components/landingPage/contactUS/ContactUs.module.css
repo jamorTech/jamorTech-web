@@ -1,3 +1,12 @@
+@font-face {
+    font-family: "abrilFontface";
+    src: url("../about-font/abril/AbrilFatface-Regular.ttf");
+  }
+  
+  @font-face {
+    font-family: "arimoFontface";
+    src: url("../about-font/arimo/static/Arimo-Regular.ttf");
+  }
 .contactUs{
     width: 100%;
     background-image: url('../../../../../public/assets/images/laptopBg.png');
@@ -23,7 +32,7 @@
 }
 
 .form h1{
-    font-family: Abril Fatface;
+    font-family: 'abrilFontface' , sans-serif;
     font-size: 36px;
     font-weight: 400;
     line-height: 44px;
@@ -46,7 +55,7 @@
 }
 
 .input_section label{
-    font-family: Arimo Hebrew Subset;
+    font-family: 'arimoFontface' , sans-serif;
     font-size: 24px;
     font-weight: 700;
     line-height: 24px;
@@ -87,7 +96,7 @@
 
 .contact_us_btn{
     color: #FFFFFF;
-    font-family: Abril Fatface;
+    font-family: 'abrilFontface' , sans-serif;
     font-size: 18px;
     font-weight: 400;
     line-height: 24.28px;

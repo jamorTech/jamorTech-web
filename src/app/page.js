@@ -1,4 +1,3 @@
-import React from 'react'
 import Hero from './components/landingPage/heroSection/Hero'
 import OurServices from './components/landingPage/ourServices/OurServices'
 import Benefits from './components/landingPage/benefits/Benefits'
