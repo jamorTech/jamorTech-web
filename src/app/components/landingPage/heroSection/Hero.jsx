@@ -22,8 +22,8 @@ const Hero = () => {
             <p>Join us on a journey of discovery, growth, and 
             <br />transformation. Whether you're looking to be more <br /> skillful in your tech career, stay ahead of industry trends, <br /> or collaborating on a real-time project, Jamor Technology <br /> is your gateway to success.</p>
             <div className={styles.hero_btns}>
-                <Link href={"/signUp"} className={styles.btn_joinUS}>Join Us <FaLongArrowAltRight className={styles.btn_icon}/></Link>
-                <Link href={"/"} className={styles.btn_hire_techie}>Hire a Techie <FaLongArrowAltRight className={styles.btn_icon}/></Link>
+                <Link href={"signUp"} className={styles.btn_joinUS}>Join Us <FaLongArrowAltRight className={styles.btn_icon}/></Link>
+                <Link href={"hireTechie"} className={styles.btn_hire_techie}>Hire a Techie <FaLongArrowAltRight className={styles.btn_icon}/></Link>
             </div>
             <div className={styles.testimony}>
                 <div className={styles.testimony_img_container}>

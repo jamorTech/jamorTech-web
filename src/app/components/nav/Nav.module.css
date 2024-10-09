@@ -45,7 +45,6 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    /* margin-left: 3rem; */
 }
 
 .nav ul li{
@@ -79,13 +78,10 @@
 }
 
 .login, .createAcct{
-    padding: 1rem 2rem;
-    /* width: 150px;
-    height: 50px; */ 
-    /* instead of using width and height which affected the position of the text i used padding you can uncomment the line if you still want to use width and height */
+    padding: .5rem 1rem;
     border-radius: 10px;
     font-family: 'abrilFontface' , sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     display: flex;
     justify-content: center;
@@ -108,11 +104,9 @@
 @media screen and (max-width: 1024px) {
     .nav{
         gap: 1rem;
+        padding: .8rem 1.8rem;
     }
     .login, .createAcct{
-        padding: 1rem 2rem;
-        /* width: 120px;
-        height: 40px; */
         font-size: 14px;
     }
 
