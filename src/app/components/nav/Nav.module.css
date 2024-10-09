@@ -1,0 +1,167 @@
+.nav{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    gap: 4rem;
+    background: #F5F5F5;
+}
+
+.logo{
+    width: 62px;
+    height: 55px;
+}
+
+.logo a{
+    border-radius: 45px;
+    width: 100%;
+    height: 100%;
+}
+
+.logo img{
+    width: 100%;
+    height: 100%;
+}
+
+.links_auth{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    /* margin-left: 3rem; */
+}
+
+.nav ul li{
+    list-style: none;
+    padding-bottom: .5rem;
+}
+
+.nav ul li a{
+    padding: 10px;
+    font-family: Arimo Hebrew Subset;
+    font-size: 16px;
+    font-weight: 400;
+    color: #000000;
+}
+
+.nav ul .active a{
+    font-weight: 700;
+    color: #240076;
+    border-bottom: 1px solid #240076;
+}
+
+.nav ul a:hover{
+    color: #240076;
+    border-bottom: 1px solid #240076;
+}
+
+.login_createAcct_container{
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.login, .createAcct{
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    font-family: Abril Fatface;
+    font-size: 18px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    border: 1px solid #240076;
+    background: #FFFFFF;
+}
+.createAcct{
+    color: #FFFFFF;
+    background: #240076;
+}
+
+.menuToggle{
+    display: none;
+}
+
+@media screen and (max-width: 1024px) {
+    .nav{
+        gap: 1rem;
+    }
+    .login, .createAcct{
+        width: 120px;
+        height: 40px;
+        font-size: 14px;
+    }
+
+    .nav ul li a{
+        padding: 7px;
+        font-size: 12px;
+    }
+}
+@media screen and (max-width: 800px) {
+    .nav{
+        position: relative;
+    }
+    
+    .links_auth{
+        display: none;
+        width: 100%;
+        padding: .5rem;
+    }
+    
+    .links_auth.openMenu{
+        border: 1px solid blue;
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        z-index: 2;
+        background: #240076;
+    }
+
+    .menuToggle{
+        display: flex;
+        z-index: 3;
+    }
+
+    .links_auth,
+    .links_auth ul,
+    .login_createAcct_container
+    {
+        flex-direction: column;
+    }
+
+    .nav ul li a{
+        color: #FFFFFF;
+    }
+    
+    .nav ul .active a{
+        color: #FFFFFF;
+        border-bottom: 1px solid #FFFFFF;
+    }
+
+    .burgerIcon{
+        color: #240076;
+    }
+
+    .closeIcon{
+        color: #FFFFFF;
+    }
+
+    .createAcct{
+        border: none;
+        outline: none;
+        box-shadow: 1px 1px 5px rgb(66, 0, 221);
+    }
+}
