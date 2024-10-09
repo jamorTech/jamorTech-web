@@ -11,17 +11,27 @@ const FrequentAskedQuestions = () => {
 
     const frequentlyAskedQuestions = [
         {
-        question: "What is the duration of the Internship Program",
-        answer: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium repellendus reiciendis ullam, excepturi vitae dolore. Quae rem in error, quod similique aut, cupiditate voluptates inventore minima, animi illo blanditiis est? Ducimus rem eius perspiciatis illum quam unde recusandae quibusdam, sapiente totam ipsa modi ad eum est, soluta harum qui culpa odio nam quos officiis assumenda ullam! Omnis eius debitis dignissimos?"},
+        question: "What is the duration of the Internship Program?",
+        answer: "The jamortechnology interns program is for 4 months. Whereby, we have 1 month training of practical Digital soft-skill training and 3 months of hands on experience."},
         {
         question: "Is the Program Virtual?",
-        answer: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium repellendus reiciendis ullam, excepturi vitae dolore. Quae rem in error, quod similique aut, cupiditate voluptates inventore minima, animi illo blanditiis est? Ducimus rem eius perspiciatis illum quam unde recusandae quibusdam, sapiente totam ipsa modi ad eum est, soluta harum qui culpa odio nam quos officiis assumenda ullam! Omnis eius debitis dignissimos?"},
+        answer: "The internship Program is 100% virtual."},
         {
-        question: "Is it Paid?",
-        answer: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium repellendus reiciendis ullam, excepturi vitae dolore. Quae rem in error, quod similique aut, cupiditate voluptates inventore minima, animi illo blanditiis est? Ducimus rem eius perspiciatis illum quam unde recusandae quibusdam, sapiente totam ipsa modi ad eum est, soluta harum qui culpa odio nam quos officiis assumenda ullam! Omnis eius debitis dignissimos?"},
+        question: "Why pay for the internship program?",
+        answer: "The internship program is been paid for because of certificates awarded, professionals we are bringing to guide interns, the experienced professionals we are bringing in for tech events, and also the soft skill training."},
         {
-        question: "Is the internship program Expert-led? ",
-        answer: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium repellendus reiciendis ullam, excepturi vitae dolore. Quae rem in error, quod similique aut, cupiditate voluptates inventore minima, animi illo blanditiis est? Ducimus rem eius perspiciatis illum quam unde recusandae quibusdam, sapiente totam ipsa modi ad eum est, soluta harum qui culpa odio nam quos officiis assumenda ullam! Omnis eius debitis dignissimos?"},
+        question: "How do I bring in my ideas to be worked on by jamor technology? ",
+        answer: "Jamor technology is the core solution of innovation. We take your idea from ideation to a MVP. Click on the join us button and fill the form. We will get back to you shortly."},
+        {
+        question: "Whats the difference between those paying and those who ain’t paying? ",
+        answer: `Those paying will be working with professionals who will guide the interns. They will also enjoy other perks like recommendation letters, outsourcing, to our partners and certifications.
+        While those who won’t be paying won’t enjoy this benefits. But they will enjoy soft skill training and working on hands-on project.`},
+        {
+        question: "How do I hire a jamoteer? ",
+        answer: "To hire a professional skill you need to first register with us as a company. You get a confirmation mail from us before we give you access to the hire a techie environment where you meet lots of jamoteers you can outsource."},
+        {
+        question: "How do I become and investor in jamor technology? ",
+        answer: "Fill the contact form and we will work get back to you shortly."},
     ]
   return (
     <section className={styles.container}>

@@ -1,0 +1,50 @@
+/* Container for the page */
+.container {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Background Image */
+.backgroundImage {
+  z-index: -1; /* image is behind content */
+}
+
+/* Container for the pop-up */
+.popupContainer {
+  background-color: white;
+  width: 500px; /* Adjust size as needed */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  position: relative; /* Can be adjusted if specific positioning needed */
+}
+
+/* Image positioning */
+.greenImage {
+  width: 50px; /* Adjust size */
+  margin-bottom: 10px;
+  align-self: center; /* Position to the left */
+}
+
+/* Heading styling */
+.heading {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Message text styling */
+.message {
+  font-size: 14px;
+  text-align: center;
+  color: #333;
+  margin-top: 10px;
+}

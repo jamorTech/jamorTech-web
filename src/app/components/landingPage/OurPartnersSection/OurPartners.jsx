@@ -28,16 +28,16 @@ const OurPartners = () => {
     <section className={styles.ourPartners}>
       <h1>Our Partners</h1>
       <div className={styles.img_group}>
-        <Swiper
-          modules={[Navigation]} // Install required modules
-          spaceBetween={10}
-          slidesPerView={4} // Number of visible cards on larger screens
-          navigation // Enables navigation arrows
-        >
-          {partners.map((partner, index) => (
-            <SwiperSlide key={index} className={styles.Swiper}>
-              <div className={styles.img_container} key={index}>
-                <Image
+      <Swiper
+        modules={[Navigation]} // Install required modules
+        spaceBetween={5}
+        slidesPerView={5} // Number of visible cards on larger screens
+        navigation // Enables navigation arrows
+      >
+        {partners.map((partner, index) => (
+          <SwiperSlide key={index} className={styles.Swiper}>
+            <div className={styles.img_container} key={index}>
+              <Image
                   src={partner.logo}
                   width={500}
                   height={200}
