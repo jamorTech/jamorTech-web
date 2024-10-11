@@ -2,6 +2,7 @@ import Image from "next/image";
 import friends from "./service-img/friends.svg";
 import arrow from "./service-img/arrow.svg";
 import "./Responsive.css";
+import Link from "next/link";
 
 export default function Conclusion() {
   return (
@@ -27,11 +28,12 @@ export default function Conclusion() {
               </p>
             </div>
             <div className="mt-0 buttonContainer w-[40%]">
+              <Link href='/signUp'>
                 <button className=" mt-10 bg-customPurple w-full font-abrilFont flex items-center gap-2 px-4 py-4 rounded-lg text-white">
                   Get Started
                   <Image src={arrow} alt="white arrow image" />
                 </button>
-              
+              </Link>
             </div>
           </div>
         </div>
