@@ -35,7 +35,7 @@ const ContactUs = () => {
           setErrors(validationErrors);
         } else {
           // Proceed with form submission (e.g., API call)
-          console.log("Form submitted successfully!");
+          
           // Clear form fields
           setFirstName("");
           setLastName("");

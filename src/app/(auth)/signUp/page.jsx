@@ -168,7 +168,6 @@ const handleSubmit = (e) => {
   e.preventDefault();
   const stepErrors = validateStep(currentStep);
   if (Object.keys(stepErrors).length === 0) {
-    console.log("Form Submitted", formData);
   // Submit form logic
   } else {
     setErrors(stepErrors);

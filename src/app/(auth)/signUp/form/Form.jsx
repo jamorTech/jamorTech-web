@@ -6,8 +6,6 @@ import Link from 'next/link';
 
 const Form = ({ FormInput, currentStep = "", nextStep = "", prevStep = "", handleSubmit = "", errors = "" }) => {
   const [checkBox, setCheckBox] = useState(false);
-  console.log("next", currentStep);
-  
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
