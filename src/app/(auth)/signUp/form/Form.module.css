@@ -1,0 +1,81 @@
+.form{
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.formInputs{
+    width: 100%;
+    gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.input{
+    width: 40%;
+    display: flex;
+    flex-grow: 1;
+}
+
+.stretch{
+    width: 100%;
+}
+
+.formBtnsContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.formBtnsContainer button{
+    font-family: Abril Fatface;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24.28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 30px;
+    gap: 10px;
+    border-radius: 10px;
+    width: 100%;
+    border: 1px solid #240076;
+    margin: 1rem 0;
+}
+
+.nextStep,
+.signUp{
+    color: #FFFFFF;
+    background: #240076;
+}
+
+.terms_policy{
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.terms_policy small{
+    font-family: Arimo Hebrew Subset;
+    line-height: 24px;
+}
+
+.terms_policy small a{
+    color: #259C77;
+}
+
+.formBtnsContainer button:disabled{
+    background: #bfa3ff;
+    border: none;
+}
+
+@media screen and (max-width: 700px) {
+    .formBtnsContainer button{
+        height: 60px;
+        padding: 0;
+    }
+}
