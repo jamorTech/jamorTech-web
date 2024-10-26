@@ -16,7 +16,7 @@ const inter = Inter({ subsets: ["latin"] });
       description: "Join JamorTech to kickstart your tech career with our internship programs.",
       type: "website",
       locale: "en_US",
-      url: "https://jamorweb.netlify.app/",
+      url: "https://jamorweb.netlify.app",
       siteName: "JamorTech",
       // images: "assets/images/og-image.jpg"
       images: [
