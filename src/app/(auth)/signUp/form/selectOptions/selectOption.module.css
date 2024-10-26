@@ -1,0 +1,8 @@
+.select{
+    border: 1px solid grey;
+    background: rgb(187, 187, 187);
+    outline: none;
+    color: #000;
+    text-align: center;
+    cursor: pointer;
+}

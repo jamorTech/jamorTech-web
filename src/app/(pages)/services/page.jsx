@@ -1,10 +1,11 @@
-import OurPartners from "../components/landingPage/OurPartnersSection/OurPartners";
-import Conclusion from "../components/service-comps/Conclusion";
-import Investors from "../components/service-comps/Investors";
-import ServiceBody from "../components/service-comps/ServiceBody";
-import ServiceDetails from "../components/service-comps/ServiceDetails";
-import ServiceHeader from "../components/service-comps/ServiceHeader";
-import Solution from "../components/service-comps/Solution";
+import OurPartners from "@/app/components/landingPage/OurPartnersSection/OurPartners";
+import Conclusion from "@/app/components/service-comps/Conclusion";
+import Investors from "@/app/components/service-comps/Investors";
+import ServiceBody from "@/app/components/service-comps/ServiceBody";
+import ServiceDetails from "@/app/components/service-comps/ServiceDetails";
+import ServiceHeader from "@/app/components/service-comps/ServiceHeader";
+import Solution from "@/app/components/service-comps/Solution";
+
 
 export const metadata = {
   title: "About JamorTech - Bridging the Gap Between Education and Employment",

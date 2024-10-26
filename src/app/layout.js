@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Nav />
-        <div style={{minHeight: "80vh"}}>
+        <div style={{minHeight: "40vh"}}>
           {children}
         </div>
         <Footer />
