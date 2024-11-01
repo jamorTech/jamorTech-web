@@ -113,8 +113,8 @@
 
 @media screen and (max-width: 555px) {
     .StatusPageContainer{
-        width: 90%;
-        gap: 1.5rem;
+        width: 98%;
+        gap: 1rem;
         padding: .5rem;
     }
 
@@ -123,7 +123,7 @@
     }
     
     .formContainer{
-        width: 80%;
+        width: 90%;
     }
 }
 
