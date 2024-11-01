@@ -1,0 +1,134 @@
+.container{
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #240176, #00AA41);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.StatusPageContainer{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    gap: 3rem;
+    padding: 3rem;
+}
+
+.logo{
+    margin-top: 3rem;
+    width: 62px;
+    height: 55px;
+}
+
+.logo a{
+    border-radius: 45px;
+    width: 100%;
+    height: 100%;
+}
+
+.logo img{
+    width: 100%;
+    height: 100%;
+}
+
+.StatusPageContainer h2{
+    color: #240076;
+    font-family: Abril Fatface;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 44px;
+    letter-spacing: 0.17em;
+}
+
+.formContainer{
+    width: 400px;
+}
+
+.StatusPageContainer form{
+    width: 100%;
+    height: 40px;
+    border-radius: 15px;
+    display: flex;
+}
+
+.StatusPageContainer form input{
+    width: 70%;
+    height: 100%;
+    border: 0.5px solid #240076;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    padding-left: 1rem;
+}
+
+.StatusPageContainer form button{
+    height: 100%;
+    width: 30%;
+    background: #240076;
+    color: #fff;
+    font-family: Arimo Hebrew Subset;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18.4px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.error{
+    color: red;
+}
+
+.social_icons{
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.social_icons a{
+    font-size: x-large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #240076;
+}
+
+@media screen and (max-width: 768px) {
+    .StatusPageContainer{
+        width: 90%;
+        gap: 2rem;
+        padding: 1.5rem;
+    }
+
+    .StatusPageContainer h2{
+        font-size: 24px;
+    }
+
+    .formContainer{
+        width: 55%;
+    }
+}
+
+@media screen and (max-width: 555px) {
+    .StatusPageContainer{
+        width: 90%;
+        gap: 1.5rem;
+        padding: .5rem;
+    }
+
+    .StatusPageContainer h2{
+        font-size: 18px;
+    }
+    
+    .formContainer{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .StatusPageContainer h2{
+        font-size: 14px;
+    }
+}

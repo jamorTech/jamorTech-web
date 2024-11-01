@@ -39,7 +39,7 @@ const Hero = () => {
                     ))}
                 </div>
                 <p className={styles.testimony_content}>Over 110k+ professionals trained.</p>
-                <Link href={"/"} className={styles.community}>Community</Link>
+                <Link href={"/community"} className={styles.community}>Community</Link>
             </div>
         </div>
         <div className={styles.hero_banner}>
