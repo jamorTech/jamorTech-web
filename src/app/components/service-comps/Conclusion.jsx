@@ -32,7 +32,6 @@ export default function Conclusion() {
                   Get Started
                   <Image src={arrow} alt="white arrow image" />
                 </Link>
-              
             </div>
           </div>
         </div>
