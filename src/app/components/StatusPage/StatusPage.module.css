@@ -98,7 +98,6 @@
 @media screen and (max-width: 768px) {
     .StatusPageContainer{
         width: 90%;
-        gap: 2rem;
         padding: 1.5rem;
     }
 
@@ -113,9 +112,9 @@
 
 @media screen and (max-width: 555px) {
     .StatusPageContainer{
-        width: 98%;
-        gap: 1rem;
-        padding: .5rem;
+        width: 95%;
+        gap: 2rem;
+        padding: 3rem .5rem 1rem;
     }
 
     .StatusPageContainer h2{
