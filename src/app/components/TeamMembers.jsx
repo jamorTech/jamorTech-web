@@ -21,32 +21,32 @@ export default function TeamMembers() {
         <TeamMembersImages
           team={peace}
           teamMemberName={"Peace Ololade"}
-          teamMemberPosition={"CEO"}
+          teamMemberPosition={"Executive Officer/Founder"}
         />
         <TeamMembersImages
           team={usuman}
           teamMemberName={"Usman Lawal"}
-          teamMemberPosition={"COO/Co-founder"}
+          teamMemberPosition={"Operating officer/Co-founder"}
         />
         <TeamMembersImages
           team={chioma}
           teamMemberName={"Chinwe Chioma Uzor"}
-          teamMemberPosition={"Associate Marketing Officer"}
+          teamMemberPosition={"Marketing Officer"}
         />
         <TeamMembersImages
           team={shittu}
           teamMemberName={"Divine Shittu"}
-          teamMemberPosition={"Product Designer/Developer Lead"}
+          teamMemberPosition={"Executive Assistant"}
         />
         <TeamMembersImages
           team={blessing}
           teamMemberName={"Blessing Onyelekwe"}
-          teamMemberPosition={"Product Manager Lead"}
+          teamMemberPosition={"Project Director"}
         />
         <TeamMembersImages
           team={damilare}
           teamMemberName={"Aribifo Damilare David"}
-          teamMemberPosition={"Product Designer/Developer Lead"}
+          teamMemberPosition={"Technical Officer"}
         />
       </div>
     </div>
