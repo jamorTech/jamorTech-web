@@ -1,4 +1,4 @@
-import FirstHalf from "../../components/login-components/FirstHalf";
+import FirstHalf from "@/app/components/login-components/FirstHalf";
 
 export const metadata = {
   title: "Login to Your JamorTech Account - Access Your Internship Dashboard",

@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import styles from "./signup.module.css"
-import onboardingSvg from "../../../../public/assets/svgs/OnboardingAmico.svg"
+import onboardingSvg from "../../../../../public/assets/svgs/OnboardingAmico.svg"
 import Image from 'next/image'
 import { IoMdClose } from "react-icons/io";
 import { AiOutlineUser } from "react-icons/ai";

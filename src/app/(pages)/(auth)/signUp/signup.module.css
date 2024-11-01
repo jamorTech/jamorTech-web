@@ -89,11 +89,24 @@
 
 @media screen and (max-width: 768px) {
     .img_container{
-        width: 25%;
+        display: none;
     }
     
     .form_container{
-        width: 75%;
+        width: 100%;
+    }
+
+    .title{
+        font-size: 28px;
+    }
+
+    .page_nav{
+        align-self: center;
+        width: 60%;
+    }
+
+    .page_nav span{
+        font-size: 20px;
     }
 }
 

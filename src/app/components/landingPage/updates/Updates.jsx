@@ -7,6 +7,7 @@ import pic2 from "../../../../../public/assets/images/updateBg2.png";
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import UpdateCard from './UpdateCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Link from 'next/link';
 import 'swiper/css'; // Core styles
 import 'swiper/css/navigation'; // Navigation module styles
 import 'swiper/css/pagination'; // Pagination module styles
@@ -82,9 +83,9 @@ const Updates = () => {
             </Swiper>
         </div>
 
-        <button className={styles.explore}>
+        <Link href={"/community"} className={styles.explore}>
           Explore More <FaLongArrowAltRight />
-        </button>
+        </Link>
     </section>
   );
 }
