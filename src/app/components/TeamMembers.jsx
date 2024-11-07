@@ -7,9 +7,6 @@ import damilare from "./about-page-components/images/damilare.svg";
 import peace from "./about-page-components/images/peace.svg";
 import shittu from "./about-page-components/images/shittu.svg";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-
 export default function TeamMembers() {
   return (
     <div className="mt-16">
@@ -26,7 +23,7 @@ export default function TeamMembers() {
         <TeamMembersImages
           team={usuman}
           teamMemberName={"Usman Lawal"}
-          teamMemberPosition={"Operating officer/Co-founder"}
+          teamMemberPosition={"Operating Officer/Co-founder"}
         />
         <TeamMembersImages
           team={chioma}

@@ -30,7 +30,7 @@ const Footer = () => {
       ]
 
     const socialLinks = [
-        {href: "https://x.com/JamorTech", icon: <FaSquareXTwitter />},
+        {href: "https://x.com/JamorTechnology", icon: <FaSquareXTwitter />},
         {href: "https://www.facebook.com/JamorTechnology?mibextid=ZbWKwL", icon: <FaFacebook />},
         {href: "https://youtube.com/@jamortechnology?si=T4DHUWjPCZFRRvta", icon: <FaYoutube />},
         {href: "https://www.linkedin.com/company/jamor-technology/", icon: <FaLinkedin />},
