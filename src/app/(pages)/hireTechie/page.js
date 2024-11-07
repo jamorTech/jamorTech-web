@@ -5,20 +5,20 @@ import {
   FaTwitter,
   FaInstagram,
   FaLinkedinIn,
-} from "react-icons/fa"; // Using react-icons
+} from "react-icons/fa";
 
 export default function Home() {
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Hire A Techie</h1>
       <p>
-      Our training programs are designed to not only educate but also empower individuals to achieve their professional goals.
+        Our training programs are designed to not only educate but also empower individuals to achieve their professional goals.
       </p>
 
       {/* Hero Section */}
       <section className={styles.hero}>
         <Image
-          src="/images/Banner.png" // Image path in the public folder
+          src="/images/Banner.png"
           alt="Hero Image"
           width={400}
           height={200}
@@ -37,7 +37,6 @@ export default function Home() {
       </div>
 
       <section className={styles.cardsSection}>
-        {/* Different Cards */}
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((_, index) => {
           const images = [
             "/images/imageL.png",
@@ -55,69 +54,86 @@ export default function Home() {
           ];
 
           const texts = [
-            "Adelakun Oluwatobi Product Designer Cohort 1, 2024",
-            "Akerele Taiwo Frontend Engineer Cohort 2, 2024",
-            "Ndieze Chidera Fullstack Developer Cohort 2, 2024",
-            "Odidika Somto Anthony Backend Developer Cohort 2, 2024",
-            "Abe John Opeyemi Product Manager Cohort 2, 2024",
-            "Festus Omotayo Product Designer Cohort 2, 2024",
-            "Ogechukwu Aina Frontend Developer Cohort 2, 2024",
-            "Aderonmu Adeniyi Bidemi Data Analyst Cohort 2, 2024",
-            "Ikem Chinedu Wisdom Frontend Developer Cohort 2, 2024",
-            "Nwokorie Victoria Project Manager Cohort 2, 2024",
-            "Usiwo Sonia Uyouyou Frontend Developer Cohort 2, 2024",
-            "Onyebuchi Nneamaka Chisom Product Manager Cohort 2, 2024",
+            {
+              name: "Adelakun Oluwatobi",
+              role: "Product Designer",
+              cohort: "Cohort 1, 2023",
+            },
+            {
+              name: "Akerele Taiwo",
+              role: "Frontend Engineer",
+              cohort: "Cohort 2, 2024",
+            },
+            {
+              name: "Ndieze Chidera",
+              role: "Fullstack Developer",
+              cohort: "Cohort 2, 2024",
+            },
+            {
+              name: "Odidika Somto Anthony",
+              role: "Backend Developer",
+              cohort: "Cohort 2, 2024",
+            },
+            {
+              name: "Abe John Opeyemi",
+              role: "Product Manager",
+              cohort: "Cohort 2, 2024",
+            },
+            {
+              name: "Festus Omotayo",
+              role: "Product Designer",
+              cohort: "Cohort 2, 2024",
+            },
+            {
+              name: "Ogechukwu Aina",
+              role: "Frontend Developer",
+              cohort: "Cohort 2, 2024",
+            },
+            {
+              name: "Aderonmu Adeniyi Bidemi",
+              role: "Data Analyst",
+              cohort: "Cohort 2, 2024",
+            },
+            {
+              name: "Ikem Chinedu Wisdom",
+              role: "Frontend Developer",
+              cohort: "Cohort 2, 2024",
+            },
+            {
+              name: "Nwokorie Victoria",
+              role: "Project Manager",
+              cohort: "Cohort 2, 2024",
+            },
+            {
+              name: "Usiwo Sonia Uyouyou",
+              role: "Frontend Developer",
+              cohort: "Cohort 2, 2024",
+            },
+            {
+              name: "Onyebuchi Nneamaka Chisom",
+              role: "Product Manager",
+              cohort: "Cohort 2, 2024",
+            },
           ];
+
+          const { name, role, cohort } = texts[index];
 
           return (
             <div key={index} className={styles.card}>
               <Image
-                src={images[index]} // Different image for each card
+                src={images[index]}
                 alt={`Card ${index + 1}`}
                 width={300}
                 height={200}
                 className={styles.cardImage}
               />
               <p className={styles.cardText}>
-                {texts[index]} {/* Different text for each card */}
+                <b>{name}</b>
+                <br />
+                <span>{role}</span>
+                <br />
+                <small>{cohort}</small>
               </p>
-
-              <div
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                  justifyContent: "center",
-                }}
-              >
-                <a
-                  href="https://www.facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaFacebookF size={12} />
-                </a>
-                <a
-                  href="https://www.twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaTwitter size={12} />
-                </a>
-                <a
-                  href="https://www.instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaInstagram size={12} />
-                </a>
-                <a
-                  href="https://www.linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaLinkedinIn size={12} />
-                </a>
-              </div>
             </div>
           );
         })}
