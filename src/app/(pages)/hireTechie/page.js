@@ -12,10 +12,7 @@ export default function Home() {
     <div className={styles.container}>
       <h1 className={styles.heading}>Hire A Techie</h1>
       <p>
-        At Jamor Tech, we take immense pride in the accomplishments of our
-        graduates. <br />
-        Our training programs are designed not only to educate but also to
-        empower <br /> individuals to achieve their professional goals.
+      Our training programs are designed to not only educate but also empower individuals to achieve their professional goals.
       </p>
 
       {/* Hero Section */}
