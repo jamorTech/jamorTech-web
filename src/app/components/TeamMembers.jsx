@@ -1,6 +1,6 @@
 'use client'
 import TeamMembersImages from "./TeamMembersImages";
-import usuman from "./about-page-components/images/usuman.svg";
+import usuman from "../../../public/images/usman.jpg";
 import chioma from "./about-page-components/images/chioma.svg";
 import blessing from "./about-page-components/images/blessing.svg";
 import damilare from "./about-page-components/images/damilare.svg";

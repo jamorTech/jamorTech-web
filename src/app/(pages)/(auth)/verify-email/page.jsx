@@ -1,10 +1,10 @@
-import ResetPasswordForm from '@/app/components/resetPassword/reset-password-form'
-import styles from './page.module.css'
-import ResetSuccess from '@/app/components/resetPassword/reset-success'
-import Image from 'next/image'
-import img from "../../../../../public/assets/svgs/OnboardingAmico.svg"
 
-export default function ResetPasswordPage() {
+import VerifyEmailForm from '@/app/components/verifyEmail/verify-email-form'
+import styles from './page.module.css'
+import Image from 'next/image'
+import img from "../../../components/login-components/login-img/login.svg"
+
+export default function VerifyEmailPage() {
   return (
     <div className={styles.container}>
       <div className={styles.background}>
@@ -19,8 +19,7 @@ export default function ResetPasswordPage() {
           />
         </div>
       </div>
-      <ResetPasswordForm />
-      {/* <ResetSuccess /> */}
+      <VerifyEmailForm />
     </div>
   )
 }

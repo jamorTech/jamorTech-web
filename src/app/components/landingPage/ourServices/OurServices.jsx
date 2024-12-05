@@ -9,7 +9,7 @@ const OurServices = () => {
     const servicesDetails = [
         {img: carbon,
             header: "Internship Development",
-            content: "At Jamor Technology, we believe in fostering the next generation of tech innovators through our comprehensive Internship Development Program. Our program is designed to provide aspiring professionals with hands-on experience, mentorship from industry experts, and the opportunity to work on real-world projects.",
+            content: "At Jamor Technology, we believe in fostering the next generation of tech innovators through our comprehensive Internship Development Program. This program is designed to provide aspiring professionals with hands-on experience, mentorship from industry experts, and the opportunity to work on real-world projects.",
         },
         {img: tools,
             header: "Technology Solution",
@@ -24,7 +24,7 @@ const OurServices = () => {
   return (
     <div className={styles.container}>
         <h1>Our  Services</h1>
-        <p className={styles.content}>At Jamor Technology, we offer a comprehensive suite of services designed to equip you with the skills and knowledge needed to excel in the ever-evolving tech industry.</p>
+        <p className={styles.content}>At Jamor Technology, we offer a comprehensive suite of services designed to equip individuals with the skills and knowledge needed to excel in the ever-evolving tech industry.</p>
         <div className={styles.card_container}>
             {servicesDetails.map((service, index)=>(
                 <ServicesCard 
