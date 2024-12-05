@@ -116,6 +116,8 @@ let stepErrors = {};
     if (!formData.username) stepErrors.username = "Username is required";
     if (!formData.businessName) stepErrors.businessName = "Business name is required";
     if (!formData.businessBrand) stepErrors.businessBrand = "Business brand is required";
+    if (!validateEmail(formData.email)) stepErrors.email = "Enter a valid email";
+    if (!formData.whatWeCanOffer) stepErrors.whatWeCanOffer = "What we can offer is required";
     if (!formData.password) stepErrors.password = "Password is required";
     if (!formData.confirmPassword) stepErrors.confirmPassword = "Confirm password is required";
     if (!validatePassword(formData.password)) stepErrors.password = "At least 8 characters required";
@@ -252,6 +254,23 @@ const handleFormTypeChange = (type) => {
                 type={"text" }
                 value={formData?.businessBrand}
                 err={errors.businessBrand}
+                handleInputChange={handleInputChange}
+              />,
+              <Input
+                title={"Email"}
+                icon={<CiMail />}
+                name={"email"}
+                type={"email"}
+                value={formData?.email}
+                err={errors.email}
+                handleInputChange={handleInputChange}
+              />,
+              <Input
+                title={"What can we offer"}
+                name={"whatWeCanOffer"}
+                type={"text"}
+                value={formData?.whatWeCanOffer}
+                err={errors.whatWeCanOffer}
                 handleInputChange={handleInputChange}
               />,
               <Input
