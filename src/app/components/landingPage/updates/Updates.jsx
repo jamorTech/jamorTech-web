@@ -20,17 +20,17 @@ const Updates = () => {
     {
       title: "Tech Quest",
       img: pic,
-      content: "Techquest ia a journey of learning and development, with different guest speakers providing valuable insights to tech interns over a three-month program. Be the first to know when we start the next one"
+      content: "Techquest is a journey of learning and development, with different guest speakers providing valuable insights to tech interns over a three-month program. Be the first to know when we start the next one"
     },
     {
       title: "Skill Enhancement",
       img: pic1,
-      content: "A dedicated initiative aimed at equipping tech interns with essential soft skills to complement their technical expertise.  we focus on developing critical skills that are crucial for personal and professional success in the tech industry."
+      content: "This is a dedicated initiative aimed at equipping tech interns with essential soft skills to complement their technical expertise. We focus on developing critical skills that are crucial for personal and professional success in the tech industry."
     },
     {
       title: "Tips & Tutorials",
       img: pic2,
-      content: "Gain valuable tips, tutorials, and best practices from industry experts to enhance your learning experience."
+      content: "Learn expert tips, tutorials, and best practices from industry professionals to enhance your learning experience."
     },
   ];
 
@@ -38,7 +38,7 @@ const Updates = () => {
     <section className={styles.updates}>
         <div className={styles.services}>
             <h1 className={styles.title}>Stay Updated</h1>
-            <p className={styles.content}>Stay informed and inspired with Jamor Tech's Monthly Newsletter!</p>
+            <p className={styles.content}>Stay up-to-date and inspired with Jamor Tech's Monthly Newsletter—your source for the latest tech insights and updates!</p>
         </div>
 
         <div className={styles.update_section}>
