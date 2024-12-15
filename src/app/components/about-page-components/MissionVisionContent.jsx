@@ -6,13 +6,13 @@ export default function MissionVisionContent() {
       <Content
         headingStatement={"Our Mission"}
         statement={
-          "Guided by our core values, we develop interns through soft skills training, mentorship, and hands-on projects, ensuring satisfaction for businesses, employers, and investors with innovative tech solutions."
+          "Guided by our core values, we empower interns through soft skills training, mentorship, and hands-on projects. By delivering innovative tech solutions, we ensure value for businesses and investors."
         }
       />
       <Content
         headingStatement={"Our Vision"}
         statement={
-          "Equipping aspiring professionals to become skilled tech innovators, in driving global business growth through hands-on projects and internships."
+          "To equip aspiring professionals to become skilled tech innovators who drive global business growth through hands-on projects and internships."
         }
       />
     </div>

@@ -13,11 +13,11 @@ const OurServices = () => {
         },
         {img: tools,
             header: "Technology Solution",
-            content: "Jamor Technology provide innovative and tailored technology solutions to meet the unique needs of businesses and individuals. Our expertise spans across a range of services, including advanced software development, robust cybersecurity measures, seamless cloud computing integration, outsourcing and cutting-edge artificial intelligence applications.",
+            content: "Jamor Technology provides innovative and tailored technology solutions to meet the unique needs of businesses and individuals. Our expertise spans a range of services, including advanced software development, robust cybersecurity measures, seamless cloud computing integration, outsourcing, and cutting-edge artificial intelligence applications.",
         },
         {img: crowd,
             header: "Investors’ Corner",
-            content: "Investors' Corner is a program that allows interested individuals, groups of persons or companies willing to own or invest in technological projects through the Jamor Technology platform presented by certified professionals and entrepreneurs.",
+            content: "Investors' Corner is a program that allows individuals, groups, or companies to invest in technological projects through the Jamor Technology platform. These projects are presented by certified professionals and entrepreneurs.",
         },
     ]
 

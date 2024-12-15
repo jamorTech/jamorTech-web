@@ -6,11 +6,7 @@ export default function AboutDetails() {
       </h1>
       <div className="w-full sm:w-[80%] md:w-[70%] lg:w-[63%] mx-auto mt-4">
         <p className="text-center font-arimoFont text-base sm:text-lg md:text-xl">
-          Jamor Technology is a catalyst for innovation and growth. We bridge
-          the gap between talent and opportunity by offering revolutionary
-          internship programs, cutting-edge tech solutions, strategic
-          outsourcing, and investment opportunities. Our mission is to empower
-          individuals and businesses to achieve their full potential.
+        Jamor Technology drives innovation and growth by connecting talent with opportunity. We offer transformative internship programs, advanced tech solutions, strategic outsourcing services, and investment opportunities. Our mission is to help individuals and businesses unlock their potential and thrive in the competitive tech landscape.
         </p>
       </div>
     </div>

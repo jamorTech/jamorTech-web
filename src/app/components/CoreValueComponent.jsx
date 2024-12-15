@@ -11,25 +11,25 @@ export default function CoreValueComponent() {
           <CoreValueContents
             coreHeaderThree={"Reliability"}
             coreParagraphDetails={
-              "We understand the importance of meeting client expectations and deadlines, and we strive to be a reliable partner that clients can trust by maintaining open lines of communication, adhering to our promises, and consistently delivering on our commitments."
+              "We understand the importance of meeting client expectations and deadlines. By maintaining open communication, honoring our promises, and consistently delivering on commitments, we strive to be a trusted and reliable partner."
             }
           />
           <CoreValueContents
             coreHeaderThree={"Professionalism"}
             coreParagraphDetails={
-              "We hold ourselves to the highest standards of professionalism, integrity, and ethical conduct. Our team members are dedicated professionals who approach their work with a sense of responsibility, respect, and professionalism."
+              "We uphold the highest standards of integrity, ethical conduct, and responsibility. Our team is committed to approaching every task with respect and dedication."
             }
           />
           <CoreValueContents
             coreHeaderThree={"Collaboration"}
             coreParagraphDetails={
-              "We recognize that successful outcomes are often achieved through effective teamwork and collaboration. We believe in the power of diverse perspectives, ideas, and expertise coming together to drive innovation, problem-solving, and continuous improvement."
+              "We recognize that successful outcomes are achieved through effective teamwork. By leveraging diverse perspectives, ideas, and expertise, we drive innovation, solve problems, and foster continuous improvement."
             }
           />
           <CoreValueContents
             coreHeaderThree={"Innovation"}
             coreParagraphDetails={
-              "We believe that innovation is essential to staying at the forefront of the industry and providing cutting-edge solutions to our clients. We encourage a culture of creativity, curiosity, and continuous learning, empowering our team members and interns to think outside the box, challenge the status quo, and bring fresh ideas and perspectives to the table."
+              "We believe innovation is vital for remaining at the forefront of the industry and delivering impactful solutions to our clients. We foster a culture of creativity, curiosity, and continuous learning, empowering our team members and interns to challenge the status quo and contribute new ideas."
             }
           />
         </div>

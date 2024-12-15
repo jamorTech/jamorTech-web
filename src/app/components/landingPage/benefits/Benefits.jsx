@@ -14,36 +14,36 @@ const Benefits = () => {
             img={pic1}
             cardTitle={"Interns"}
             cardOptions={[
-                "Soft Skills Training",
-                "Career Development",
-                "Team Collaboration",
-                "Networking",
-                "Mentorship and Guidance",
-                "Portfolios, Certifications and Reference",
+              "Soft Skills Training",
+              "Career Development",
+              "Team Collaboration",
+              "Networking",
+              "Mentorship and Guidance",
+              "Portfolios, Certifications, and References",
             ]}
         />
         <BenefitCard 
             img={pic2}
             cardTitle={"Investors"}
             cardOptions={[
-                "Access to Innovative Projects",
-                "Educational Resources",
-                "Diverse Investment Opportunities",
-                "Transparency and Accountability",
-                "Potentials for High Returns",
-                "Contributions to Technology Advancement",
+              "Access to Innovative Projects",
+              "Educational Resources",
+              "Diverse Investment Opportunities",
+              "Transparency and Accountability",
+              "Potential for High Returns",
+              "Contributions to Technology Advancement",
             ]}
         />
         <BenefitCard 
             img={pic3}
             cardTitle={"Businesses/Employers"}
             cardOptions={[
-                "Free Contsultation",
-                "Website Development",
-                "Mobile App Development",
-                "Digital Marketing",
-                "Fast Response",
-                "Outsourcing",
+              "Free Consultation",
+              "Website Development",
+              "Mobile App Development",
+              "Digital Marketing",
+              "Fast Response",
+              "Outsourcing",
             ]}
         />
       </div>

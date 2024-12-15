@@ -18,7 +18,7 @@ const AboutUS = () => {
     <section className={styles.aboutUS}>
        <div className={styles.container}>
        <h1 className={styles.title}>About Us</h1>
-        <p>JamorT is an organization dedicated to empowering new tech graduates from technology schools by providing them with valuable professional experience on live projects. Our mission is to bridge the gap between academia and the professional world, ensuring that graduates are well-prepared and employable in the competitive technology industry. We achieve this by offering opportunities to build them professional experience and portfolios and facilitating collaborations with companies in need of tech talent.</p>
+        <p>JamorTech is an organization dedicated to empowering new tech graduates from technology schools by providing them with valuable professional experience on live projects. Our mission is to bridge the gap between academia and the professional world, ensuring that graduates are well-prepared and employable in the competitive technology industry. We achieve this by offering opportunities to gain professional experience, build strong portfolios, and facilitate collaborations with companies in need of tech talent.</p>
       <div className={styles.group_imgs}>
         {imgs.map((element, index)=>(
           <div className={styles.img_container} key={index}>
