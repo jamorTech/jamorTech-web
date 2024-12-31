@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Nav from "./components/nav/Nav";
 import Footer from "./components/footer/Footer";
+import Modal from "./components/modal/Modal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,6 +46,7 @@ export default function RootLayout({ children }) {
         <Nav />
         <div style={{minHeight: "40vh"}}>
           {children}
+          <Modal />
         </div>
         <Footer />
       </body>

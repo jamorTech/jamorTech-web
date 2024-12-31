@@ -1,9 +1,10 @@
-import ForgotPasswordForm from '@/app/components/forgotPassword/forgot-password-form'
+
+import VerifyEmailForm from '@/app/components/verifyEmail/verify-email-form'
 import styles from './page.module.css'
 import Image from 'next/image'
-import img from "../../../../../public/assets/svgs/OnboardingAmico.svg"
+import img from "../../../components/login-components/login-img/login.svg"
 
-export default function ForgotPasswordPage() {
+export default function VerifyEmailToken() {
   return (
     <div className={styles.container}>
       <div className={styles.background}>
@@ -17,7 +18,7 @@ export default function ForgotPasswordPage() {
           />
         </div>
       </div>
-      <ForgotPasswordForm />
+      <VerifyEmailForm />
     </div>
   )
 }
