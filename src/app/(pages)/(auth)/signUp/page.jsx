@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./signup.module.css"
 import onboardingSvg from "../../../../../public/assets/svgs/OnboardingAmico.svg"
 import Image from 'next/image'
@@ -18,10 +18,12 @@ import { GoAlertFill } from "react-icons/go";
 import Link from 'next/link'
 import Form from './form/Form'
 import { Input, TextArea } from './form/input/Input'
+import useSignUp from '@/app/hooks/useSignUp'
+import { userStore } from '@/app/store/userStore'
 
 const page = () => {
 
-  const [formType, setFormType] = useState("Intern")
+  const [userType, setUserType] = useState("intern")
   const [passwordVisible, setPasswordVisible] = useState(false)
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false)
   const [errors, setErrors] = useState({});
@@ -29,6 +31,7 @@ const page = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [formData, setFormData] = useState({
+    userType,
     fullName:"",
     firstName:"",
     lastName:"",
@@ -90,7 +93,7 @@ const sanitizeInput = (input) => {
 const validateStep = (step) => {
 let stepErrors = {};
 
-  if (formType === "Intern") {
+  if (userType === "intern") {
     if (step === 1) {
       if (!formData.firstName) stepErrors.firstName = "First name is required";
       if (!formData.lastName) stepErrors.lastName = "Last name is required";
@@ -111,7 +114,7 @@ let stepErrors = {};
       if (!validatePassword(formData.password)) stepErrors.password = "At least 8 characters required";
       if (formData.password !== formData.confirmPassword) stepErrors.confirmPassword = "Passwords do not match";
     }
-  } else if (formType === "Company") {
+  } else if (userType === "company") {
     if (!formData.fullName) stepErrors.fullName = "Full name is required";
     if (!formData.username) stepErrors.username = "Username is required";
     if (!formData.businessName) stepErrors.businessName = "Business name is required";
@@ -131,7 +134,7 @@ let stepErrors = {};
 // Handle input change with sanitization
 const handleInputChange = (e) => {
   const { name, value } = e.target;
-  setFormData({ ...formData, [name]: sanitizeInput(value) });
+  setFormData({ ...formData, [name]: value });
 };
 
 const handleFileChange = (e) => {
@@ -164,23 +167,30 @@ const prevStep = () => {
   resetFileInput();  // Clear file input if necessary
   setCurrentStep(currentStep - 1);
 };
-
+  const {err, isLoading, msg, signUp} = useSignUp(`${process.env.NEXT_PUBLIC_BASE_URL}/users/signup`)
 // Example handleSubmit function
-const handleSubmit = (e) => {
+const handleSubmit = async(e) => {
   e.preventDefault();
   const stepErrors = validateStep(currentStep);
   if (Object.keys(stepErrors).length === 0) {
   // Submit form logic
+  await signUp(formData)
   } else {
     setErrors(stepErrors);
   }
 };
 
-const handleFormTypeChange = (type) => {
+const handleuserTypeChange = (type) => {
   resetFormData();  // Reset form fields to empty strings
-  setFormType(type);  // Set the selected form type
+  setUserType(type);  // Set the selected form type
 };
+
+const {openModal} = userStore()
     
+useEffect(() => {
+  if (err) openModal(err, "error");
+  if (msg) openModal(msg, "success");
+}, [err, msg]);
   
   return (
     <div className={styles.container}>
@@ -201,23 +211,24 @@ const handleFormTypeChange = (type) => {
           />
           <h2 className={styles.title}>Sign Up</h2>
         </div>
+        {isLoading && <div className="loader"></div>}
         <div className={styles.page_nav}>
           <span 
-            className={`${styles.interns} ${formType === "Intern" ? styles.active : ""}`} 
-            onClick={() => handleFormTypeChange("Intern")}
+            className={`${styles.interns} ${userType === "intern" ? styles.active : ""}`} 
+            onClick={() => handleuserTypeChange("intern")}
           >
             Interns
           </span>
           
           <span 
-            className={`${styles.company} ${formType === "Company" ? styles.active : ""}`} 
-            onClick={() => handleFormTypeChange("Company")}
+            className={`${styles.company} ${userType === "company" ? styles.active : ""}`} 
+            onClick={() => handleuserTypeChange("company")}
           >
             Company
           </span>
         </div>
         <p className={styles.have_acct}>Already have an account?<Link href={"/login"}>Login</Link></p>
-        {formType === "Company" && <Form
+        {userType === "company" && <Form
           handleSubmit={handleSubmit}
           FormInput={[
             <Input
@@ -299,7 +310,7 @@ const handleFormTypeChange = (type) => {
               />,
           ]}
         />}
-        {formType === "Intern" && <Form
+        {userType === "intern" && <Form
           handleSubmit={handleSubmit}
           currentStep={currentStep}
           nextStep={nextStep}
@@ -370,6 +381,7 @@ const handleFormTypeChange = (type) => {
                 icon={<LiaCertificateSolid />}
                 name={"certificate"}
                 type={"file"}
+                accept={"application/pdf"}
                 placeholder={"Upload your certificate (.pdf)"}
                 secondaryIcon={<FaCloudUploadAlt />}
                 thirdIcon={<GoAlertFill />}
