@@ -34,8 +34,6 @@ const useSignUp = (url) => {
                 if (!response.ok) {
                     setIsLoading(false)
                     setErr(json.error)
-                    console.log(json.error)
-                    console.log(json.message)
                 }
 
                 if (response.ok) {
@@ -57,7 +55,6 @@ const useSignUp = (url) => {
                 }
             } catch (error) {
                 setErr(error.message)
-                console.log(error)
                 setIsLoading(false)
             }finally{
                 setIsLoading(false)

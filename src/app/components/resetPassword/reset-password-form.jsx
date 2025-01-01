@@ -35,9 +35,6 @@ export default function ResetPasswordForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('====================================');
-    console.log("Submit hit");
-    console.log('====================================');
     setError('');
     setSuccessMessage('');
 

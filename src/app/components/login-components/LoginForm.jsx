@@ -38,10 +38,6 @@ export default function LoginForm() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     if (validateForm()) {
-        // Submit form logic
-        
-        console.log("Form submitted successfully:", formData);
-        // Handle form submission logic here
         await login(formData.username, formData.password)
     }
   };

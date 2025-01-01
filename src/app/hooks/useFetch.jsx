@@ -43,7 +43,6 @@ export const useFetch = (url, options = {}) => {
         setData(responseData);
       } catch (error) {
         setErr(`API request failed: ${error.message || error}`);
-        console.error("Fetch error:", error);
       } finally {
         setIsLoading(false);
       }
