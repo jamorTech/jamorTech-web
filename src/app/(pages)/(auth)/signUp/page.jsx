@@ -51,6 +51,7 @@ const page = () => {
 
   const resetFormData = () => {
     setFormData({
+      userType,
       fullName: "",
       firstName: "",
       lastName: "",
@@ -69,6 +70,14 @@ const page = () => {
     });
     setSelectedFileName(""); // Reset the selected file name
   };
+
+  const handleuserTypeChange = (type) => {
+    setUserType(type);  // Set the selected form type
+  };
+
+  useEffect(() => {
+    resetFormData();
+  }, [userType]);
 
 // Utility functions for validation
 const validateEmail = (email) => {
@@ -180,11 +189,6 @@ const handleSubmit = async(e) => {
   }
 };
 
-const handleuserTypeChange = (type) => {
-  resetFormData();  // Reset form fields to empty strings
-  setUserType(type);  // Set the selected form type
-};
-
 const {openModal} = userStore()
     
 useEffect(() => {
@@ -234,7 +238,7 @@ useEffect(() => {
             <Input
               title={"Full Name (Surname First)"}
               icon={<AiOutlineUser />}
-              name={"firstName"}
+              name={"fullName"}
               type={"text"}
               value={formData?.fullName}
               err={errors.fullName}
