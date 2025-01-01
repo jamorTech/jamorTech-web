@@ -59,7 +59,7 @@ export default function VerifyEmailForm() {
         throw new Error(data.error || 'Verification failed. Please try again.');
       }
 
-      setSuccess('Your Otp have been verified successfully!');
+      setSuccess('Your Otp have been verified successfully, redirecring to reset password page');
       localStorage.setItem('otp', otp);
       setVerificationCode(['', '', '', '', '', '']); // Clear the inputs
       setIsLoading(false)

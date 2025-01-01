@@ -16,8 +16,8 @@ const UserProfile = ({ user, loading }) => {
           width={500}
         />
         <div className={styles.nameContainer}>
-          <h1 className={styles.name}>{`${user?.firstName} ${user?.lastName}`}</h1>
-          <p className={styles.username}>@{user?.username}</p>
+          <h1 className={styles.name}>{`${user?.username}}`}</h1>
+          {/* <p className={styles.username}>@{user?.username}</p> */}
         </div>
         <button className={styles.editButton}>Edit Profile</button>
       </header>

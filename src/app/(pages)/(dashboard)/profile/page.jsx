@@ -7,13 +7,13 @@ import withAuth from "@/app/utils/withAuth";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
-  const { error, openModal, closeModal } = userStore();
+  const { error, updateError, openModal, closeModal } = userStore();
 
   // Load user from localStorage
   useEffect(() => {
     try {
       const storedUser = localStorage.getItem("user");
-      if (!storedUser) throw new Error("User data not found in localStorage");
+      if (!storedUser) updateError("User data missing");
       setUser(JSON.parse(storedUser));
     } catch (err) {
       openModal(err.message, "error");

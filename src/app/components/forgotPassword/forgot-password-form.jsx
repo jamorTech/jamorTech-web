@@ -50,7 +50,7 @@ export default function ForgotPasswordForm() {
       }
 
       localStorage.setItem('email', email);
-      setSuccess('Password reset link has been sent to your email.');
+      setSuccess('OTP reset token have been sent to your email. Redirecting...');
       setTimeout(() => {
         router.push('/verify-token')
       }, 2000)

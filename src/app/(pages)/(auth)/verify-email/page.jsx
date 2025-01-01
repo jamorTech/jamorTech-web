@@ -19,7 +19,7 @@ const VerifyEmailPage = ()=> {
 
         if (!userId || !token) {
           setStatus('error')
-          setError('Click the verification link sent to your email to get verified')
+          setError('Click on the verification link sent to your email to get verified')
           return
         }
 
@@ -38,7 +38,7 @@ const VerifyEmailPage = ()=> {
         }
 
         setStatus('success')
-        // Redirect to profile page after 2 seconds
+        localStorage.setItem("user", JSON.stringify(data))
         setTimeout(() => {
           router.push('/profile')
         }, 2000)
@@ -56,7 +56,7 @@ const VerifyEmailPage = ()=> {
 
     useEffect(() => {
       closeModal()
-      if (error) openModal(`Talk to us if you are finding it difficult getting verified`, "info");
+      if (error) openModal(error, "warning");
     }, [error]);
 
   return (
@@ -114,8 +114,8 @@ const VerifyEmailPage = ()=> {
                 </svg>
               </div>
               <p className="text-lg font-medium text-gray-900">Verification failed</p>
-              <p className="text-sm text-red-500">{error}</p>
-              <Link href={"contact-us"} className='text-sm text-blue-500 my-5'><strong>TALK TO US</strong></Link>
+              {/* <p className="text-sm text-yellow-500">{error}</p> */}
+              <Link href={"contact-us"} className='text-sm text-blue-500 my-5'>Talk to us if you are finding it difficult getting verified</Link>
               <button
                 onClick={() => router.push('/login')}
                 className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-900 hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
