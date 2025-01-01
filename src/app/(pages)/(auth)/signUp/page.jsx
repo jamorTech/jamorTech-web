@@ -27,6 +27,8 @@ const page = () => {
   const [passwordVisible, setPasswordVisible] = useState(false)
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false)
   const [errors, setErrors] = useState({});
+  const [fileErr, setFileErr] = useState(null);
+  const [fileChange, setFileChange] = useState(false);
 
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedFileName, setSelectedFileName] = useState("");
@@ -94,10 +96,6 @@ const validatePassword = (password) => {
   return password.length >= 8;  // Example: password should be at least 8 characters long
 };
 
-const sanitizeInput = (input) => {
-  return input.trim().replace(/[<>\/]/g, "");
-};
-
 // Function to validate each step's inputs
 const validateStep = (step) => {
 let stepErrors = {};
@@ -113,7 +111,7 @@ let stepErrors = {};
     } else if (step === 2) {
       if (!formData.techSchool) stepErrors.techSchool = "Tech school is required";
       if (!formData.skill) stepErrors.skill = "Tech skill is required";
-      if (!formData.certificate) stepErrors.certificate = "Certificate is required";
+      if (!formData.certificate) stepErrors.certificate = "PDF file is required for certificate";
       if (!formData.onboardMesg || formData.onboardMesg.length > 50) 
         stepErrors.onboardMesg = "Onboarding message must be within 50 words";
     } else if (step === 3) {
@@ -144,17 +142,59 @@ let stepErrors = {};
 const handleInputChange = (e) => {
   const { name, value } = e.target;
   setFormData({ ...formData, [name]: value });
+
+  if (errors[name]) {
+    setErrors((prevErrors) => {
+      const { [name]: _, ...rest } = prevErrors;
+      return rest;
+    });
+  }
 };
 
 const handleFileChange = (e) => {
+  setFileChange(prev=>!prev)
+  setFileErr("")
+  setErrors(prevErrors => ({
+    ...prevErrors,
+    certificate: ""  // Correct way to update the certificate field
+  }));
+  
+  
   const file = e.target.files[0];
+
   if (file) {
+    const fileExtension = file.name.split('.').pop().toLowerCase();
+    const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+
+    // Validate file extension
+    if (fileExtension !== 'pdf') {
+      setFileErr('Only PDF files are allowed!');
+      resetFileInput(); // Reset the file input
+      return;
+    }
+
+    // Validate file size
+    if (file.size > MAX_SIZE) {
+      setFileErr('File size must not exceed 5MB!');
+      resetFileInput(); // Reset the file input
+      return;
+    }
+
+    // Valid file
     setFormData({ ...formData, certificate: file }); // Store the file in state
     setSelectedFileName(file.name); // Set the selected file name
-  }else {
+  } else {
     resetFileInput(); // Reset if no file is selected
   }
 };
+
+// Helper function to reset the file input
+const resetFileInput = () => {
+  setFormData({ ...formData, certificate: null });
+  setSelectedFileName('');
+};
+
+
 
 // Move to next step with validation
 const nextStep = () => {
@@ -165,11 +205,6 @@ const nextStep = () => {
   } else {
     setErrors(stepErrors);
   }
-};
-
-const resetFileInput = () => {
-  setFormData({ ...formData, certificate: null }); // Reset the file
-  setSelectedFileName(""); // Reset the selected file name
 };
 
 const prevStep = () => {
@@ -189,13 +224,15 @@ const handleSubmit = async(e) => {
   }
 };
 
-const {openModal} = userStore()
+const {openModal, closeModal} = userStore()
     
 useEffect(() => {
+  closeModal()
   if (err) openModal(err, "error");
+  if (fileErr) openModal(fileErr, "error");
   if (msg) openModal(msg, "success");
-}, [err, msg]);
-  
+}, [err, msg, fileErr, fileChange]);
+
   return (
     <div className={styles.container}>
       <div className={styles.img_container}>
@@ -385,7 +422,7 @@ useEffect(() => {
                 icon={<LiaCertificateSolid />}
                 name={"certificate"}
                 type={"file"}
-                accept={"application/pdf"}
+                accept=".pdf"
                 placeholder={"Upload your certificate (.pdf)"}
                 secondaryIcon={<FaCloudUploadAlt />}
                 thirdIcon={<GoAlertFill />}
