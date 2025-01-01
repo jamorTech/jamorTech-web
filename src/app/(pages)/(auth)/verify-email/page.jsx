@@ -113,7 +113,7 @@ const VerifyEmailPage = ()=> {
                   />
                 </svg>
               </div>
-              <p className="text-lg font-medium text-gray-900">Verification failed</p>
+              <p className="text-lg font-medium text-gray-900">Email not verified</p>
               {/* <p className="text-sm text-yellow-500">{error}</p> */}
               <Link href={"contact-us"} className='text-sm text-blue-500 my-5'>Talk to us if you are finding it difficult getting verified</Link>
               <button
