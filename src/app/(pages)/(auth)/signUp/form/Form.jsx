@@ -25,7 +25,7 @@ const Form = ({ FormInput, currentStep = "", nextStep = "", prevStep = "", handl
             <input
               type="checkbox"
               checked={checkBox}
-              onChange={e => {setCheckBox(e.target.checked); console.log(checkBox)}}
+              onChange={e => {setCheckBox(e.target.checked)}}
             />
             <small>
               I Agree To The <Link href="/terms">Terms And Conditions</Link> And <Link href="/policy">Privacy Policy</Link>
