@@ -1,92 +1,82 @@
 import { NextResponse } from "next/server";
-import { jwtVerify } from "jose"; // Import jwtVerify from 'jose'
+import { jwtVerify } from "jose";
 
 export async function middleware(req) {
-  // const url = req.nextUrl.clone();
-  // const path = url.pathname;
+  const url = req.nextUrl.clone();
+  const path = url.pathname;
 
-  // // List of protected routes
-  // const protectedRoutes = [
-  //   "/profile",
-  //   "/hireTechie",
-  //   "/usersManager",
-  //   "/job-applications",
-  // ];
+  console.log(`Middleware triggered for path: ${path}`);
 
-  // // List of auth pages (login and signup) that logged-in users should not access
-  // const authPages = ["/login", "/signup"];
+  const protectedRoutes = [
+    "/profile",
+    "/hireTechie",
+    "/usersManager",
+    "/job-applications",
+  ];
 
-  // // Get the refresh token from cookies
-  // const refreshToken = req.cookies.get("jwt")?.value;
+  const authPages = ["/login", "/signup"];
 
-  // // Check if the user is trying to access auth pages while already logged in
-  // if (authPages.includes(path)) {
-  //   if (refreshToken) {
-  //     try {
-  //       // Use 'jose' to verify the JWT token
-  //       await jwtVerify(
-  //         refreshToken,
-  //         new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET) // Secret for JWT verification
-  //       );
+  const refreshToken = req.cookies.get("jwt")?.value;
+  console.log(`Refresh token in middleware: ${refreshToken}`);
 
-  //       // Redirect logged-in users trying to access auth pages to a default route
-  //       url.pathname = "/profile"; // Default route for logged-in users
-  //       return NextResponse.redirect(url);
-  //     } catch (error) {
-  //       // If the token is invalid or expired, allow access to auth pages
-  //     }
-  //   }
-  // }
+  if (authPages.includes(path)) {
+    if (refreshToken) {
+      try {
+        await jwtVerify(
+          refreshToken,
+          new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET)
+        );
+        console.log(`User already logged in, redirecting from ${path} to /profile`);
+        url.pathname = "/profile";
+        return NextResponse.redirect(url);
+      } catch (error) {
+        console.log(`Token verification failed: ${error.message}`);
+      }
+    }
+  }
 
-  // // Check for protected routes
-  // if (protectedRoutes.includes(path)) {
-  //   if (!refreshToken) {
-  //     // Redirect to the login page with the 'from' query parameter and a message
-  //     url.pathname = "/login";
-  //     url.searchParams.set("from", path); // Pass the intended path
-  //     url.searchParams.set("message", "You need to log in to access this page"); // Custom message
-  //     return NextResponse.redirect(url);
-  //   }
+  if (protectedRoutes.includes(path)) {
+    if (!refreshToken) {
+      console.log(`No refresh token found, redirecting to login`);
+      url.pathname = "/login";
+      url.searchParams.set("from", path);
+      url.searchParams.set("message", "You need to log in to access this page");
+      return NextResponse.redirect(url);
+    }
 
-  //   try {
-  //     // Use 'jose' to verify the JWT token
-  //     const { payload } = await jwtVerify(
-  //       refreshToken,
-  //       new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET) // Secret for JWT verification
-  //     );
+    try {
+      const { payload } = await jwtVerify(
+        refreshToken,
+        new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET)
+      );
 
-  //     // Check if the user is verified
-  //     if (!payload.verified) {
+      if (!payload.verified) {
+        console.log(`User not verified, redirecting to verify-email`);
+        url.pathname = "/verify-email";
+        return NextResponse.redirect(url);
+      }
 
-  //       // Redirect users who are not verified
-  //       url.pathname = "/verify-email"; // Redirect to profile or another page
-  //       return NextResponse.redirect(url);
-  //     }
+      if (
+        (path === "/usersManager" || path === "/job-applications") &&
+        payload.userType !== "admin"
+      ) {
+        console.log(`Non-admin user trying to access admin route, redirecting to unauthorized`);
+        url.pathname = "/unauthorized";
+        return NextResponse.redirect(url);
+      }
+    } catch (error) {
+      console.log(`Token verification failed: ${error.message}, redirecting to login`);
+      url.pathname = "/login";
+      url.searchParams.set("from", path);
+      url.searchParams.set("message", "Your session has expired. Please log in again.");
+      return NextResponse.redirect(url);
+    }
+  }
 
-  //     // Check if the user is trying to access restricted admin pages
-  //     if (
-  //       (path === "/usersManager" || path === "/job-applications") &&
-  //       payload.userType !== "admin"
-  //     ) {
-
-  //       // Redirect non-admin users trying to access admin routes
-  //       url.pathname = "/unauthorized"; // Redirect to a page indicating no access
-  //       return NextResponse.redirect(url);
-  //     }
-  //   } catch (error) {
-  //     // Redirect to login if token is invalid or expired
-  //     url.pathname = "/login";
-  //     url.searchParams.set("from", path);
-  //     url.searchParams.set("message", "Your session has expired. Please log in again.");
-  //     return NextResponse.redirect(url);
-  //   }
-  // }
-
-  // Allow access to other routes
+  console.log(`Allowing access to ${path}`);
   return NextResponse.next();
 }
 
-// Middleware configuration to apply it to specific routes only
 export const config = {
   matcher: [
     "/profile",
@@ -95,5 +85,5 @@ export const config = {
     "/job-applications",
     "/login",
     "/signup",
-  ], // Protected and auth routes
+  ],
 };
