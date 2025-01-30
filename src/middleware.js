@@ -1,13 +1,11 @@
 import { NextResponse } from "next/server";
-import { jwtVerify } from "jose"; // Import jwtVerify from 'jose'
+import { jwtVerify } from "jose";
 
 export async function middleware(req) {
   const url = req.nextUrl.clone();
   const path = url.pathname;
 
   console.log(`Middleware ran for: ${path}`);
-
-  // List of protected routes
   const protectedRoutes = [
     "/profile",
     "/hireTechie",
@@ -15,20 +13,31 @@ export async function middleware(req) {
     "/job-applications",
   ];
 
-  // List of auth pages (login and signup) that logged-in users should not access
   const authPages = ["/login", "/signup"];
+
+  // Get the referer header to check where the user is coming from
+  const referer = req.headers.get("referer");
+  const isComingFromLogin = referer && new URL(referer).pathname === "/login";
+
+  console.log(`Referer: ${referer}, Is coming from login: ${isComingFromLogin}`);
+
+  // Skip validation if the user is coming from the login page
+  if (isComingFromLogin && protectedRoutes.includes(path)) {
+    console.log(`User is coming from login, skipping validation for ${path}`);
+    return NextResponse.next();
+  }
 
   // Get the refresh token from cookies
   const refreshToken = req.cookies.get("jwt")?.value;
+  console.log(`Refresh token in middleware: ${refreshToken}`);
 
   // Check if the user is trying to access auth pages while already logged in
   if (authPages.includes(path)) {
     if (refreshToken) {
       try {
-        // Use 'jose' to verify the JWT token
         await jwtVerify(
           refreshToken,
-          new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET) // Secret for JWT verification
+          new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET)
         );
         console.log("Token is valid, redirecting away from auth page");
 
@@ -38,6 +47,7 @@ export async function middleware(req) {
       } catch (error) {
         // If the token is invalid or expired, allow access to auth pages
         console.log("Invalid or expired token, allowing access to auth page");
+
       }
     }
   }
@@ -48,30 +58,30 @@ export async function middleware(req) {
       console.log("No refresh token found, redirecting to login");
 
       // Redirect to the login page with the 'from' query parameter and a message
+
       url.pathname = "/login";
-      url.searchParams.set("from", path); // Pass the intended path
-      url.searchParams.set("message", "You need to log in to access this page"); // Custom message
+      url.searchParams.set("from", path);
+      url.searchParams.set("message", "You need to log in to access this page");
       return NextResponse.redirect(url);
     }
 
     try {
-      // Use 'jose' to verify the JWT token
       const { payload } = await jwtVerify(
         refreshToken,
-        new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET) // Secret for JWT verification
+        new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET)
       );
       console.log("Token is valid:", payload);
 
-      // Check if the user is verified
       if (!payload.verified) {
+
         console.log("User is not verified, redirecting to profile");
 
         // Redirect users who are not verified
         url.pathname = "/verify-email"; // Redirect to profile or another page
+
         return NextResponse.redirect(url);
       }
 
-      // Check if the user is trying to access restricted admin pages
       if (
         (path === "/usersManager" || path === "/job-applications") &&
         payload.userType !== "admin"
@@ -86,6 +96,7 @@ export async function middleware(req) {
       console.log("Invalid or expired token:", error.message);
 
       // Redirect to login if token is invalid or expired
+
       url.pathname = "/login";
       url.searchParams.set("from", path);
       url.searchParams.set("message", "Your session has expired. Please log in again.");
@@ -93,11 +104,10 @@ export async function middleware(req) {
     }
   }
 
-  // Allow access to other routes
+  console.log(`Allowing access to ${path}`);
   return NextResponse.next();
 }
 
-// Middleware configuration to apply it to specific routes only
 export const config = {
   matcher: [
     "/profile",
@@ -106,5 +116,5 @@ export const config = {
     "/job-applications",
     "/login",
     "/signup",
-  ], // Protected and auth routes
+  ],
 };
