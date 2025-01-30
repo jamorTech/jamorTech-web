@@ -28,7 +28,7 @@ export default function Conclusion() {
               </p>
             </div>
             <div className="mt-0 buttonContainer w-[40%]">
-                <Link href={"/getting_started"} className=" mt-10 bg-customPurple w-full font-abrilFont flex items-center gap-2 px-4 py-4 rounded-lg text-white">
+                <Link href={"/signUp"} className=" mt-10 bg-customPurple w-full font-abrilFont flex items-center gap-2 px-4 py-4 rounded-lg text-white">
                   Get Started
                   <Image src={arrow} alt="white arrow image" />
                 </Link>
