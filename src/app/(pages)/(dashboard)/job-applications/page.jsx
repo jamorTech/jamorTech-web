@@ -5,6 +5,7 @@ import { FaCheck, FaTimes } from 'react-icons/fa'
 import JobApplicationTable from './components/job-application-table'
 import JobApplicationModal from './components/job-application-modal'
 import useAxiosPrivate from '@/app/hooks/useAxiosPrivate'
+import useUserStore from '@/app/store/useUserStore'
 
 export default function JobApplicationsManager() {
   const [applications, setApplications] = useState([]) // Empty array initially
@@ -13,6 +14,7 @@ export default function JobApplicationsManager() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [toggling, setToggling] = useState(null) // To track the toggling state
+  const { tokenRefreshed } = useUserStore()
 
   const axiosPrivate = useAxiosPrivate()
 
@@ -33,7 +35,7 @@ export default function JobApplicationsManager() {
 
     fetchApplications()
 
-  }, [axiosPrivate])
+  }, [axiosPrivate, tokenRefreshed])
 
   const filterTypes = [
     { id: 'all', label: 'All Applications' },

@@ -29,12 +29,18 @@ const useRefreshToken = () => {
                     "Your session has expired. Please log in again to continue.",
                     "warning"
                 );
+                setTimeout(() => {
+                    redirectToLogin(); // Redirect to the login page
+                  }, 3000)
             } else {
                 // General error
                 openModal(
                     "An unexpected error occurred while refreshing your session. Please log in again.",
                     "error"
                 );
+                setTimeout(() => {
+                    redirectToLogin(); // Redirect to the login page
+                  }, 3000)
             }
 
             setUser(null); // Clear user state

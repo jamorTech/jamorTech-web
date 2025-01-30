@@ -11,7 +11,7 @@ export default function Home() {
   const [techies, setTechies] = useState([]); // Initialize as an array
   const [loading, setLoading] = useState(false); // Loading state
   const axiosPrivate = useAxiosPrivate();
-  const {user} = useUserStore()
+  const {user, tokenRefreshed} = useUserStore()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +28,7 @@ export default function Home() {
     };
 
     fetchData();
-  }, [user]); // Dependency: Do not include `techies` to avoid infinite loops
+  }, [user, tokenRefreshed]); // Dependency: Do not include `techies` to avoid infinite loops
 
   return (
     <main className="min-h-screen bg-gray-50">

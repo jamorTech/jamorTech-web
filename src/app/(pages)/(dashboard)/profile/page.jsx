@@ -10,7 +10,7 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(true);  // Start loading as true
   const [err, setErr] = useState(null);
   const [data, setData] = useState(null);
-  const {user} = useUserStore()
+  const {user, tokenRefreshed} = useUserStore()
 
   const axiosPrivate = useAxiosPrivate();
 
@@ -33,7 +33,7 @@ const ProfilePage = () => {
 
     fetchData();
 
-  }, [user]);
+  }, [user, tokenRefreshed]);
 
   // Handle API errors
   useEffect(() => {
