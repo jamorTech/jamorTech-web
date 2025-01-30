@@ -6,6 +6,7 @@ import OurPartners from './components/landingPage/OurPartnersSection/OurPartners
 import Updates from './components/landingPage/updates/Updates'
 import FrequentAskedQuestions from './components/landingPage/frequentlyAskedQuestions/FrequentAskedQuestions'
 import ContactUs from './components/landingPage/contactUS/ContactUs'
+import { Testimonials } from './components/landingPage/Testimonials'
 
 export const metadata = {
   title: "JamorTech - Empowering New Tech Talent Through Internships",
@@ -32,6 +33,7 @@ const page = () => {
       <AboutUS />
       <OurPartners />
       <Updates />
+      <Testimonials />
       <FrequentAskedQuestions />
       <ContactUs />
     </main>

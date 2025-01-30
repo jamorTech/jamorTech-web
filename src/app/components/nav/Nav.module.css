@@ -116,58 +116,196 @@
     }
 }
 @media screen and (max-width: 800px) {
-    .nav{
-        position: relative;
-    }
-    
-    .links_auth{
-        display: none;
-        width: 100%;
-        padding: .5rem;
-    }
-    
-    .links_auth.openMenu{
-        border: 1px solid blue;
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: flex;
-        z-index: 2;
-        background: #240076;
-    }
+  .nav {
+    position: relative;
+    padding: 1rem;
+  }
 
-    .menuToggle{
-        display: flex;
-        z-index: 3;
-    }
+  .links_auth {
+    display: none;
+    width: 100%;
+  }
 
-    .links_auth,
-    .links_auth ul,
-    .login_createAcct_container
-    {
-        flex-direction: column;
-    }
+  .links_auth.openMenu {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    z-index: 999;
+    background: linear-gradient(135deg, #240076 0%, #1a0057 100%);
+    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 5rem 2rem 2rem;
+    overflow-y: auto;
+  }
 
-    .nav ul li a{
-        color: #FFFFFF;
-    }
-    
-    .nav ul .active a{
-        color: #FFFFFF;
-        border-bottom: 1px solid #FFFFFF;
-    }
+  .links_auth.closeMenu {
+    animation: slideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-    .burgerIcon{
-        color: #240076;
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      clip-path: circle(0% at top right);
     }
+    to {
+      opacity: 1;
+      clip-path: circle(150% at top right);
+    }
+  }
 
-    .closeIcon{
-        color: #FFFFFF;
+  @keyframes slideOut {
+    from {
+      opacity: 1;
+      clip-path: circle(150% at top right);
     }
+    to {
+      opacity: 0;
+      clip-path: circle(0% at top right);
+    }
+  }
 
-    .createAcct{
-        border: none;
-        outline: none;
-        box-shadow: 1px 1px 5px rgb(66, 0, 221);
+  .menuToggle {
+    display: flex;
+    z-index: 1000;
+    position: relative;
+  }
+
+  .menuToggle button {
+    background: transparent;
+    border: none;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .menuToggle button:hover {
+    transform: scale(1.1);
+  }
+
+  .links_auth,
+  .links_auth ul,
+  .login_createAcct_container {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .links_auth ul {
+    width: 100%;
+    text-align: center;
+    padding: 0;
+  }
+
+  .nav ul li {
+    transform: translateY(20px);
+    opacity: 0.5;
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: calc(0.1s * var(--item-index));
+  }
+
+  @keyframes fadeInUp {
+    to {
+      transform: translateY(0);
+      opacity: 1;
     }
+  }
+
+  .nav ul li a {
+    color: #ffffff;
+    font-size: 1.25rem;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+  }
+
+  .nav ul li a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #ffffff;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .nav ul li a:hover::after {
+    width: 80%;
+  }
+
+  .nav ul li a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  }
+
+  .nav ul .active a {
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  .nav ul .active a::after {
+    width: 80%;
+  }
+
+  .burgerIcon {
+    color: #240076;
+  }
+
+  .closeIcon {
+    color: #ffffff;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .login_createAcct_container {
+    width: 100%;
+    max-width: 280px;
+    margin: auto 0;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards 0.3s;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  .createAcct,
+  .login {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+  }
+
+  .createAcct {
+    background: #ffffff;
+    color: #240076;
+    border: none;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+  }
+
+  .createAcct:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+  }
+
+  .login {
+    background: transparent;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+  }
+
+  .login:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+  }
 }
+

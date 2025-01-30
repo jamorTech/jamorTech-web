@@ -111,9 +111,17 @@ let stepErrors = {};
     } else if (step === 2) {
       if (!formData.techSchool) stepErrors.techSchool = "Tech school is required";
       if (!formData.skill) stepErrors.skill = "Tech skill is required";
-      if (!formData.certificate) stepErrors.certificate = "PDF file is required for certificate";
+      if (!formData.certificate) {
+        stepErrors.certificate = "PDF file is required for certificate";
+      } else if (
+        !["application/pdf"].includes(formData.certificate.type)
+      ) {
+        stepErrors.certificate = "Invalid file type. Only PDF";
+      } else if (formData.certificate.size > 5 * 1024 * 1024) {
+        stepErrors.certificate = "File size must be less than 5 MB.";
+      }
       if (!formData.onboardMesg || formData.onboardMesg.length > 50) 
-        stepErrors.onboardMesg = "Onboarding message must be within 50 words";
+        stepErrors.onboardMesg = "Onboarding message must be within 50 characters";
     } else if (step === 3) {
       if (!formData.username) stepErrors.username = "Username is required";
       if (!formData.password) stepErrors.password = "Password is required";
@@ -211,7 +219,7 @@ const prevStep = () => {
   resetFileInput();  // Clear file input if necessary
   setCurrentStep(currentStep - 1);
 };
-  const {err, isLoading, msg, signUp} = useSignUp(`${process.env.NEXT_PUBLIC_BASE_URL}/users/signup`)
+  const {err, isLoading, signUp} = useSignUp(`${process.env.NEXT_PUBLIC_BASE_URL}/users/signup`)
 // Example handleSubmit function
 const handleSubmit = async(e) => {
   e.preventDefault();
@@ -230,8 +238,7 @@ useEffect(() => {
   closeModal()
   if (err) openModal(err, "error");
   if (fileErr) openModal(fileErr, "error");
-  if (msg) openModal(msg, "success");
-}, [err, msg, fileErr, fileChange]);
+}, [err,  fileErr, fileChange]);
 
   return (
     <div className={styles.container}>

@@ -1,43 +1,60 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import UserProfile from "../components/UserProfile/UserProfile";
+import UserProfile from "../components/UserProfile";
 import { userStore } from "@/app/store/userStore";
-import { useFetch } from "@/app/hooks/useFetch";
-import withAuth from "@/app/utils/withAuth";
+import useUserStore from "@/app/store/useUserStore";
+import useAxiosPrivate from "@/app/hooks/useAxiosPrivate";
 
 const ProfilePage = () => {
-  const [user, setUser] = useState(null);
-  const { error, updateError, openModal, closeModal } = userStore();
+  const { error, openModal, closeModal } = userStore();
+  const [loading, setLoading] = useState(true);  // Start loading as true
+  const [err, setErr] = useState(null);
+  const [data, setData] = useState(null);
+  const {user} = useUserStore()
 
-  // Load user from localStorage
+  const axiosPrivate = useAxiosPrivate();
+
   useEffect(() => {
-    try {
-      const storedUser = localStorage.getItem("user");
-      if (!storedUser) updateError("User data missing");
-      setUser(JSON.parse(storedUser));
-    } catch (err) {
-      openModal(err.message, "error");
-    }
-  }, [openModal]);
 
-  // Fetch user data only if user exists
-  const { data, err, isLoading } = useFetch(
-    user ? `${process.env.NEXT_PUBLIC_BASE_URL}/users/${user.id}` : null
-  );
+    const fetchData = async () => {
+      try {
+        // Perform the Axios request with credentials
+        const response = await axiosPrivate.get(`/users/profile`);
+        setData(response.data);
+        
+      } catch (error) {
+          // Update the error state only if the component is mounted
+          // setErr(`Failed to fetch data: ${error.message || error}`);
+      } finally {
+          // Set loading state to false when data fetching is done
+          setLoading(false);
+      }
+    };
+
+    fetchData();
+
+  }, [user]);
 
   // Handle API errors
   useEffect(() => {
-    if (err) openModal(err, "error");
-    if (error) openModal(error, "error");
-    else closeModal();
-  }, [err, openModal, closeModal]);
+    if (err) {
+      openModal(err, "error");  // Show the error modal
+    } else if (error) {
+      openModal(error, "error");  // Show the user-specific error
+    } else {
+      closeModal();  // Close the modal if there's no error
+    }
+  }, [err, error, openModal, closeModal]);
 
   // Render UI
+  if (loading) return <div className="loader"></div>; // Show loading state while data is being fetched
+  if (err) return <div>{err}</div>; // Show the error message
+
   return (
-    <div>
-      <UserProfile user={data} loading={isLoading} />
-    </div>
-  );
+    <main className="min-h-screen bg-[#f5f5f5]">
+      <UserProfile userData={data} />
+    </main>
+  )
 };
-const AuthProfilePage = withAuth(ProfilePage)
-export default AuthProfilePage;
+
+export default ProfilePage;

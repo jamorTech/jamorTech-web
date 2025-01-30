@@ -6,13 +6,14 @@ import { FiMessageSquare } from "react-icons/fi";
 import { CiMail } from "react-icons/ci";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { userStore } from "@/app/store/userStore";
+import axios from "@/app/api/axios";
 
 const ContactUs = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [isLoading, setisLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -29,50 +30,58 @@ const ContactUs = () => {
     return validationErrors;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      setisLoading(true)
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/feedback`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          message,
-        }),
-      });
+  // Validate form inputs
+  const validationErrors = validateForm();
+  if (Object.keys(validationErrors).length > 0) {
+    setErrors(validationErrors);
+    return;
+  }
 
-      if (response.ok) {
-        const data = await response.json();
-        setisLoading(false)
-        setSuccessMessage("Thank you for your feedback!");
-        // Clear form fields
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setMessage("");
-        setErrors({});
-      } else {
-        const errorData = await response.json();
-        setErrors({ form: errorData.error || "Something went wrong. Please try again." });
-        setisLoading(false)
+  try {
+    setIsLoading(true); // Start loading
+
+    // Send feedback using Axios
+    const response = await axios.post(
+      `/users/feedback`,
+      {
+        firstName,
+        lastName,
+        email,
+        message,
+      },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true, // Include credentials if required
       }
-    } catch (error) {
-      setErrors({ form: "Network error. Please try again later." });
-    }finally{
-      setisLoading(false)
+    );
+
+    // Handle success
+    setSuccessMessage("Thank you for your feedback!");
+    setFirstName(""); // Clear form fields
+    setLastName("");
+    setEmail("");
+    setMessage("");
+    setErrors({});
+  } catch (error) {
+    // Handle errors
+    if (error.response) {
+      // Server responded with a status outside 2xx range
+      setErrors({ form: error.response.data?.error || "Something went wrong. Please try again." });
+    } else if (error.request) {
+      // Request was made but no response received
+      setErrors({ form: "No response from the server. Please try again later." });
+    } else {
+      // Unexpected error
+      setErrors({ form: "An unexpected error occurred. Please try again." });
     }
-  };
+  } finally {
+    setIsLoading(false); // Stop loading
+  }
+};
+
 
   const {openModal, closeModal} = userStore()
   

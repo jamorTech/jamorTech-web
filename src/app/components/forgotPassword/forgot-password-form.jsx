@@ -5,6 +5,8 @@ import Link from 'next/link'
 import styles from "./forgot-password-form.module.css"
 import { userStore } from '@/app/store/userStore';
 import { useRouter } from 'next/navigation';
+import axios from '@/app/api/axios';
+import { storeData } from '@/app/utils/localStorage';
 
 export default function ForgotPasswordForm() {
   const [email, setEmail] = useState('');
@@ -19,49 +21,58 @@ export default function ForgotPasswordForm() {
     return emailRegex.test(email);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true)
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
 
-    if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
-      setSuccess('');
-      setIsLoading(false)
-      return;
-    }
+  if (!validateEmail(email)) {
+    setError("Please enter a valid email address.");
+    setSuccess('');
+    setIsLoading(false);
+    return;
+  }
 
-    setError(''); // Clear any previous error
-    setSuccess(''); // Clear any previous success message
+  // Clear any previous messages
+  setError('');
+  setSuccess('');
 
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/forgot-password`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setIsLoading(false)
-        throw new Error(data.message || 'Failed to process your request. Please try again.');
+  try {
+    // Axios POST request
+    const response = await axios.post(
+      `/users/forgot-password`,
+      { email },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true, // Include credentials if needed
       }
+    );
 
-      localStorage.setItem('email', email);
-      setSuccess('OTP reset token have been sent to your email. Redirecting...');
-      setTimeout(() => {
-        router.push('/verify-token')
-      }, 2000)
-      setIsLoading(false)
-      setEmail(''); // Clear the email input field
-    } catch (error) {
-      setIsLoading(false)
-      setError(error.message || 'An unexpected error occurred. Please try again.');
-      setSuccess(''); // Clear success message if there’s an error
+    // Handle success
+    storeData('email', email);
+    setSuccess('OTP reset token has been sent to your email. Redirecting...');
+    setTimeout(() => {
+      router.push('/verify-token');
+    }, 2000);
+
+    setEmail(''); // Clear the email input field
+  } catch (error) {
+    // Handle errors
+    if (error.response) {
+      // Server responded with an error
+      setError(error.response.data?.message || 'Failed to process your request. Please try again.');
+    } else if (error.request) {
+      // No response received
+      setError('No response from the server. Please try again later.');
+    } else {
+      // Unexpected error
+      setError('An unexpected error occurred. Please try again.');
     }
-  };
+    setSuccess(''); // Clear success message on error
+  } finally {
+    setIsLoading(false); // Stop loading spinner
+  }
+};
+
 
   const {openModal, closeModal} = userStore()
 

@@ -36,8 +36,6 @@ const inter = Inter({ subsets: ["latin"] });
       images: ["https://firebasestorage.googleapis.com/v0/b/react-quiz-app-5507a.appspot.com/o/og-image.jpg?alt=media&token=b55b609c-477b-4c3a-93a1-ddf81f0f6e02"], // The same relative path for Twitter image
     },
   };
-  
-
 
 export default function RootLayout({ children }) {
   return (
