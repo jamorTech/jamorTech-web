@@ -65,16 +65,25 @@ const useLogin = (url) => {
           push("/verify-email");
         } else {
           setMsg("Login successful!");
-          // push(redirectTo);
-          window.location.href = redirectTo
+          window.location.href = redirectTo;
         }
       }
     } catch (error) {
-      // Set error based on API response or general errors
       sessionStorage.removeItem("user");
-      const errorMessage =
-        error.response?.data?.error || error.response?.data || "Something went wrong";
-      setErr(errorMessage);
+
+      // Handle different error cases
+      if (error.response) {
+        // Server responded with an error status
+        const errorMessage =
+          error.response?.data?.error || error.response?.data || "An error occurred";
+        setErr(errorMessage);
+      } else if (error.request) {
+        // No response from server
+        setErr("No response from server. Please try again later.");
+      } else {
+        // Something else happened
+        setErr("An unexpected error occurred.");
+      }
     } finally {
       setIsLoading(false);
     }
