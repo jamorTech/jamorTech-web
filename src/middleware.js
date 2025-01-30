@@ -16,9 +16,23 @@ export async function middleware(req) {
 
   const authPages = ["/login", "/signup"];
 
+  // Get the referer header to check where the user is coming from
+  const referer = req.headers.get("referer");
+  const isComingFromLogin = referer && new URL(referer).pathname === "/login";
+
+  console.log(`Referer: ${referer}, Is coming from login: ${isComingFromLogin}`);
+
+  // Skip validation if the user is coming from the login page
+  if (isComingFromLogin && protectedRoutes.includes(path)) {
+    console.log(`User is coming from login, skipping validation for ${path}`);
+    return NextResponse.next();
+  }
+
+  // Get the refresh token from cookies
   const refreshToken = req.cookies.get("jwt")?.value;
   console.log(`Refresh token in middleware: ${refreshToken}`);
 
+  // Check if the user is trying to access auth pages while already logged in
   if (authPages.includes(path)) {
     if (refreshToken) {
       try {
@@ -35,6 +49,7 @@ export async function middleware(req) {
     }
   }
 
+  // Check for protected routes
   if (protectedRoutes.includes(path)) {
     if (!refreshToken) {
       console.log(`No refresh token found, redirecting to login`);
