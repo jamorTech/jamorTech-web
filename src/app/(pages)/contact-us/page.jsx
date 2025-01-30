@@ -104,8 +104,7 @@ const ContactUs = () => {
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-[#2E1065] mb-2">Phone</h3>
-                <p className="text-gray-600">+234 (803) 123-4567</p>
-                <p className="text-gray-600">+234 (803) 987-6543</p>
+                <p className="text-gray-600">+234 8027703576</p>
               </div>
             </div>
 
@@ -115,8 +114,8 @@ const ContactUs = () => {
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-[#2E1065] mb-2">Email</h3>
-                <p className="text-gray-600">info@example.com</p>
-                <p className="text-gray-600">support@example.com</p>
+                <p className="text-gray-600">helpdesk@jamortechnology.com</p>
+                <p className="text-gray-600">hellojamortechnology@gmail.com</p>
               </div>
             </div>
 
@@ -126,8 +125,7 @@ const ContactUs = () => {
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-[#2E1065] mb-2">Address</h3>
-                <p className="text-gray-600">123 Tech Hub Street</p>
-                <p className="text-gray-600">Lagos, Nigeria</p>
+                <p className="text-gray-600">Virtual</p>
               </div>
             </div>
 
@@ -137,7 +135,7 @@ const ContactUs = () => {
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-[#2E1065] mb-2">Business Hours</h3>
-                <p className="text-gray-600">Monday - Friday: 9:00 AM - 5:00 PM</p>
+                <p className="text-gray-600">Monday - Saturday: 8:00 AM - 6:00 PM</p>
                 <p className="text-gray-600">Saturday & Sunday: Closed</p>
               </div>
             </div>
