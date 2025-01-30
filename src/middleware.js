@@ -6,8 +6,11 @@ export async function middleware(req) {
   const path = url.pathname;
 
   console.log(`Middleware ran for: ${path}`);
+<<<<<<< HEAD
 
   // List of protected routes
+=======
+>>>>>>> e4494060c75e11c83c3e246c29dc506f115f1dc9
   const protectedRoutes = [
     "/profile",
     "/hireTechie",
@@ -49,6 +52,10 @@ export async function middleware(req) {
       } catch (error) {
         // If the token is invalid or expired, allow access to auth pages
         console.log("Invalid or expired token, allowing access to auth page");
+<<<<<<< HEAD
+=======
+
+>>>>>>> e4494060c75e11c83c3e246c29dc506f115f1dc9
       }
     }
   }
@@ -59,6 +66,10 @@ export async function middleware(req) {
       console.log("No refresh token found, redirecting to login");
 
       // Redirect to the login page with the 'from' query parameter and a message
+<<<<<<< HEAD
+=======
+
+>>>>>>> e4494060c75e11c83c3e246c29dc506f115f1dc9
       url.pathname = "/login";
       url.searchParams.set("from", path);
       url.searchParams.set("message", "You need to log in to access this page");
@@ -73,10 +84,18 @@ export async function middleware(req) {
       console.log("Token is valid:", payload);
 
       if (!payload.verified) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> e4494060c75e11c83c3e246c29dc506f115f1dc9
         console.log("User is not verified, redirecting to profile");
 
         // Redirect users who are not verified
         url.pathname = "/verify-email"; // Redirect to profile or another page
+<<<<<<< HEAD
+=======
+
+>>>>>>> e4494060c75e11c83c3e246c29dc506f115f1dc9
         return NextResponse.redirect(url);
       }
 
@@ -94,6 +113,10 @@ export async function middleware(req) {
       console.log("Invalid or expired token:", error.message);
 
       // Redirect to login if token is invalid or expired
+<<<<<<< HEAD
+=======
+
+>>>>>>> e4494060c75e11c83c3e246c29dc506f115f1dc9
       url.pathname = "/login";
       url.searchParams.set("from", path);
       url.searchParams.set("message", "Your session has expired. Please log in again.");
