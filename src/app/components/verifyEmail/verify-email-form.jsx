@@ -5,80 +5,91 @@ import Link from 'next/link'
 import styles from './verify-email-form.module.css'
 import { userStore } from '@/app/store/userStore';
 import { useRouter } from 'next/navigation';
+import axios from '@/app/api/axios';
+import { getData, storeData } from '@/app/utils/localStorage';
 
 export default function VerifyEmailForm() {
   const [verificationCode, setVerificationCode] = useState(['', '', '', '', '', '']);
-  const [error, setError] = useState(''); // State to handle error messages
-  const [success, setSuccess] = useState(''); // State to handle success messages
-  const [isLoading, setIsLoading] = useState(false); // State to handle success messages
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const router = useRouter()
+  const router = useRouter();
 
   const handleChange = (index, value) => {
     const newCode = [...verificationCode];
-    newCode[index] = value;
+    newCode[index] = value.slice(0, 1); // Ensure only one character is stored
     setVerificationCode(newCode);
 
-    // Move focus to the next input
+    // Automatically move focus to the next input if value is entered
     if (value && index < 5) {
-      document.getElementById(`code-${index + 1}`).focus();
+      const nextInput = document.getElementById(`code-${index + 1}`);
+      if (nextInput) nextInput.focus();
+    }
+  };
+
+  const handleKeyDown = (index, e) => {
+    if (e.key === 'Backspace' && !verificationCode[index] && index > 0) {
+      const prevInput = document.getElementById(`code-${index - 1}`);
+      if (prevInput) prevInput.focus();
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pasteData = e.clipboardData.getData('text').slice(0, 6);
+    if (/^\d+$/.test(pasteData)) {
+      const newCode = pasteData.split('');
+      setVerificationCode(newCode.concat(Array(6 - newCode.length).fill('')));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true)
-    const otp = verificationCode.join(''); // Combine the digits into a single code
+    setIsLoading(true);
+    setError('');
+    setSuccess('');
+
+    const otp = verificationCode.join('');
 
     if (otp.length !== 6) {
       setError('Please enter a valid 6-digit verification code.');
-      setSuccess('');
-      setIsLoading(false)
+      setIsLoading(false);
       return;
     }
 
     try {
-      setError('');
-      setSuccess('');
-      setIsLoading(true)
-      const email = localStorage.getItem('email');
-      if(!email) throw new Error("Something went wrong!")
-      // Make the POST request
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/verify-otp`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, otp }),
+      const email = getData('email');
+      if (!email) throw new Error('Something went wrong!');
+
+      const response = await axios.post(`/users/verify-otp`, {
+        email,
+        otp,
       });
 
-      const data = await response.json();
+      setSuccess('Your OTP has been verified successfully. Redirecting to reset password page...');
+      storeData('otp', otp);
+      setVerificationCode(['', '', '', '', '', '']);
 
-      if (!response.ok) {
-        setIsLoading(false)
-        throw new Error(data.error || 'Verification failed. Please try again.');
-      }
-
-      setSuccess('Your Otp have been verified successfully, redirecring to reset password page');
-      localStorage.setItem('otp', otp);
-      setVerificationCode(['', '', '', '', '', '']); // Clear the inputs
-      setIsLoading(false)
       setTimeout(() => {
-        router.push('/resetPassword')
-      }, 2000)
+        router.push('/resetPassword');
+      }, 2000);
     } catch (error) {
-      setError(error.message || 'An unexpected error occurred. Please try again.');
-      setIsLoading(false)
+      const errorMessage =
+        error.response?.data?.error || error.message || 'An unexpected error occurred. Please try again.';
+      setError(errorMessage);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-    const {openModal, closeModal} = userStore()
-  
-    useEffect(() => {
-      closeModal()
-      if (success) openModal(success, "success");
-      if (error) openModal(error, "error");
-    }, [success, error]);
+  const { openModal, closeModal } = userStore();
+
+  useEffect(() => {
+    closeModal();
+    if (success) openModal(success, "success");
+    if (error) openModal(error, "error");
+  }, [success, error]);
 
   return (
     <div className={styles.formContainer}>
@@ -89,9 +100,9 @@ export default function VerifyEmailForm() {
           A verification code has been sent to you.<br />
           Please enter the code below.
         </p>
-        
+
         <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.codeInputs}>
+          <div className={styles.codeInputs} onPaste={handlePaste}>
             {verificationCode.map((digit, index) => (
               <input
                 key={index}
@@ -100,6 +111,7 @@ export default function VerifyEmailForm() {
                 maxLength="1"
                 value={digit}
                 onChange={(e) => handleChange(index, e.target.value)}
+                onKeyDown={(e) => handleKeyDown(index, e)}
                 className={styles.codeInput}
                 required
               />

@@ -1,69 +1,69 @@
 "use client"
-import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import { axiosPrivate } from '../api/axios'
 import { userStore } from '../store/userStore'
+import { useRouter } from 'next/navigation'
 
 const useSignUp = (url) => {
 
     const [err, setErr] = useState(null)
-    const [msg, setMsg] = useState("")
     const [isLoading, setIsLoading] = useState(false)
+    const [msg, setMsg] = useState("");
 
-    const {updateUser} = userStore()
-    const {push} = useRouter()
-            
-    const signUp = async (formData)=>{
+    const { openModal, closeModal } = userStore();
+    const { push } = useRouter();
+
+    const signUp = async (formData) => {
         setIsLoading(true)
         setErr(null)
 
         try {
-         // Construct the FormData object
-      const data = new FormData();
+            // Construct the FormData object
+            const data = new FormData()
 
-      // Append all key-value pairs from formData
-      Object.keys(formData).forEach((key) => {
-        data.append(key, formData[key])
-      });
-        const requestOptions = {
-                method: "POST",
-                body: data,
-            }
-           
-                const response = await fetch(url, requestOptions)
-                const json = await response.json()
-                if (!response.ok) {
+            // Append all key-value pairs from formData
+            Object.keys(formData).forEach((key) => {
+                data.append(key, formData[key])
+            })
+
+            // Axios POST request with credentials
+            const response = await axiosPrivate.post(url, data, {
+                headers: {
+                    "Content-Type": "multipart/form-data", // Ensure proper content type for FormData
+                },
+                withCredentials: true, // Include credentials (cookies) with the request
+            })
+
+            if (response.status === 200) {
+                
+                // Handle redirection and messages
+                if (response.data.paymentUrl) {
+                 window.location.href = response.data.paymentUrl
                     setIsLoading(false)
-                    setErr(json.error)
+                } else {
+                    setMsg("Please verify your email.");
+                    push("/verify-email");
                 }
-
-                if (response.ok) {
-                  setErr(null)
-                  localStorage.setItem("token", JSON.stringify(json.accessToken))
-                  localStorage.setItem("user", JSON.stringify(json))
-                  updateUser(json)
-                  if(!json.verified){
-                    setMsg("Verification link have been sent to your email")
-                    setTimeout(() => {
-                      push('/verify-email')
-                    }, 2000)
-                  }else{
-                    setTimeout(() => {
-                      push('/profile')
-                    }, 2000)
-                  }
-                  setIsLoading(false)
-                }
-            } catch (error) {
-                setErr(error.message)
-                setIsLoading(false)
-            }finally{
-                setIsLoading(false)
-
+              }
+        } catch (error) {
+            if (error.response) {
+                setErr(error.response.data.error|| error.response.data || "Something went wrong")
+            } else {
+                setErr(error.message || "API request failed")
             }
+            setIsLoading(false)
+        } finally {
+            setIsLoading(false)
+        }
     }
-        
 
-  return {err, isLoading, msg, signUp}
+      // Handle messages and errors
+  useEffect(() => {
+    if (err) openModal(err, "error");
+    if (msg) openModal(msg, "success");
+  }, [err, msg]);
+
+    return { err, isLoading, signUp }
 }
 
 export default useSignUp

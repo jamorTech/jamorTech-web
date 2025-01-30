@@ -25,8 +25,6 @@ const StatusPage = ({status="This page is under construction"}) => {
       return
     } else {
       setError("");
-      // Submit form logic here
-      console.log("Email submitted:", email);
     }
   };
 

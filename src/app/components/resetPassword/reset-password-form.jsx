@@ -7,6 +7,8 @@ import { FiEye } from "react-icons/fi";
 import { IoEyeOffOutline } from "react-icons/io5";
 import { userStore } from '@/app/store/userStore';
 import { useRouter } from 'next/navigation';
+import axios from '@/app/api/axios';
+import { getData, removeData } from '@/app/utils/localStorage';
 
 export default function ResetPasswordForm() {
   const [formData, setFormData] = useState({
@@ -33,59 +35,74 @@ export default function ResetPasswordForm() {
     return password.length >= 8;  // Example: password should be at least 8 characters long
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSuccessMessage('');
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError('');
+  setSuccessMessage('');
 
-    const { password, confirmPassword } = formData;
+  const { password, confirmPassword } = formData;
 
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
+  // Validate passwords
+  if (password !== confirmPassword) {
+    setError('Passwords do not match');
+    return;
+  }
 
-    if (!validatePassword(password)) {
-      setError(
-        'Password must be at least 8 characters long and contain at least one letter and one number'
-      );
-      return;
-    }
-    setError('');
-    setSuccessMessage('');
-    try {
-      setIsLoading(true)
-      const email = localStorage.getItem('email');
-      const otp = localStorage.getItem('otp');
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/reset`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, otp, password, confirmPassword }),
-      });
+  if (!validatePassword(password)) {
+    setError(
+      'Password must be at least 8 characters long and contain at least one letter and one number'
+    );
+    return;
+  }
 
-      if (!response.ok) {
-        setIsLoading(false)
-        const errorData = await response.json();
-        setError(errorData.error || 'Failed to reset password');
-        return;
+  try {
+    setIsLoading(true); // Start loading
+    const email = getData('email');
+    const otp = getData('otp');
+
+    // Send reset password request using Axios
+    const response = await axios.post(
+      `/users/reset`,
+      {
+        email,
+        otp,
+        password,
+        confirmPassword,
+      },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true, // Include credentials if required
       }
+    );
 
-      setSuccessMessage('Password reset successful! You can now log in.');
-      setFormData({ password: '', confirmPassword: '' });
-      localStorage.removeItem("email")
-      localStorage.removeItem("otp")
-      localStorage.removeItem("token")
-      setTimeout(() => {
-        router.push('/login')
-      }, 2000)
-    } catch (err) {
-      setError(`An unexpected error occurred. Please try again. ${err.message}`);
-    }finally{
-      setIsLoading(false)
+    // Handle success
+    setSuccessMessage('Password reset successful! You can now log in.');
+    setFormData({ password: '', confirmPassword: '' }); // Clear form
+    removeData("email");
+    removeData("otp");
+    removeData("token");
+
+    // Redirect to login after 2 seconds
+    setTimeout(() => {
+      router.push('/login');
+    }, 2000);
+  } catch (error) {
+    // Handle errors
+    if (error.response) {
+      // Server responded with an error
+      setError(error.response.data?.error || 'Failed to reset password');
+    } else if (error.request) {
+      // No response from server
+      setError('No response from the server. Please try again later.');
+    } else {
+      // Unexpected error
+      setError(`An unexpected error occurred. Please try again. ${error.message}`);
     }
-  };
+  } finally {
+    setIsLoading(false); // Stop loading
+  }
+};
+
 
     const {openModal, closeModal} = userStore()
   

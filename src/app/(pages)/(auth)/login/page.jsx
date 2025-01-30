@@ -8,6 +8,7 @@ import useLogin from '@/app/hooks/useLogin'
 import Image from 'next/image'
 import loginImg from '../../../../../public/assets/images/login-img.png'
 import { userStore } from '@/app/store/userStore'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
@@ -17,8 +18,10 @@ export default function LoginPage() {
     remember: false
   })
   const [errors, setErrors] = useState({})
+
+
   
-  const { err, isLoading, msg, login } = useLogin(`${process.env.NEXT_PUBLIC_BASE_URL}/users/login`)
+  const { isLoading, login } = useLogin(`${process.env.NEXT_PUBLIC_BASE_URL}/users/login`)
 
   const validateForm = () => {
     const newErrors = {}
@@ -56,14 +59,6 @@ export default function LoginPage() {
     }
   }
 
-  const {openModal, closeModal} = userStore()
-
-  useEffect(() => {
-    closeModal()
-    if (err) openModal(err, "error");
-    if (msg) openModal(msg, "success");
-  }, [err, msg]);
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl w-full flex gap-8 items-center">
@@ -89,7 +84,7 @@ export default function LoginPage() {
             <div className="space-y-4">
               <div>
                 <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                  Username or username
+                  Username or Email
                 </label>
                 <input
                   id="username"

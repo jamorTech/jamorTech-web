@@ -2,7 +2,7 @@
 export const fetchWithAuth = async (url, options = {}) => {
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = getData("accessToken");
   
       // Add Authorization header if accessToken exists
       const headers = {
@@ -49,7 +49,7 @@ export const fetchWithAuth = async (url, options = {}) => {
       const { accessToken } = data;
   
       // Update the access token in localStorage
-      localStorage.setItem("accessToken", accessToken);
+      storeData("accessToken", accessToken);
       return true;
     } catch (error) {
       console.error("Token refresh failed:", error);

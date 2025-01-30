@@ -1,10 +1,9 @@
 "use client";
 import React, { useEffect, useState, useCallback } from "react";
-import { AiOutlineUser } from "react-icons/ai";
-import { FiMessageSquare } from "react-icons/fi";
-import { CiMail } from "react-icons/ci";
-import { FaLongArrowAltRight } from "react-icons/fa";
+import { FaPaperPlane, FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 import { userStore } from "@/app/store/userStore";
+import axios from "@/app/api/axios";
+import { FiMessageSquare } from "react-icons/fi";
 
 const ContactUs = () => {
   const [firstName, setFirstName] = useState("");
@@ -32,6 +31,8 @@ const ContactUs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSuccessMessage("");
+    setErrors({});
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -40,34 +41,33 @@ const ContactUs = () => {
 
     try {
       setIsLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/feedback`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          message,
-        }),
+
+      // Axios POST request
+      const response = await axios.post(`/users/feedback`, {
+        firstName,
+        lastName,
+        email,
+        message,
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      // Handle success
+      if (response.status === 200) {
         setSuccessMessage("Thank you for your feedback!");
-        // Clear form fields
         setFirstName("");
         setLastName("");
         setEmail("");
         setMessage("");
         setErrors({});
-      } else {
-        const errorData = await response.json();
-        setErrors({ form: errorData.error || "Something went wrong. Please try again." });
       }
     } catch (error) {
-      setErrors({ form: "Network error. Please try again later." });
+      // Handle errors
+      if (error.response) {
+        setErrors({ form: error.response.data?.error || "Something went wrong. Please try again." });
+      } else if (error.request) {
+        setErrors({ form: "No response from server. Please try again later." });
+      } else {
+        setErrors({ form: "An unexpected error occurred. Please try again later." });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -80,99 +80,166 @@ const ContactUs = () => {
 
   const handleInputChange = (setter) => (e) => {
     setter(e.target.value);
-    // Clear the error for this field when the user starts typing
     setErrors((prev) => ({ ...prev, [e.target.name]: null }));
   };
 
   return (
-    <section className="bg-gray-100 min-h-screen flex items-center justify-center p-4">
-      <form onSubmit={handleSubmit} noValidate className="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center mb-6 text-purple-950">Contact Us</h1>
-        {isLoading && <div className="loader w-6 h-6 border-t-2 border-purple-500 border-solid rounded-full animate-spin mx-auto mb-4"></div>}
-        {errors.form && <p className="text-red-500 text-sm mb-4 text-center" role="alert">{errors.form}</p>}
-        <div className="space-y-4">
-          <div>
-            <label htmlFor="first_name" className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-            <div className="relative">
-              <AiOutlineUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" aria-hidden="true" />
-              <input
-                id="first_name"
-                name="firstName"
-                type="text"
-                value={firstName}
-                onChange={handleInputChange(setFirstName)}
-                className="pl-10 w-full p-2 border rounded-md focus:ring-2 focus:ring-purple-950 focus:border-purple-950"
-                aria-invalid={errors.firstName ? "true" : "false"}
-              />
+    <main className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-16">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold text-[#2E1065] mb-4">Contact Us</h1>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+          </p>
+        </div>
+
+        
+      <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        {/* Contact Information */}
+        <div className="space-y-8">
+          <div className="bg-white rounded-2xl shadow-lg p-8 space-y-8">
+            <div className="flex items-start space-x-4">
+              <div className="bg-[#2E1065] rounded-lg p-3 text-white">
+                <FaPhone className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-[#2E1065] mb-2">Phone</h3>
+                <p className="text-gray-600">+234 (803) 123-4567</p>
+                <p className="text-gray-600">+234 (803) 987-6543</p>
+              </div>
             </div>
-            {errors.firstName && <small className="text-red-500 text-xs mt-1" role="alert">{errors.firstName}</small>}
+
+            <div className="flex items-start space-x-4">
+              <div className="bg-[#2E1065] rounded-lg p-3 text-white">
+                <FaEnvelope className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-[#2E1065] mb-2">Email</h3>
+                <p className="text-gray-600">info@example.com</p>
+                <p className="text-gray-600">support@example.com</p>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-4">
+              <div className="bg-[#2E1065] rounded-lg p-3 text-white">
+                <FaMapMarkerAlt className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-[#2E1065] mb-2">Address</h3>
+                <p className="text-gray-600">123 Tech Hub Street</p>
+                <p className="text-gray-600">Lagos, Nigeria</p>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-4">
+              <div className="bg-[#2E1065] rounded-lg p-3 text-white">
+                <FaClock className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-[#2E1065] mb-2">Business Hours</h3>
+                <p className="text-gray-600">Monday - Friday: 9:00 AM - 5:00 PM</p>
+                <p className="text-gray-600">Saturday & Sunday: Closed</p>
+              </div>
+            </div>
           </div>
-          <div>
-            <label htmlFor="last_name" className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-            <div className="relative">
-              <AiOutlineUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" aria-hidden="true" />
-              <input
-                id="last_name"
-                name="lastName"
-                type="text"
-                value={lastName}
-                onChange={handleInputChange(setLastName)}
-                className="pl-10 w-full p-2 border rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
-                aria-invalid={errors.lastName ? "true" : "false"}
-              />
-            </div>
-            {errors.lastName && <small className="text-red-500 text-xs mt-1" role="alert">{errors.lastName}</small>}
-          </div>
-          <div>
-            <label htmlFor="mail" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <div className="relative">
-              <CiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" aria-hidden="true" />
-              <input
-                id="mail"
-                name="email"
-                type="email"
-                value={email}
-                onChange={handleInputChange(setEmail)}
-                className="pl-10 w-full p-2 border rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
-                aria-invalid={errors.email ? "true" : "false"}
-              />
-            </div>
-            {errors.email && <small className="text-red-500 text-xs mt-1" role="alert">{errors.email}</small>}
-          </div>
-          <div>
-            <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-            <div className="relative">
-              <FiMessageSquare className="absolute left-3 top-3 text-gray-400" aria-hidden="true" />
-              <textarea
-                id="message"
-                name="message"
-                value={message}
-                onChange={handleInputChange(setMessage)}
-                className="pl-10 w-full p-2 border rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 h-32"
-                aria-invalid={errors.message ? "true" : "false"}
-              />
-            </div>
-            {errors.message && <small className="text-red-500 text-xs mt-1" role="alert">{errors.message}</small>}
+
+          {/* Map Placeholder */}
+          <div className="bg-white rounded-2xl shadow-lg p-4 h-64 relative overflow-hidden">
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.953166004527!2d-122.08424968468136!3d37.42199957982509!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fba4dfce1b8d5%3A0xbfbf6c4b1517a469!2sGoogleplex!5e0!3m2!1sen!2sus!4v1639245142053!5m2!1sen!2sus"
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Google Maps"
+            ></iframe>
+</div>
+
+        </div>
+
+          {/* Contact Form */}
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <h2 className="text-2xl font-semibold text-[#2E1065] mb-6">Send us a Message</h2>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  value={firstName}
+                  onChange={handleInputChange(setFirstName)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2E1065] focus:border-transparent"
+                />
+                {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
+              </div>
+
+              <div>
+                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  value={lastName}
+                  onChange={handleInputChange(setLastName)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2E1065] focus:border-transparent"
+                />
+                {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>}
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={handleInputChange(setEmail)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2E1065] focus:border-transparent"
+                />
+                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                  Message
+                </label>
+                <div className="relative">
+                <FiMessageSquare className="absolute left-3 top-3 text-gray-400" aria-hidden="true" />
+                <textarea
+                  id="message"
+                  name="message"
+                  value={message}
+                  onChange={handleInputChange(setMessage)}
+                  rows="4"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2E1065] focus:border-transparent"
+                />
+                </div>
+                {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+              </div>
+
+              {errors.form && <p className="text-red-500 text-sm mt-1">{errors.form}</p>}
+
+              <button
+                type="submit"
+                className="w-full bg-[#2E1065] text-white py-3 px-6 rounded-lg hover:bg-[#4C1D95] transition-colors duration-300 flex items-center justify-center space-x-2"
+                disabled={isLoading}
+              >
+                <span>{isLoading ? "Sending..." : "Send Message"}</span>
+                <FaPaperPlane className="w-4 h-4" />
+              </button>
+            </form>
           </div>
         </div>
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="mt-6 w-full bg-purple-900 text-white py-2 px-4 rounded-md hover:bg-purple-950 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition duration-150 ease-in-out flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isLoading ? (
-            <div className="btnLoader w-5 h-5 border-t-2 border-white border-solid rounded-full animate-spin mr-2"></div>
-          ) : (
-            <>
-              Contact Us
-              <FaLongArrowAltRight className="ml-2" aria-hidden="true" />
-            </>
-          )}
-        </button>
-      </form>
-    </section>
+      </div>
+    </main>
   );
 };
 
 export default ContactUs;
-

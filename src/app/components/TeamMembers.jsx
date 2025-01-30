@@ -3,7 +3,7 @@ import TeamMembersImages from "./TeamMembersImages";
 import usuman from "../../../public/images/usman.jpg";
 import chioma from "./about-page-components/images/chioma.svg";
 import blessing from "./about-page-components/images/blessing.svg";
-import damilare from "./about-page-components/images/damilare.svg";
+import damilare from "../../../public/images/damilare.png";
 import peace from "./about-page-components/images/peace.svg";
 import shittu from "./about-page-components/images/shittu.svg";
 

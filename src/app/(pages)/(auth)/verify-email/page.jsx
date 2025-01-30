@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { userStore } from '@/app/store/userStore'
 import Link from 'next/link'
+import axios from '@/app/api/axios'
+import { storeData } from '@/app/utils/localStorage'
 
 const VerifyEmailPage = ()=> {
   const router = useRouter()
@@ -11,45 +13,44 @@ const VerifyEmailPage = ()=> {
   const [status, setStatus] = useState('verifying') // verifying, success, error
   const [error, setError] = useState('')
 
+
   useEffect(() => {
     const verifyEmail = async () => {
       try {
-        const userId = searchParams.get('userId')
-        const token = searchParams.get('token')
-
+        const userId = searchParams.get('userId');
+        const token = searchParams.get('token');
+  
         if (!userId || !token) {
-          setStatus('error')
-          setError('Click on the verification link sent to your email to get verified')
-          return
+          setStatus('error');
+          setError('Click on the verification link sent to your email to get verified');
+          return;
         }
+  
+        // Axios POST request with credentials
+        const response = await axios.post(
+          `/users/verify-email`,
+          { userId, token },
+          { withCredentials: true } // Include credentials in the request
+        );
+  
+        const data = response.data;
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/verify-email`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ userId, token }),
-        })
-
-        const data = await response.json()
-
-        if (!response.ok) {
-          throw new Error(data.error || 'Verification failed')
-        }
-
-        setStatus('success')
-        localStorage.setItem("user", JSON.stringify(data))
+        // Check if the response is successful
+        setStatus('success');
+        storeData('user', JSON.stringify(data));
         setTimeout(() => {
-          router.push('/profile')
-        }, 2000)
+          router.push('/profile');
+        }, 2000);
       } catch (err) {
-        setStatus('error')
-        setError(err.error || 'An error occurred during verification')
+        setStatus('error');
+        setError(
+          err.response?.data?.error || 'An error occurred during verification'
+        );
       }
-    }
-
-    verifyEmail()
-  }, [router, searchParams])
+    };
+  
+    verifyEmail();
+  }, []);
 
   
   const {openModal, closeModal} = userStore()
@@ -116,12 +117,12 @@ const VerifyEmailPage = ()=> {
               <p className="text-lg font-medium text-gray-900">Email not verified</p>
               {/* <p className="text-sm text-yellow-500">{error}</p> */}
               <Link href={"contact-us"} className='text-sm text-blue-500 my-5'>Talk to us if you are finding it difficult getting verified</Link>
-              <button
-                onClick={() => router.push('/login')}
+              <Link
+                href={"login"}
                 className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-900 hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Back to Login
-              </button>
+              </Link>
             </div>
           )}
         </div>

@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation'
 import { FaSquareXTwitter, FaFacebook, FaLinkedin} from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa";
 import { RiInstagramFill } from "react-icons/ri";
+import useUserStore from '@/app/store/useUserStore'
 
 const Footer = () => {
 
@@ -16,7 +17,7 @@ const Footer = () => {
 
     const infoLinks = [
         { name: "About Us", href: "/about"},
-        { name: "Contact Us", href: "/contact"},
+        { name: "Contact Us", href: "/contact-us"},
         { name: "Terms and Conditions", href: "/terms"},
         { name: "Privacy Policy", href: "/policy"},
       ]
