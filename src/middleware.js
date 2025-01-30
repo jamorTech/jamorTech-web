@@ -5,6 +5,8 @@ export async function middleware(req) {
   const url = req.nextUrl.clone();
   const path = url.pathname;
 
+  console.log(`Middleware ran for: ${path}`);
+
   // List of protected routes
   const protectedRoutes = [
     "/profile",
@@ -28,12 +30,14 @@ export async function middleware(req) {
           refreshToken,
           new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET) // Secret for JWT verification
         );
+        console.log("Token is valid, redirecting away from auth page");
 
         // Redirect logged-in users trying to access auth pages to a default route
         url.pathname = "/profile"; // Default route for logged-in users
         return NextResponse.redirect(url);
       } catch (error) {
         // If the token is invalid or expired, allow access to auth pages
+        console.log("Invalid or expired token, allowing access to auth page");
       }
     }
   }
@@ -41,6 +45,8 @@ export async function middleware(req) {
   // Check for protected routes
   if (protectedRoutes.includes(path)) {
     if (!refreshToken) {
+      console.log("No refresh token found, redirecting to login");
+
       // Redirect to the login page with the 'from' query parameter and a message
       url.pathname = "/login";
       url.searchParams.set("from", path); // Pass the intended path
@@ -54,9 +60,11 @@ export async function middleware(req) {
         refreshToken,
         new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET) // Secret for JWT verification
       );
+      console.log("Token is valid:", payload);
 
       // Check if the user is verified
       if (!payload.verified) {
+        console.log("User is not verified, redirecting to profile");
 
         // Redirect users who are not verified
         url.pathname = "/verify-email"; // Redirect to profile or another page
@@ -68,12 +76,15 @@ export async function middleware(req) {
         (path === "/usersManager" || path === "/job-applications") &&
         payload.userType !== "admin"
       ) {
+        console.log("User does not have admin privileges, redirecting to profile");
 
         // Redirect non-admin users trying to access admin routes
         url.pathname = "/unauthorized"; // Redirect to a page indicating no access
         return NextResponse.redirect(url);
       }
     } catch (error) {
+      console.log("Invalid or expired token:", error.message);
+
       // Redirect to login if token is invalid or expired
       url.pathname = "/login";
       url.searchParams.set("from", path);
