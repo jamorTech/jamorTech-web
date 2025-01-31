@@ -3,9 +3,16 @@ import React, { useState } from 'react';
 import styles from "./Form.module.css";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from 'react-icons/fa';
 import Link from 'next/link';
+import SignupClosedMessage from './signupClosed/SignupClosedMessage';
 
 const Form = ({ FormInput, currentStep = "", nextStep = "", prevStep = "", handleSubmit = "", errors = "" }) => {
   const [checkBox, setCheckBox] = useState(false);
+
+  const signupsDisabled = true; // Set this to false when you're ready to accept users
+
+  if (signupsDisabled) {
+    return <SignupClosedMessage />
+  }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
