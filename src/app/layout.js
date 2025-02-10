@@ -3,6 +3,8 @@ import "./globals.css";
 import Nav from "./components/nav/Nav";
 import Footer from "./components/footer/Footer";
 import Modal from "./components/modal/Modal";
+import { Suspense } from "react";
+import Loading from "./components/Loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,14 +42,16 @@ const inter = Inter({ subsets: ["latin"] });
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Nav />
-        <div style={{minHeight: "40vh"}}>
-          {children}
-          <Modal />
-        </div>
-        <Footer />
-      </body>
+      <Suspense fallback={<Loading />}>
+        <body className={inter.className}>
+          <Nav />
+          <div style={{minHeight: "40vh"}}>
+            {children}
+            <Modal />
+          </div>
+          <Footer />
+        </body>
+      </Suspense>
     </html>
   );
 }
