@@ -10,7 +10,7 @@ export function AdminProfile({ user }) {
   // const { userData?.username, userData?.firstName, userData?.lastName, userData?.email, userData?.phone } = user
   const [userData, setUserData] = useState(user)
   const [showEditForm, setShowEditForm] = useState(false)
-  const [activeUserType, setActiveUserType] = useState('all')
+  const [activeUserType, setActiveUserType] = useState('')
 
   const handleUserTypeChange = (type) => {
     setActiveUserType(type)
@@ -22,10 +22,10 @@ export function AdminProfile({ user }) {
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-white p-6 rounded-lg shadow-sm">
         <div className="flex items-center gap-4">
           <div className="h-20 w-20 rounded-full bg-[#2E1065] text-white flex items-center justify-center text-xl font-semibold">
-            {userData?.firstName?.[0]}{userData?.lastName?.[0]}
+            {userData?.firstName?.[0].toUpperCase()}{userData?.lastName?.[0]}
           </div>
           <div>
-            <h1 className="text-2xl font-semibold text-[#111827]">{userData?.username}</h1>
+            <h1 className="text-2xl font-semibold text-[#111827]">{userData?.username.charAt(0).toUpperCase() + userData.username.slice(1)}</h1>
             <p className="text-[#6B7280]">Administrator</p>
           </div>
         </div>
@@ -65,7 +65,7 @@ export function AdminProfile({ user }) {
         <div className="p-6">
           <div className="flex flex-wrap gap-2 mb-4">
             <Link href={"/usersManager"}
-              className={`px-4 py-2 rounded-md flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-md flex items-center gap-2 hover:bg-[#2E1065] hover:text-white ${
                 activeUserType === 'all' ? 'bg-[#2E1065] text-white' : 'bg-[#f5f5f5] text-[#111827]'
               }`}
               onClick={() => handleUserTypeChange('all')}
@@ -74,7 +74,7 @@ export function AdminProfile({ user }) {
               All Users
             </Link>
             <Link href={"/job-applications"}
-              className={`px-4 py-2 rounded-md flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-md flex items-center gap-2 hover:bg-[#2E1065] hover:text-white ${
                 activeUserType === 'intern' ? 'bg-[#2E1065] text-white' : 'bg-[#f5f5f5] text-[#111827]'
               }`}
               onClick={() => handleUserTypeChange('intern')}

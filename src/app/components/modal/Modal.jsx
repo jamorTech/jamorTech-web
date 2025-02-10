@@ -2,10 +2,10 @@
 
 import { useEffect } from 'react'
 import styles from './Modal.module.css'
-import { userStore } from '@/app/store/userStore'
+import { useUserStore } from '@/app/store/useUserStore'
 
 export default function Modal() {
-  const { isOpen, message, type, closeModal } = userStore()
+  const { isOpen, message, type, closeModal } = useUserStore()
 
   useEffect(() => {
     const handleEscape = (e) => {

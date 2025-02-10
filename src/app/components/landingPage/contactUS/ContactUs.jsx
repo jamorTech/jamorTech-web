@@ -5,8 +5,8 @@ import { AiOutlineUser } from "react-icons/ai";
 import { FiMessageSquare } from "react-icons/fi";
 import { CiMail } from "react-icons/ci";
 import { FaLongArrowAltRight } from "react-icons/fa";
-import { userStore } from "@/app/store/userStore";
 import axios from "@/app/api/axios";
+import { useUserStore } from "@/app/store/useUserStore";
 
 const ContactUs = () => {
   const [firstName, setFirstName] = useState("");
@@ -83,7 +83,7 @@ const handleSubmit = async (e) => {
 };
 
 
-  const {openModal, closeModal} = userStore()
+  const {openModal, closeModal} = useUserStore()
   
     useEffect(() => {
       closeModal()

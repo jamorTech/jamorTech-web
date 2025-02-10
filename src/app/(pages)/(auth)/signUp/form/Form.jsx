@@ -8,7 +8,7 @@ import SignupClosedMessage from './signupClosed/SignupClosedMessage';
 const Form = ({ FormInput, currentStep = "", nextStep = "", prevStep = "", handleSubmit = "", errors = "" }) => {
   const [checkBox, setCheckBox] = useState(false);
 
-  const signupsDisabled = true; // Set this to false when you're ready to accept users
+  const signupsDisabled = false; // Set this to false when you're ready to accept users
 
   if (signupsDisabled) {
     return <SignupClosedMessage />
@@ -54,7 +54,7 @@ const Form = ({ FormInput, currentStep = "", nextStep = "", prevStep = "", handl
         )}
         {(!currentStep || currentStep === 3) && (
           <button type="submit" disabled={!checkBox} className={styles.signUp}>
-            Sign Up <FaLongArrowAltRight />
+            Proceed <FaLongArrowAltRight />
           </button>
         )}
       </div>

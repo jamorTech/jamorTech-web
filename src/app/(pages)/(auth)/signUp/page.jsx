@@ -19,7 +19,8 @@ import Link from 'next/link'
 import Form from './form/Form'
 import { Input, TextArea } from './form/input/Input'
 import useSignUp from '@/app/hooks/useSignUp'
-import { userStore } from '@/app/store/userStore'
+import { useUserStore } from '@/app/store/useUserStore'
+import { usePathname } from 'next/navigation'
 
 const page = () => {
 
@@ -29,6 +30,7 @@ const page = () => {
   const [errors, setErrors] = useState({});
   const [fileErr, setFileErr] = useState(null);
   const [fileChange, setFileChange] = useState(false);
+  const pathName = usePathname();
 
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedFileName, setSelectedFileName] = useState("");
@@ -232,7 +234,7 @@ const handleSubmit = async(e) => {
   }
 };
 
-const {openModal, closeModal} = userStore()
+const {openModal, closeModal} = useUserStore()
     
 useEffect(() => {
   closeModal()
@@ -275,7 +277,7 @@ useEffect(() => {
             Company
           </span>
         </div>
-        <p className={styles.have_acct}>Already have an account?<Link href={"/login"}>Login</Link></p>
+        <p className={styles.have_acct}>Already have an account?<Link href={`/login?redirect=${encodeURIComponent(pathName)}`}>Login</Link></p>
         {userType === "company" && <Form
           handleSubmit={handleSubmit}
           FormInput={[

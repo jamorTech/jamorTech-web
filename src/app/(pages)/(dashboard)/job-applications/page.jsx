@@ -5,7 +5,8 @@ import { FaCheck, FaTimes } from 'react-icons/fa'
 import JobApplicationTable from './components/job-application-table'
 import JobApplicationModal from './components/job-application-modal'
 import useAxiosPrivate from '@/app/hooks/useAxiosPrivate'
-import useUserStore from '@/app/store/useUserStore'
+import { useUserStore } from '@/app/store/useUserStore'
+import Loading from '@/app/components/Loading'
 
 export default function JobApplicationsManager() {
   const [applications, setApplications] = useState([]) // Empty array initially
@@ -67,14 +68,20 @@ export default function JobApplicationsManager() {
     } catch (err) {
       // Rollback to the original state if the request fails
       setApplications(originalApplications)
+      if (err.response?.status === 401 || err.response?.status === 403) {
+        setError(err.response.data.error);
+      }else if (err.response?.status === 404) {
+        setError(err.response.data.error)
+      }else {
       setError('Failed to update application. Please try again.')
+      }
     } finally {
       setToggling(null) // Reset toggling state
     }
   }
 
   if (loading) {
-    return <p className="text-center mt-4">Loading applications...</p>
+    return <Loading />
   }
 
   if (error) {

@@ -5,10 +5,10 @@ import Link from 'next/link';
 import styles from './reset-password-form.module.css';
 import { FiEye } from "react-icons/fi";
 import { IoEyeOffOutline } from "react-icons/io5";
-import { userStore } from '@/app/store/userStore';
 import { useRouter } from 'next/navigation';
 import axios from '@/app/api/axios';
 import { getData, removeData } from '@/app/utils/localStorage';
+import { useUserStore } from '@/app/store/useUserStore';
 
 export default function ResetPasswordForm() {
   const [formData, setFormData] = useState({
@@ -104,7 +104,7 @@ const handleSubmit = async (e) => {
 };
 
 
-    const {openModal, closeModal} = userStore()
+    const {openModal, closeModal} = useUserStore()
   
     useEffect(() => {
       closeModal()

@@ -13,11 +13,11 @@ export function CompanyProfile({ user }) {
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-white p-6 rounded-lg shadow-sm">
         <div className="flex items-center gap-4">
           <div className="h-20 w-20 rounded-full bg-[#2E1065] text-white flex items-center justify-center text-xl font-semibold">
-            {userData?.businessName?.[0]}
+            {userData?.businessName?.[0].toUpperCase()}
           </div>
           <div>
             <h1 className="text-2xl font-semibold text-[#111827] flex items-center gap-2">
-              {userData?.businessName}
+              {userData?.businessName.charAt(0).toUpperCase() + userData.businessName.slice(1)}
               {userData?.verified ? (
                 <FaCheckCircle className="h-5 w-5 text-[#059669]" />
               ) : (

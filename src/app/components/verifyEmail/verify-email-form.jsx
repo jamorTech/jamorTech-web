@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import styles from './verify-email-form.module.css'
-import { userStore } from '@/app/store/userStore';
 import { useRouter } from 'next/navigation';
 import axios from '@/app/api/axios';
 import { getData, storeData } from '@/app/utils/localStorage';
+import { useUserStore } from '@/app/store/useUserStore';
 
 export default function VerifyEmailForm() {
   const [verificationCode, setVerificationCode] = useState(['', '', '', '', '', '']);
@@ -83,7 +83,7 @@ export default function VerifyEmailForm() {
     }
   };
 
-  const { openModal, closeModal } = userStore();
+  const { openModal, closeModal } = useUserStore();
 
   useEffect(() => {
     closeModal();
