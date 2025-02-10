@@ -1,11 +1,11 @@
 "use client"
-import useUserStore from "../store/useUserStore";
 import useAxiosPrivate from "./useAxiosPrivate";
 import { clearAllData } from "../utils/localStorage";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "../store/useUserStore";
 
 const useLogout = () => {
-  const { setUser } = useUserStore();
+  const { clearUser } = useUserStore();
   const axiosPrivate = useAxiosPrivate();
   const {push} = useRouter()
   
@@ -14,15 +14,19 @@ const useLogout = () => {
         const response = await axiosPrivate.post("/users/logout");
 
         if (response.status === 200 || response.status === 204) {
-          setUser(null);
-          sessionStorage.removeItem("user");
+          clearUser()
           clearAllData()
-          push("/login")
+           window.location.href = "/login"
         } else {
+          clearUser()
+          clearAllData()
+          window.location.href = "/login"
           throw new Error("Logout failed: " + response.data.message);
         }
       } catch (error) {
-        sessionStorage.removeItem("user");
+        clearUser()
+        clearAllData()
+        window.location.href = "/login"
         throw error.message;
       }
     };

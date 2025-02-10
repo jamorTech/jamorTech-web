@@ -5,8 +5,8 @@ import Link from "next/link";
 import user from "./login-img/user.svg";
 import eyes from "./login-img/eye.svg";
 import move from "./login-img/move.svg";
-import { userStore } from "@/app/store/userStore";
 import useLogin from "@/app/hooks/useLogin";
+import { useUserStore } from "@/app/store/useUserStore";
 
 export default function LoginForm() {
   const [convert, setConvert] = useState("password");
@@ -31,7 +31,7 @@ export default function LoginForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const {openModal} = userStore()
+  const {openModal} = useUserStore()
 
   const {err, isLoading, msg, login} = useLogin(`${process.env.NEXT_PUBLIC_BASE_URL}/users/login`)
 

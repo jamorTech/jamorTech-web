@@ -1,34 +1,42 @@
 "use client";
-
-import Link from 'next/link';
-import HeroSection from './components/hero-section';
-import TechieCard from './components/techie-card';
-import useAxiosPrivate from '@/app/hooks/useAxiosPrivate';
-import { useEffect, useState } from 'react';
-import useUserStore from '@/app/store/useUserStore';
+import { useState, useEffect } from "react";
+import HeroSection from "./components/hero-section";
+import TechieCard from "./components/techie-card";
+import Loading from "@/app/components/Loading";
+import { useUserStore } from "@/app/store/useUserStore";
+import useAxiosPrivate from "@/app/hooks/useAxiosPrivate";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Home() {
   const [techies, setTechies] = useState([]); // Initialize as an array
   const [loading, setLoading] = useState(false); // Loading state
+  const [errorMessage, setErrorMessage] = useState(""); // New error state
   const axiosPrivate = useAxiosPrivate();
-  const {user, tokenRefreshed} = useUserStore()
+  const { tokenRefreshed } = useUserStore(); // Used to trigger re-fetching when token is refreshed
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); // Set loading to true when starting the fetch
+      setLoading(true);
+      setErrorMessage(""); // Reset error state on new fetch
       try {
         const response = await axiosPrivate.get(`/users/approved-jobs`);
-
-        setTechies(response.data); // Update state only if mounted
+        setTechies(response.data);
       } catch (error) {
-          console.error(`Failed to fetch data: ${error.message || error}`);
+        if (error.response?.status === 401 || error.response?.status === 403) {
+          setError(error.response.data.error);
+        }else if (error.response?.status === 404) {
+          setErrorMessage("Techies not found or something went wrong. Please try again later.");
+        } else {
+          setErrorMessage(error.response.data.error || "Failed to fetch data");
+        }
       } finally {
-         setLoading(false); // Ensure loading is false after completion
+        setLoading(false);
       }
     };
 
     fetchData();
-  }, [user, tokenRefreshed]); // Dependency: Do not include `techies` to avoid infinite loops
+  }, [tokenRefreshed, axiosPrivate]);
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -46,7 +54,11 @@ export default function Home() {
           </div>
 
           {loading ? (
-            <div className="loader"></div>
+            <Loading />
+          ) : errorMessage ? (
+            <div className="p-4 bg-red-50 border border-red-500 rounded-lg text-red-600">
+              {errorMessage}
+            </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
               {techies.map((techie, index) => (
@@ -66,7 +78,7 @@ export default function Home() {
             Get in touch with us to learn more about our talented techies and how they can contribute to your organization's success.
           </p>
           <Link
-            href={"contact-us"}
+            href="contact-us"
             className="bg-white text-[#2E1065] px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
           >
             Contact Us

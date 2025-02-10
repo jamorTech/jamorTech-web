@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { userStore } from '@/app/store/userStore'
 import Link from 'next/link'
-import axios from '@/app/api/axios'
+import { axiosPrivate } from '@/app/api/axios'
 import { storeData } from '@/app/utils/localStorage'
+import { useUserStore } from '@/app/store/useUserStore'
 
 const VerifyEmailPage = ()=> {
   const router = useRouter()
@@ -27,11 +27,7 @@ const VerifyEmailPage = ()=> {
         }
   
         // Axios POST request with credentials
-        const response = await axios.post(
-          `/users/verify-email`,
-          { userId, token },
-          { withCredentials: true } // Include credentials in the request
-        );
+        const response = await axiosPrivate.post(`/users/verify-email`, { userId, token });
   
         const data = response.data;
 
@@ -39,7 +35,7 @@ const VerifyEmailPage = ()=> {
         setStatus('success');
         storeData('user', JSON.stringify(data));
         setTimeout(() => {
-          router.push('/profile');
+          router.push('/login');
         }, 2000);
       } catch (err) {
         setStatus('error');
@@ -53,7 +49,7 @@ const VerifyEmailPage = ()=> {
   }, []);
 
   
-  const {openModal, closeModal} = userStore()
+  const {openModal, closeModal} = useUserStore()
 
     useEffect(() => {
       closeModal()

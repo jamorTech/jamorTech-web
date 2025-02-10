@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import styles from "./forgot-password-form.module.css"
-import { userStore } from '@/app/store/userStore';
 import { useRouter } from 'next/navigation';
 import axios from '@/app/api/axios';
 import { storeData } from '@/app/utils/localStorage';
+import { useUserStore } from '@/app/store/useUserStore';
 
 export default function ForgotPasswordForm() {
   const [email, setEmail] = useState('');
@@ -74,7 +74,7 @@ const handleSubmit = async (e) => {
 };
 
 
-  const {openModal, closeModal} = userStore()
+  const {openModal, closeModal} = useUserStore()
 
     useEffect(() => {
       closeModal()

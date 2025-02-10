@@ -1,17 +1,17 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { IoEyeOffOutline } from 'react-icons/io5'
 import { FiEye } from 'react-icons/fi'
 import useLogin from '@/app/hooks/useLogin'
 import Image from 'next/image'
 import loginImg from '../../../../../public/assets/images/login-img.png'
-import { userStore } from '@/app/store/userStore'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
+  const pathName = usePathname();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -32,8 +32,6 @@ export default function LoginPage() {
     
     if (!formData.password) {
       newErrors.password = 'Password is required'
-    } else if (formData.password.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters'
     }
     
     setErrors(newErrors)
@@ -168,7 +166,7 @@ export default function LoginPage() {
 
           <p className="text-center text-sm">
             Don't have an account?{' '}
-            <Link href="/signUp" className="text-green-800 hover:text-green-700">
+            <Link href={`/signUp?redirect=${encodeURIComponent(pathName)}`} className="text-green-800 hover:text-green-700">
               Sign Up
             </Link>
           </p>

@@ -1,24 +1,29 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import useUserStore from "../store/useUserStore";
 import { axiosPrivate } from "../api/axios";
-import { userStore } from "../store/userStore";
+import { useUserStore } from "../store/useUserStore";
 
 const useLogin = (url) => {
   const [err, setErr] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [msg, setMsg] = useState("");
-  const { setUser } = useUserStore();
+  const { setUser, openModal, closeModal, isAuthenticated } = useUserStore();
   const { push, replace } = useRouter();
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const redirectTo = searchParams.get("redirect") || "/";
+      
+      replace(redirectTo);
+    }
+  }, [isAuthenticated, replace, searchParams]);
 
   // Retrieve query parameters
   const message = searchParams.get("message");
   const redirectTo = searchParams.get("from") || "/profile";
-
-  const { openModal, closeModal } = userStore();
 
   // Display initial message if present
   useEffect(() => {
@@ -54,23 +59,21 @@ const useLogin = (url) => {
 
       if (response.status === 200) {
         const userData = response.data;
-
+        
+        
         // Set user in the global store
         setUser(userData);
-        sessionStorage.setItem("user", JSON.stringify(userData));
-
+        
         // Handle redirection and messages
         if (!userData.verified) {
           setMsg("Please verify your email.");
-          push("/verify-email");
+          window.location.href = "/verify-email"
         } else {
           setMsg("Login successful!");
           window.location.href = redirectTo;
         }
       }
     } catch (error) {
-      sessionStorage.removeItem("user");
-
       // Handle different error cases
       if (error.response) {
         // Server responded with an error status

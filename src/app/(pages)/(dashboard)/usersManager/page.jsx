@@ -10,8 +10,7 @@ import {
 import UserTable from './components/user-table';
 import UserDetailModal from './components/user-detail-modal';
 import useAxiosPrivate from '@/app/hooks/useAxiosPrivate';
-import useUserStore from '@/app/store/useUserStore';
-import useRedirectToLogin from '@/app/hooks/useRedirectToLogin';
+import { useUserStore } from '@/app/store/useUserStore';
 
 export default function UsersManager() {
   const axiosPrivate = useAxiosPrivate();
@@ -21,7 +20,6 @@ export default function UsersManager() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
-  const redirectToLogin = useRedirectToLogin()
 
   const filterTypes = [
     { id: 'all', label: 'All Users', icon: FaUsers },
@@ -45,12 +43,14 @@ export default function UsersManager() {
         
         setUsers(response.data);
       } catch (err) {
+        console.log(err);
+        
         if (err.response?.status === 401 || err.response?.status === 403) {
-          // Handle token expiry or invalid token
-          setError("Your session has expired. Please log in again.");
-          redirectToLogin(); // Redirect to login page
-        } else {
-          setError(err.message || "Failed to fetch users");
+          setError(err.response.data.error);
+        }else if (err.response?.status === 404) {
+          setError(err.response.data.error);
+        }else{
+          setError(err.response.data.error || "Failed to fetch users");
         }
       } finally {
         setLoading(false);

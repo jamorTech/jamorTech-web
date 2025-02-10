@@ -19,7 +19,7 @@ export function InternProfile({ user }) {
           </div>
           <div>
             <h1 className="text-2xl font-semibold text-[#111827] flex items-center gap-2">
-              {userData?.username}
+              {userData?.username.charAt(0).toUpperCase() + userData?.username.slice(1)}
               {userData?.verified ? (
                 <FaCheckCircle className="h-5 w-5 text-[#059669]" />
               ) : (

@@ -4,42 +4,36 @@ import styles from "./Nav.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "../../../../public/assets/images/logo.png";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
-import useUserStore from "@/app/store/useUserStore";
 import useLogout from "@/app/hooks/useLogout";
-import { clearAllData } from "@/app/utils/localStorage";
+import { useUserStore } from "@/app/store/useUserStore";
 
 const Nav = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const { user, setUser } = useUserStore();
+  const { setUser, clearUser, isAuthenticated } = useUserStore();
+  const searchParams = useSearchParams();
   const pathName = usePathname();
-  const { push } = useRouter();
+  const router = useRouter();
   const { logout } = useLogout();
-  const [authUser, setAuthUser] = useState(false)
-
-  // Remove session when "/login?from" is detected
-  useEffect(() => {
-    if (pathName?.includes("/login")) {
-      sessionStorage.removeItem("user");
-      clearAllData()
-      setAuthUser(false); // Reset authentication status
-    }
-    
-  }, [pathName, authUser, user]);
 
   useEffect(() => {
-    const isAuth = JSON.parse(sessionStorage.getItem("user"));
-    if (isAuth) {
-      setAuthUser(true)
+    const authRoutes = ["/login", "/signUp"];
+    if (isAuthenticated && authRoutes.includes(pathName)) {
+      const redirectTo = searchParams.get("redirect") || "/";
+      
+      // Prevent infinite redirects
+      if (pathName !== redirectTo) {
+        router.replace(redirectTo);
+      }
     }
-  }, [user, authUser, pathName]);
-
+  }, [pathName, isAuthenticated, router, searchParams]);
+  
   const handleLogout = async () => {
     await logout();
-    setUser(null);
-    push("/login");
+    clearUser()
+    router.push("/login");
   };
 
   const navLinks = [
@@ -77,7 +71,7 @@ const Nav = () => {
         </ul>
 
         <div className={styles.login_createAcct_container}>
-          {authUser ? (
+          {isAuthenticated ? (
             <>
               <button onClick={handleLogout} className={styles.login}>
                 Logout
@@ -88,10 +82,10 @@ const Nav = () => {
             </>
           ) : (
             <>
-              <Link href={"login"} className={styles.login}>
+              <Link href={`login?redirect=${encodeURIComponent(pathName)}`} className={styles.login}>
                 Login
               </Link>
-              <Link href={"signUp"} className={styles.createAcct}>
+              <Link href={`signUp?redirect=${encodeURIComponent(pathName)}`} className={styles.createAcct}>
                 Create an Account
               </Link>
             </>
