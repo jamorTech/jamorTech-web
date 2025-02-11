@@ -1,8 +1,9 @@
 "use client"
 import axios from '@/app/api/axios';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect, useRef, useState  } from 'react'
+import React, { Suspense, useEffect, useRef, useState  } from 'react'
 import VerificationStatus from './Verification-status';
+import Loading from '@/app/components/Loading';
 
 const page = () => {
     const searchParams = useSearchParams()
@@ -50,7 +51,8 @@ const page = () => {
       }, []); // Add searchParams as a dependency if it might change
       
 return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <Suspense fallback={<Loading />}>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-[#2E1065] mb-2">
@@ -75,6 +77,7 @@ return (
         )} */}
       </div>
     </div>
+    </Suspense>
   )
 }
 
