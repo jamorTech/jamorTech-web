@@ -1,4 +1,4 @@
-
+"use client"
 let storage;
 
 if (typeof window !== "undefined" && window.sessionStorage) {
