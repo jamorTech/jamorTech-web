@@ -31,6 +31,7 @@ const Nav = () => {
   }, [pathName, isAuthenticated, router, searchParams]);
   
   const handleLogout = async () => {
+    setOpenMenu(false)
     await logout();
     clearUser()
     router.push("/login");
@@ -76,16 +77,16 @@ const Nav = () => {
               <button onClick={handleLogout} className={styles.login}>
                 Logout
               </button>
-              <Link href={"profile"} className={styles.createAcct}>
+              <Link href={"profile"} className={styles.createAcct} onClick={()=>setOpenMenu(false)}>
                 Profile
               </Link>
             </>
           ) : (
             <>
-              <Link href={`login?redirect=${encodeURIComponent(pathName)}`} className={styles.login}>
+              <Link href={`login?redirect=${encodeURIComponent(pathName)}`} className={styles.login} onClick={()=>setOpenMenu(false)}>
                 Login
               </Link>
-              <Link href={`signUp?redirect=${encodeURIComponent(pathName)}`} className={styles.createAcct}>
+              <Link href={`signUp?redirect=${encodeURIComponent(pathName)}`} className={styles.createAcct} onClick={()=>setOpenMenu(false)}>
                 Create an Account
               </Link>
             </>

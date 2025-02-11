@@ -1,37 +1,39 @@
-import SecureLS from "secure-ls";
+// storage.js
+// This module uses sessionStorage as a drop-in replacement for SecureLS.
+// It provides the same API: storeData, getData, removeData, isDataPresent, and clearAllData.
 
-let ls = null;
+let storage = null;
 
-// Initialize SecureLS only in the browser environment
-if (typeof window !== "undefined") {
-  ls = new SecureLS({
-    encodingType: "aes",
-    encryptionSecret: process.env.NEXT_PUBLIC_ACCESS_TOKEN_SECRETE,
-  });
+// Initialize sessionStorage only in the browser environment
+if (typeof window !== "undefined" && window.sessionStorage) {
+  storage = window.sessionStorage;
 } else {
-  console.warn("SecureLS is not initialized - running on the server.");
+  console.warn("sessionStorage is not available - running on the server.");
 }
 
-// A flexible store function to save any value with a dynamic name
+// Save any value (object, string, number, etc.) with the specified key
 export const storeData = (key, value) => {
   try {
-    if (ls) {
-      ls.set(key, value);
+    if (storage) {
+      // Convert the value to a JSON string before storing
+      storage.setItem(key, JSON.stringify(value));
     } else {
-      console.error("Cannot store data - SecureLS is not available.");
+      console.error("Cannot store data - sessionStorage is not available.");
     }
   } catch (error) {
     console.error("Error storing data:", error);
   }
 };
 
-// A flexible get function to retrieve stored data by key
+// Retrieve stored data by key
 export const getData = (key) => {
   try {
-    if (ls) {
-      return ls.get(key);
+    if (storage) {
+      const item = storage.getItem(key);
+      // If item exists, parse it; otherwise, return null
+      return item ? JSON.parse(item) : null;
     }
-    console.error("Cannot retrieve data - SecureLS is not available.");
+    console.error("Cannot retrieve data - sessionStorage is not available.");
     return null;
   } catch (error) {
     console.error("Error retrieving data:", error);
@@ -39,26 +41,26 @@ export const getData = (key) => {
   }
 };
 
-// A function to remove data by key
+// Remove data by key
 export const removeData = (key) => {
   try {
-    if (ls) {
-      ls.remove(key);
+    if (storage) {
+      storage.removeItem(key);
     } else {
-      console.error("Cannot remove data - SecureLS is not available.");
+      console.error("Cannot remove data - sessionStorage is not available.");
     }
   } catch (error) {
     console.error("Error removing data:", error);
   }
 };
 
-// Function to check if data exists
+// Check if data exists by key
 export const isDataPresent = (key) => {
   try {
-    if (ls) {
-      return ls.get(key) !== null;
+    if (storage) {
+      return storage.getItem(key) !== null;
     }
-    console.error("Cannot check data presence - SecureLS is not available.");
+    console.error("Cannot check data presence - sessionStorage is not available.");
     return false;
   } catch (error) {
     console.error("Error checking data:", error);
@@ -66,13 +68,13 @@ export const isDataPresent = (key) => {
   }
 };
 
-// Function to clear all data stored
+// Clear all stored data
 export const clearAllData = () => {
   try {
-    if (ls) {
-      ls.clear();
+    if (storage) {
+      storage.clear();
     } else {
-      console.error("Cannot clear data - SecureLS is not available.");
+      console.error("Cannot clear data - sessionStorage is not available.");
     }
   } catch (error) {
     console.error("Error clearing all data:", error);

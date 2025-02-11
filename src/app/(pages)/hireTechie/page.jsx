@@ -24,7 +24,7 @@ export default function Home() {
         setTechies(response.data);
       } catch (error) {
         if (error.response?.status === 401 || error.response?.status === 403) {
-          setError(error.response.data.error);
+          setErrorMessage(error.response.data.error);
         }else if (error.response?.status === 404) {
           setErrorMessage("Techies not found or something went wrong. Please try again later.");
         } else {
