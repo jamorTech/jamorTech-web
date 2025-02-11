@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { axiosPrivate } from '@/app/api/axios'
 import { storeData } from '@/app/utils/localStorage'
 import { useUserStore } from '@/app/store/useUserStore'
+import Loading from '@/app/components/Loading'
 
 const VerifyEmailPage = ()=> {
   const router = useRouter()
@@ -57,7 +58,8 @@ const VerifyEmailPage = ()=> {
     }, [error]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <Suspense fallback={<Loading />}>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Email Verification</h2>
@@ -124,6 +126,7 @@ const VerifyEmailPage = ()=> {
         </div>
       </div>
     </div>
+    </Suspense>
   )
 }
 
