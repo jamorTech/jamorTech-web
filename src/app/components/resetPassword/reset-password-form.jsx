@@ -7,7 +7,6 @@ import { FiEye } from "react-icons/fi";
 import { IoEyeOffOutline } from "react-icons/io5";
 import { useRouter } from 'next/navigation';
 import axios from '@/app/api/axios';
-import { getData, removeData } from '@/app/utils/localStorage';
 import { useUserStore } from '@/app/store/useUserStore';
 
 export default function ResetPasswordForm() {
@@ -57,8 +56,8 @@ const handleSubmit = async (e) => {
 
   try {
     setIsLoading(true); // Start loading
-    const email = getData('email');
-    const otp = getData('otp');
+    const email = JSON.parse(sessionStorage.getItem('email'));
+    const otp = JSON.parse(sessionStorage.getItem('otp'));
 
     // Send reset password request using Axios
     const response = await axios.post(
@@ -78,9 +77,9 @@ const handleSubmit = async (e) => {
     // Handle success
     setSuccessMessage('Password reset successful! You can now log in.');
     setFormData({ password: '', confirmPassword: '' }); // Clear form
-    removeData("email");
-    removeData("otp");
-    removeData("token");
+    sessionStorage.removeItem("email");
+    sessionStorage.removeItem("otp");
+    sessionStorage.removeItem("token");
 
     // Redirect to login after 2 seconds
     setTimeout(() => {

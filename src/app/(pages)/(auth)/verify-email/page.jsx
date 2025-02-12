@@ -4,7 +4,6 @@ import { Suspense, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { axiosPrivate } from '@/app/api/axios'
-import { storeData } from '@/app/utils/localStorage'
 import { useUserStore } from '@/app/store/useUserStore'
 import Loading from '@/app/components/Loading'
 
@@ -34,7 +33,7 @@ const VerifyEmailPage = ()=> {
 
         // Check if the response is successful
         setStatus('success');
-        storeData('user', JSON.stringify(data));
+        sessionStorage.setItem('user', JSON.stringify(data));
         setTimeout(() => {
           router.push('/login');
         }, 2000);

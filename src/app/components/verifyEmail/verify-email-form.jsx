@@ -5,7 +5,6 @@ import Link from 'next/link'
 import styles from './verify-email-form.module.css'
 import { useRouter } from 'next/navigation';
 import axios from '@/app/api/axios';
-import { getData, storeData } from '@/app/utils/localStorage';
 import { useUserStore } from '@/app/store/useUserStore';
 
 export default function VerifyEmailForm() {
@@ -59,7 +58,7 @@ export default function VerifyEmailForm() {
     }
 
     try {
-      const email = getData('email');
+      const email = JSON.parse(sessionStorage.getItem('email'));
       if (!email) throw new Error('Something went wrong!');
 
       const response = await axios.post(`/users/verify-otp`, {
@@ -68,7 +67,7 @@ export default function VerifyEmailForm() {
       });
 
       setSuccess('Your OTP has been verified successfully. Redirecting to reset password page...');
-      storeData('otp', otp);
+      sessionStorage.setItem("otp", JSON.stringify(otp));
       setVerificationCode(['', '', '', '', '', '']);
 
       setTimeout(() => {
