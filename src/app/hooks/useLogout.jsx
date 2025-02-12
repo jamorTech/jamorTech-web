@@ -1,6 +1,5 @@
 "use client"
 import useAxiosPrivate from "./useAxiosPrivate";
-import { clearAllData } from "../utils/localStorage";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "../store/useUserStore";
 
@@ -15,17 +14,17 @@ const useLogout = () => {
 
         if (response.status === 200 || response.status === 204) {
           clearUser()
-          clearAllData()
+          sessionStorage.clear()
            window.location.href = "/login"
         } else {
           clearUser()
-          clearAllData()
+          sessionStorage.clear()
           window.location.href = "/login"
           throw new Error("Logout failed: " + response.data.message);
         }
       } catch (error) {
         clearUser()
-        clearAllData()
+        sessionStorage.clear()
         window.location.href = "/login"
         throw error.message;
       }

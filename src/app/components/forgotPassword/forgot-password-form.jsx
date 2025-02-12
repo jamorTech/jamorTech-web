@@ -4,9 +4,8 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import styles from "./forgot-password-form.module.css"
 import { useRouter } from 'next/navigation';
-import axios from '@/app/api/axios';
-import { storeData } from '@/app/utils/localStorage';
 import { useUserStore } from '@/app/store/useUserStore';
+import { axiosPrivate } from '@/app/api/axios';
 
 export default function ForgotPasswordForm() {
   const [email, setEmail] = useState('');
@@ -38,17 +37,13 @@ const handleSubmit = async (e) => {
 
   try {
     // Axios POST request
-    const response = await axios.post(
+    const response = await axiosPrivate.post(
       `/users/forgot-password`,
-      { email },
-      {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true, // Include credentials if needed
-      }
+      { email }
     );
 
     // Handle success
-    storeData('email', email);
+    sessionStorage.setItem("email", JSON.stringify(email));
     setSuccess('OTP reset token has been sent to your email. Redirecting...');
     setTimeout(() => {
       router.push('/verify-token');
