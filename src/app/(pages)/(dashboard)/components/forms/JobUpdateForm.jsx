@@ -1,7 +1,9 @@
 'use client';
 
 import useAxiosPrivate from '@/app/hooks/useAxiosPrivate';
-import { useState } from 'react';
+import { useUserStore } from '@/app/store/useUserStore';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { FaTimes } from 'react-icons/fa'; // Adjust the import path for axiosPrivate
 
 export function JobUpdateForm({ onClose }) {
@@ -18,6 +20,7 @@ export function JobUpdateForm({ onClose }) {
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [imgPreview, setImgPreview] = useState("");
   const [message, setMessage] = useState(null);
 
   const validateForm = () => {
@@ -40,6 +43,7 @@ export function JobUpdateForm({ onClose }) {
 
   const handleImageChange = (e) => {
     setFormData((prev) => ({ ...prev, image: e.target.files[0] }));
+    setImgPreview(URL?.createObjectURL(e.target.files[0]))
   };
 
   const handleSubmit = async (e) => {
@@ -72,11 +76,25 @@ export function JobUpdateForm({ onClose }) {
       });
       onClose();
     } catch (error) {
-      setMessage({ type: 'error', text: error.response?.data?.message || 'Error submitting form.' });
+      if (error.response?.status === 401 || error.response?.status === 403) {
+        setMessage({ type: 'error', text: error.response?.data?.message || 'Error submitting form.' });
+      }else if (error.response.status === 413) {
+        setMessage({ type: 'error', text: error.response?.data?.message || 'Form details exceed 10mb' });
+        
+      }else{
+        setMessage({ type: 'error', text: error.response?.data?.message || 'Error submitting form.' });
+      }
     } finally {
       setLoading(false);
     }
   };
+
+    const { openModal, closeModal } = useUserStore();
+  
+    useEffect(() => {
+      closeModal();
+      if (message?.type == "success") openModal(message.text, "success");
+    }, [message]);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
@@ -96,7 +114,6 @@ export function JobUpdateForm({ onClose }) {
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-[#6B7280]">
               Name
-            </label>
             <input
               type="text"
               id="name"
@@ -104,13 +121,13 @@ export function JobUpdateForm({ onClose }) {
               value={formData.name}
               onChange={handleChange}
               className="mt-1 block w-full rounded-md border-[#E5E7EB] shadow-sm focus:border-[#2E1065] focus:ring-[#2E1065]"
-            />
+              />
+          </label>
             {errors.name && <p className="text-red-600 text-sm">{errors.name}</p>}
           </div>
           <div>
             <label htmlFor="role" className="block text-sm font-medium text-[#6B7280]">
               Role
-            </label>
             <input
               type="text"
               id="role"
@@ -118,13 +135,13 @@ export function JobUpdateForm({ onClose }) {
               value={formData.role}
               onChange={handleChange}
               className="mt-1 block w-full rounded-md border-[#E5E7EB] shadow-sm focus:border-[#2E1065] focus:ring-[#2E1065]"
-            />
+              />
+            </label>
             {errors.role && <p className="text-red-600 text-sm">{errors.role}</p>}
           </div>
           <div>
             <label htmlFor="portfolio" className="block text-sm font-medium text-[#6B7280]">
               Portfolio Link
-            </label>
             <input
               type="url"
               id="portfolio"
@@ -133,12 +150,12 @@ export function JobUpdateForm({ onClose }) {
               onChange={handleChange}
               className="mt-1 block w-full rounded-md border-[#E5E7EB] shadow-sm focus:border-[#2E1065] focus:ring-[#2E1065] focus:ring-2 outline-none"
               placeholder="https://yourportfolio.com"
-            />
+              />
+            </label>
           </div>
           <div>
             <label htmlFor="gitHub" className="block text-sm font-medium text-[#6B7280]">
               GitHub Link
-            </label>
             <input
               type="url"
               id="gitHub"
@@ -147,12 +164,12 @@ export function JobUpdateForm({ onClose }) {
               onChange={handleChange}
               className="mt-1 block w-full rounded-md border-[#E5E7EB] shadow-sm focus:border-[#2E1065] focus:ring-[#2E1065] focus:ring-2 outline-none"
               placeholder="https://yourgitHub.com"
-            />
+              />
+            </label>
           </div>
           <div>
             <label htmlFor="linkIn" className="block text-sm font-medium text-[#6B7280]">
               linkIn Link
-            </label>
             <input
               type="url"
               id="linkIn"
@@ -161,13 +178,13 @@ export function JobUpdateForm({ onClose }) {
               onChange={handleChange}
               className="mt-1 block w-full rounded-md border-[#E5E7EB] shadow-sm focus:border-[#2E1065] focus:ring-[#2E1065] focus:ring-2 outline-none"
               placeholder="https://yourlinkIn.com"
-            />
+              />
+            </label>
             {errors.portfolio && <p className="text-red-600 text-sm">{errors.portfolio}</p>}
           </div>
           <div>
             <label htmlFor="image" className="block text-sm font-medium text-[#6B7280]">
               Image
-            </label>
             <input
               type="file"
               id="image"
@@ -175,8 +192,19 @@ export function JobUpdateForm({ onClose }) {
               onChange={handleImageChange}
               className="mt-1 block w-full text-sm text-[#6B7280] file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-[#2E1065] file:text-white hover:file:bg-[#4C1D95]"
               accept="image/*"
-            />
+              />
+            </label>
             {errors.image && <p className="text-red-600 text-sm">{errors.image}</p>}
+            {imgPreview && (
+              // You can use next/image or a simple img tag here.
+              <Image
+                width={500}
+                height={300}
+                src={imgPreview}
+                alt="Preview"
+                className="mt-2 w-32 h-auto"
+              />
+            )}
           </div>
           <button
             type="submit"

@@ -74,6 +74,9 @@ export default function VerifyEmailForm() {
         router.push('/resetPassword');
       }, 2000);
     } catch (error) {
+      if (error.request) {
+        setError("No response from server");
+      }
       const errorMessage =
         error.response?.data?.error || error.message || 'An unexpected error occurred. Please try again.';
       setError(errorMessage);
