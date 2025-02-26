@@ -4,7 +4,7 @@ import useAxiosPrivate from '@/app/hooks/useAxiosPrivate';
 import { useUserStore } from '@/app/store/useUserStore';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { FaTimes } from 'react-icons/fa'; // Adjust the import path for axiosPrivate
+import { FaTimes } from 'react-icons/fa';
 
 export function JobUpdateForm({ onClose }) {
   const axiosPrivate = useAxiosPrivate();
@@ -17,7 +17,6 @@ export function JobUpdateForm({ onClose }) {
     linkIn: '',
     image: null,
   });
-
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [imgPreview, setImgPreview] = useState("");
@@ -27,10 +26,12 @@ export function JobUpdateForm({ onClose }) {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = 'Name is required.';
     if (!formData.role.trim()) newErrors.role = 'Role is required.';
-    if (!formData.portfolio.trim() && !formData.gitHub.trim() && !formData.linkIn.trim()) newErrors.portfolio = 'At least one portfolio link is required.';
-    if (formData.portfolio && !/^https?:\/\/.+$/.test(formData.portfolio)) {
-      newErrors.portfolio = 'Invalid portfolio URL.';
+    if (!formData.portfolio.trim() && !formData.gitHub.trim() && !formData.linkIn.trim()) {
+      newErrors.portfolio = 'At least one portfolio link is required.';
     }
+    // if (formData.portfolio && !/^https?:\/\/.+$/.test(formData.portfolio)) {
+    //   newErrors.portfolio = 'Invalid portfolio URL.';
+    // }
     if (!formData.image) newErrors.image = 'Image is required.';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -42,8 +43,9 @@ export function JobUpdateForm({ onClose }) {
   };
 
   const handleImageChange = (e) => {
-    setFormData((prev) => ({ ...prev, image: e.target.files[0] }));
-    setImgPreview(URL?.createObjectURL(e.target.files[0]))
+    const file = e.target.files[0];
+    setFormData((prev) => ({ ...prev, image: file }));
+    setImgPreview(URL.createObjectURL(file));
   };
 
   const handleSubmit = async (e) => {
@@ -60,12 +62,10 @@ export function JobUpdateForm({ onClose }) {
 
     try {
       const res = await axiosPrivate.post('/users/apply-job', data, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
-      
       setMessage({ type: 'success', text: 'Job application submitted successfully!' });
+      // Clear form data
       setFormData({
         name: '',
         role: '',
@@ -76,29 +76,35 @@ export function JobUpdateForm({ onClose }) {
       });
       onClose();
     } catch (error) {
-      if (error.response?.status === 401 || error.response?.status === 403) {
-        setMessage({ type: 'error', text: error.response?.data?.message || 'Error submitting form.' });
-      }else if (error.response.status === 413) {
-        setMessage({ type: 'error', text: error.response?.data?.message || 'Form details exceed 10mb' });
-        
-      }else{
-        setMessage({ type: 'error', text: error.response?.data?.message || 'Error submitting form.' });
+      let errorMsg = 'Error submitting form.';
+      if (error.response) {
+        if (error.response.status === 401 || error.response.status === 403) {
+          errorMsg = error.response.data?.message || errorMsg;
+        } else if (error.response.status === 413) {
+          errorMsg = error.response.data?.message || 'Form details exceed 10mb.';
+        } else {
+          errorMsg = error.response.data?.message || errorMsg;
+        }
+      } else {
+        errorMsg = error.message;
       }
+      setMessage({ type: 'error', text: errorMsg });
     } finally {
       setLoading(false);
     }
   };
 
-    const { openModal, closeModal } = useUserStore();
-  
-    useEffect(() => {
-      closeModal();
-      if (message?.type == "success") openModal(message.text, "success");
-    }, [message]);
+  const { openModal, closeModal } = useUserStore();
+
+  useEffect(() => {
+    closeModal();
+    if (message?.type === "success") openModal(message.text, "success");
+  }, [message]);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-10">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-10 overflow-y-auto">
+      {/* Set max height and enable scrolling on the form container */}
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-md max-h-screen overflow-y-auto">
         <div className="flex justify-between items-center border-b border-[#E5E7EB] p-4">
           <h2 className="text-xl font-semibold text-[#2E1065]">Post Job Update</h2>
           <button onClick={onClose} className="text-[#6B7280] hover:text-[#111827]">
@@ -114,27 +120,27 @@ export function JobUpdateForm({ onClose }) {
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-[#6B7280]">
               Name
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-[#E5E7EB] shadow-sm focus:border-[#2E1065] focus:ring-[#2E1065]"
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-[#E5E7EB] shadow-sm focus:border-[#2E1065] focus:ring-[#2E1065]"
               />
-          </label>
+            </label>
             {errors.name && <p className="text-red-600 text-sm">{errors.name}</p>}
           </div>
           <div>
             <label htmlFor="role" className="block text-sm font-medium text-[#6B7280]">
               Role
-            <input
-              type="text"
-              id="role"
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-[#E5E7EB] shadow-sm focus:border-[#2E1065] focus:ring-[#2E1065]"
+              <input
+                type="text"
+                id="role"
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-[#E5E7EB] shadow-sm focus:border-[#2E1065] focus:ring-[#2E1065]"
               />
             </label>
             {errors.role && <p className="text-red-600 text-sm">{errors.role}</p>}
@@ -142,42 +148,42 @@ export function JobUpdateForm({ onClose }) {
           <div>
             <label htmlFor="portfolio" className="block text-sm font-medium text-[#6B7280]">
               Portfolio Link
-            <input
-              type="url"
-              id="portfolio"
-              name="portfolio"
-              value={formData.portfolio}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-[#E5E7EB] shadow-sm focus:border-[#2E1065] focus:ring-[#2E1065] focus:ring-2 outline-none"
-              placeholder="https://yourportfolio.com"
+              <input
+                type="url"
+                id="portfolio"
+                name="portfolio"
+                value={formData.portfolio}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-[#E5E7EB] shadow-sm focus:border-[#2E1065] focus:ring-[#2E1065] focus:ring-2 outline-none"
+                placeholder="https://yourportfolio.com"
               />
             </label>
           </div>
           <div>
             <label htmlFor="gitHub" className="block text-sm font-medium text-[#6B7280]">
               GitHub Link
-            <input
-              type="url"
-              id="gitHub"
-              name="gitHub"
-              value={formData.gitHub}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-[#E5E7EB] shadow-sm focus:border-[#2E1065] focus:ring-[#2E1065] focus:ring-2 outline-none"
-              placeholder="https://yourgitHub.com"
+              <input
+                type="url"
+                id="gitHub"
+                name="gitHub"
+                value={formData.gitHub}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-[#E5E7EB] shadow-sm focus:border-[#2E1065] focus:ring-[#2E1065] focus:ring-2 outline-none"
+                placeholder="https://yourgitHub.com"
               />
             </label>
           </div>
           <div>
             <label htmlFor="linkIn" className="block text-sm font-medium text-[#6B7280]">
-              linkIn Link
-            <input
-              type="url"
-              id="linkIn"
-              name="linkIn"
-              value={formData.linkIn}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-[#E5E7EB] shadow-sm focus:border-[#2E1065] focus:ring-[#2E1065] focus:ring-2 outline-none"
-              placeholder="https://yourlinkIn.com"
+              LinkedIn Link
+              <input
+                type="url"
+                id="linkIn"
+                name="linkIn"
+                value={formData.linkIn}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-[#E5E7EB] shadow-sm focus:border-[#2E1065] focus:ring-[#2E1065] focus:ring-2 outline-none"
+                placeholder="https://yourlinkIn.com"
               />
             </label>
             {errors.portfolio && <p className="text-red-600 text-sm">{errors.portfolio}</p>}
@@ -185,18 +191,17 @@ export function JobUpdateForm({ onClose }) {
           <div>
             <label htmlFor="image" className="block text-sm font-medium text-[#6B7280]">
               Image
-            <input
-              type="file"
-              id="image"
-              name="image"
-              onChange={handleImageChange}
-              className="mt-1 block w-full text-sm text-[#6B7280] file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-[#2E1065] file:text-white hover:file:bg-[#4C1D95]"
-              accept="image/*"
+              <input
+                type="file"
+                id="image"
+                name="image"
+                onChange={handleImageChange}
+                className="mt-1 block w-full text-sm text-[#6B7280] file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-[#2E1065] file:text-white hover:file:bg-[#4C1D95]"
+                accept="image/*"
               />
             </label>
             {errors.image && <p className="text-red-600 text-sm">{errors.image}</p>}
             {imgPreview && (
-              // You can use next/image or a simple img tag here.
               <Image
                 width={500}
                 height={300}
