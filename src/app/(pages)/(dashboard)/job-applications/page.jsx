@@ -28,7 +28,14 @@ export default function JobApplicationsManager() {
           setApplications(response.data)
           setError(null)
       } catch (err) {
-          setError(`Failed to load applications. Please try again later. ${err}`)
+        if (err.response?.status === 401 || err.response?.status === 403) {
+          setError(err.response?.data?.message || 'Failed to load applications');
+        }else if (err.request) {
+          // No response from server
+          setError("No response from server. Please try again later.");
+        }else{
+          setError(err.response?.data?.message || `Failed to load applications. Please try again later. ${err}`);
+        }
       } finally {
         setLoading(false)
       }

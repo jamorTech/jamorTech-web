@@ -19,8 +19,19 @@ export function EditProfileForm({ user, updateUser, onClose }) {
       updateUser(response.data); // Update the parent component's state
       onClose(); // Close the modal upon successful update
     } catch (error) {
-      const errorMessage = error.response?.data?.error || 'Failed to update profile';
-      setErr(errorMessage);
+      // Handle different error cases
+      if (error.response) {
+        // Server responded with an error status
+        const errorMessage =
+          error.response?.data?.error || error.response?.data || 'Failed to update profile';
+        setErr(errorMessage);
+      } else if (error.request) {
+        // No response from server
+        setErr("No response from server. Please try again later.");
+      } else {
+        // Something else happened
+        setErr("An unexpected error occurred.");
+      }
     } finally {
       setLoading(false);
     }

@@ -27,9 +27,9 @@ const ProfilePage = () => {
           if (error.response?.status === 401 || error.response?.status === 403) {
             setErr(error.response.data.error);
           }else if (error.response?.status === 404) {
-            setErr(error.response.data.error)
+            setErr(error.response?.data.error)
           }else {
-            setErr(error.response.data.error);
+            setErr(error.response?.data.error);
           }
       } finally {
           // Set loading state to false when data fetching is done

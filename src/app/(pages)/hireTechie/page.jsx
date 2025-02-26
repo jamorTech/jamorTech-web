@@ -5,7 +5,6 @@ import TechieCard from "./components/techie-card";
 import Loading from "@/app/components/Loading";
 import { useUserStore } from "@/app/store/useUserStore";
 import useAxiosPrivate from "@/app/hooks/useAxiosPrivate";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Home() {
@@ -27,7 +26,9 @@ export default function Home() {
           setErrorMessage(error.response.data.error);
         }else if (error.response?.status === 404) {
           setErrorMessage("Techies not found or something went wrong. Please try again later.");
-        } else {
+        }else if (error.request) {
+          setErrorMessage("No response from the server");
+        }else {
           setErrorMessage(error.response.data.error || "Failed to fetch data");
         }
       } finally {
