@@ -68,7 +68,7 @@ export default function JobApplicationTable({ applications, onApplicationSelect,
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <a 
-                  href={application.portfolio}
+                  href={application?.portfolio || application?.gitHub || application?.linkIn}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#2E1065] hover:underline flex items-center"

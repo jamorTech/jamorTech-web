@@ -15,12 +15,12 @@ export default function TeamMembersImages({
         height={200} // Set your desired height
         objectFit="cover" // Ensures the image maintains aspect ratio without distortion
       />
-      <p className="font-bold text-base sm:text-lg font-arimoFont text-customGreen text-center mt-2">
+      {/* <p className="font-bold text-base sm:text-lg font-arimoFont text-customGreen text-center mt-2">
         {teamMemberName}
       </p>
       <p className="font-extralight text-base sm:text-lg font-arimoFont text-customGreen text-center">
         {teamMemberPosition}
-      </p>
+      </p> */}
     </div>
   );
 }
