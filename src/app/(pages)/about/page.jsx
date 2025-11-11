@@ -12,7 +12,7 @@ export default function page() {
         <AboutDetails />
         <MissionVisionContent />
         <CoreValueComponent />
-        <TeamMembers />
+        {/* <TeamMembers /> */}
         <OurPartners />
     </div>
   )
